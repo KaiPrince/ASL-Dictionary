@@ -8,7 +8,8 @@
 
 
 from django.contrib import admin
-from .models import SignWord, SignImage
+from .models import SignWord, SignImage, SignVideo
 
 admin.site.register(SignWord)
 admin.site.register(SignImage)
+admin.site.register(SignVideo)

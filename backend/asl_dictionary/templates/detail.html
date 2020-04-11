@@ -10,5 +10,9 @@
 <p>{{object.description}}</p>
 
 {% for image in object.images.all %}
-<img src="{{image.image_file.url}}" />
+<img width="400" height="400" src="{{image.image_file.url}}" />
+{% endfor %} {% for video in object.videos.all %}
+<video width="400" height="400" controls autoplay muted>
+  <source src="{{video.video_file.url}}" type="video/mp4" />
+</video>
 {% endfor %}
