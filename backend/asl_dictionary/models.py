@@ -27,6 +27,7 @@ class MediaResource(models.Model):
     class Meta:
         abstract = True
 
+    alt_text = models.TextField()
     caption = models.TextField()
 
     def __str__(self):
