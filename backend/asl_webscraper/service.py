@@ -6,15 +6,74 @@
 * Description: This file contains service functions for the Webscraper app.
 """
 
-from requests import get
+from requests import get, post
 from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 import re
 
+def search_handspeak(query):
+    """ Consumes a search query, and produces a list of tuples. """
+    pages = search_handspeak_for_page(query)
+
+    results = []
+    for page in pages:
+        images = get_images_from_handspeak(page)
+        results.append((page, images))
+
+    return results
+
+
+def get_images_from_handspeak(url):
+    """ Consumes a URL, and produces a list of URLs. """
+    image_links = get_images(url)
+
+    filtered = filter_handspeak_images(image_links)
+    return filtered
+
+
+def filter_handspeak_images(image_links):
+    """ Consumes a list of URLs, and produces a list of URLs. """
+
+    BLACKLIST = [
+        "https://www.handspeak.com/pix/hslogo2019.svg",
+        "https://www.handspeak.com/write/asl/t/test.jpg",
+    ]
+
+    def not_in_blacklist(link):
+        for item in BLACKLIST:
+            if re.search(item, link):
+                return False
+        return True
+
+    return list(filter(not_in_blacklist, image_links))
+
+
+def search_handspeak_for_page(query):
+    """ Consumes a search query, and produces a list of URLs. """
+
+    url = "https://www.handspeak.com/word/search/app/app-dictionary.php"
+    data = {"page": 1, "query": query}
+
+    response = simple_post(url, data)
+    html = BeautifulSoup(response, "html.parser")
+
+    tags = html("a")
+
+    links = set()
+    for tag in tags:
+        if tag["href"] == "#":
+            continue
+
+        link = "https://www.handspeak.com" + tag["href"]
+        links.add(link)
+
+    return links
+
 
 def search_lifeprint(query):
+    """ Consumes a search query, and produces a list of tuples. """
     pages = search_lifeprint_for_page(query)
 
     results = []
@@ -110,6 +169,24 @@ def get_page(url):
     response = simple_get(url)
 
     return response
+
+
+def simple_post(url, data):
+    """
+    Attempts to get the content at `url` by making an HTTP POST request.
+    If the content-type of response is some kind of HTML/XML, return the
+    text content, otherwise return None.
+    """
+    try:
+        with closing(post(url, data, stream=True)) as resp:
+            if is_good_response(resp):
+                return resp.content
+            else:
+                return None
+
+    except RequestException as e:
+        log_error("Error during requests to {0} : {1}".format(url, str(e)))
+        return None
 
 
 def simple_get(url):

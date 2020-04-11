@@ -8,7 +8,7 @@
 
 from django.views import generic
 from .models import SignWord
-from asl_webscraper.service import search_lifeprint
+from asl_webscraper.service import search_lifeprint, search_handspeak
 
 
 class IndexView(generic.ListView):
@@ -28,7 +28,10 @@ class SearchView(generic.TemplateView):
         context = super().get_context_data(**kwargs)
         query = self.request.GET.get("query")
         if query:
-            context["results"] = search_lifeprint(query)
+            results = []
+            results.extend(search_handspeak(query))
+            results.extend(search_lifeprint(query))
+            context["results"] = results
 
         return context
 

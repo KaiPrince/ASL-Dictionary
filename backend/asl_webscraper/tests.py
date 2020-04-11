@@ -12,6 +12,8 @@ from .service import (
     get_images_from_lifeprint,
     search_lifeprint_for_page,
     search_lifeprint_for_images,
+    search_handspeak_for_page,
+    get_images_from_handspeak,
 )
 
 
@@ -38,6 +40,17 @@ class ImageScraper(TestCase):
         ]
         self.assertCountEqual(lifeprint_links, expected)
 
+    def test_get_all_images_from_lifeprint(self):
+        # Arrange
+        url = "https://www.handspeak.com/word/search/index.php?id=2180"
+
+        # Act
+        image_links = get_images_from_handspeak(url)
+
+        # Assert
+        expected = ["https://www.handspeak.com/word/img/t/test.jpg"]
+        self.assertCountEqual(image_links, expected)
+
 
 class PageScraper(TestCase):
     def test_find_page_from_lifeprint(self):
@@ -50,6 +63,34 @@ class PageScraper(TestCase):
         # Assert
         expected = {"https://www.lifeprint.com/asl101/pages-signs/t/test.htm"}
         self.assertSetEqual(links, expected)
+
+    def test_find_page_from_handspeak(self):
+        # Arrange
+        query = "test"
+
+        # Act
+        link = search_handspeak_for_page(query)
+
+        # Assert
+        expected = [
+            "https://www.handspeak.com/word/search/index.php?id=8254",
+            "https://www.handspeak.com/word/search/index.php?id=6273",
+            "https://www.handspeak.com/word/search/index.php?id=5486",
+            "https://www.handspeak.com/word/search/index.php?id=5784",
+            "https://www.handspeak.com/word/search/index.php?id=7196",
+            "https://www.handspeak.com/word/search/index.php?id=2499",
+            "https://www.handspeak.com/word/search/index.php?id=7197",
+            "https://www.handspeak.com/word/search/index.php?id=1741",
+            "https://www.handspeak.com/word/search/index.php?id=4350",
+            "https://www.handspeak.com/word/search/index.php?id=2180",  # test
+            "https://www.handspeak.com/word/search/index.php?id=2181",
+            "https://www.handspeak.com/word/search/index.php?id=4985",
+            "https://www.handspeak.com/word/search/index.php?id=2182",
+            "https://www.handspeak.com/word/search/index.php?id=7998",
+            "https://www.handspeak.com/word/search/index.php?id=4986",
+            "https://www.handspeak.com/word/search/index.php?id=6031",
+        ]
+        self.assertCountEqual(link, expected)
 
 
 class SearchForImages(TestCase):
