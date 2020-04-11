@@ -1,0 +1,17 @@
+<!--
+* Project Name: ASL Dictionary
+* File Name: index.html
+* Programmer: Kai Prince
+* Date: Fri, Apr 10, 2020
+* Description: This file contains a simple list of all SignWords.
+-->
+
+{% if object_list %}
+<ul>
+  {% for word in object_list %}
+  <li>
+    <a href="{% url 'asl_dictionary:detail' word.id %}">{{ word }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}

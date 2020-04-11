@@ -1,0 +1,14 @@
+<!--
+* Project Name: ASL Dictionary
+* File Name: detail.html
+* Programmer: Kai Prince
+* Date: Fri, Apr 10, 2020
+* Description: This file contains a simple detail view for an SignWord.
+-->
+
+<h1>{{object.label}}</h1>
+<p>{{object.description}}</p>
+
+{% for image in object.images.all %}
+<img src="{{image.image_file.url}}" />
+{% endfor %}
