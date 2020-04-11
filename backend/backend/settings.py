@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "asl_dictionary.apps.AslDictionaryConfig",
+    "requests",
+    "bs4",
 ]
 
 MIDDLEWARE = [
