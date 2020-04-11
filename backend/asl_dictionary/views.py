@@ -7,8 +7,10 @@
 """
 
 from django.views import generic
-from .models import SignWord
+from .models import SignWord, SignImage, SignVideo
 from asl_webscraper.service import search_lifeprint, search_handspeak
+from .serializers import SignWordSerializer, SignImageSerializer, SignVideoSerializer
+from rest_framework import viewsets
 
 
 class IndexView(generic.ListView):
@@ -37,3 +39,18 @@ class SearchView(generic.TemplateView):
 
     def post(self, request):
         return self.get(request)
+
+
+class SignWordViewSet(viewsets.ModelViewSet):
+    queryset = SignWord.objects.all()
+    serializer_class = SignWordSerializer
+
+
+class SignImageViewSet(viewsets.ModelViewSet):
+    queryset = SignImage.objects.all()
+    serializer_class = SignImageSerializer
+
+
+class SignVideoViewSet(viewsets.ModelViewSet):
+    queryset = SignVideo.objects.all()
+    serializer_class = SignVideoSerializer
