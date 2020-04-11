@@ -1,0 +1,134 @@
+"""
+* Project Name: ASL Dictionary
+* File Name: service.py
+* Programmer: Kai Prince
+* Date: Fri, Apr 10, 2020
+* Description: This file contains service functions for the Webscraper app.
+"""
+
+from requests import get
+from requests.exceptions import RequestException
+from contextlib import closing
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
+import re
+
+
+def search_lifeprint_for_images(query):
+    """ Consumes a search query, and produces a list of URLs. """
+
+    page_links = search_lifeprint_for_page(query)
+
+    image_links = set()
+    for page in page_links:
+        links = get_images_from_lifeprint(page)
+        image_links.update(links)
+
+    return image_links
+
+
+def get_index_url(query):
+    base_wordlist_url = "https://www.lifeprint.com/asl101/index/{}.htm"
+
+    first_letter = str.lower(query[0])
+
+    url = base_wordlist_url.format(first_letter)
+
+    return url
+
+
+def search_lifeprint_for_page(query):
+    """ Consumes a search query, and produces a List of URLs. """
+
+    url = get_index_url(query)
+
+    page = get_page(url)
+    html = BeautifulSoup(page, "html.parser")
+
+    tags = html.find_all("a", string=re.compile(query, re.IGNORECASE))
+
+    links = set()
+    for tag in tags:
+        link = urljoin(url, tag["href"])
+        links.add(link)
+
+    return links
+
+
+def get_images_from_lifeprint(url):
+    """ Returns signing images from Lifeprint. """
+
+    images = get_images(url)
+    filtered = filter_lifeprint_images(images)
+
+    return filtered
+
+
+def filter_lifeprint_images(image_links):
+    """ Consumes a list of URLs, and produces a list of URLs. """
+
+    BLACKLIST = ["https://www.lifeprint.com/asl101/images-layout/back.gif"]
+
+    return list(filter(lambda x: x not in BLACKLIST, image_links))
+
+
+def get_images(url):
+    """ Returns full links to all images on a page. """
+
+    page = get_page(url)
+    html = BeautifulSoup(page, "html.parser")
+
+    images = html.find_all("img")
+    image_links = set()
+    for image in images:
+        link = urljoin(url, image["src"])
+        image_links.add(link)
+
+    return image_links
+
+
+def get_page(url):
+    """ Make a HTTP GET request to a given url, and return the response. """
+
+    response = simple_get(url)
+
+    return response
+
+
+def simple_get(url):
+    """
+    Attempts to get the content at `url` by making an HTTP GET request.
+    If the content-type of response is some kind of HTML/XML, return the
+    text content, otherwise return None.
+    """
+    try:
+        with closing(get(url, stream=True)) as resp:
+            if is_good_response(resp):
+                return resp.content
+            else:
+                return None
+
+    except RequestException as e:
+        log_error("Error during requests to {0} : {1}".format(url, str(e)))
+        return None
+
+
+def is_good_response(resp):
+    """
+    Returns True if the response seems to be HTML, False otherwise.
+    """
+    content_type = resp.headers["Content-Type"].lower()
+    return (
+        resp.status_code == 200
+        and content_type is not None
+        and content_type.find("html") > -1
+    )
+
+
+def log_error(e):
+    """
+    It is always a good idea to log errors. 
+    This function just prints them, but you can
+    make it do anything.
+    """
+    print(e)
