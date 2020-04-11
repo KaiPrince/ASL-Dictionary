@@ -10,7 +10,6 @@ from rest_framework import serializers
 from .models import SignWord, SignImage, SignVideo
 
 
-
 class SignImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = SignImage
@@ -19,7 +18,7 @@ class SignImageSerializer(serializers.ModelSerializer):
 
 class SignVideoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SignImage
+        model = SignVideo
         fields = ["alt_text", "caption", "video_file"]
 
 
