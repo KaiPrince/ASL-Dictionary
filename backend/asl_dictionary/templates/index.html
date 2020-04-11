@@ -6,6 +6,11 @@
 * Description: This file contains a simple list of all SignWords.
 -->
 
+<form action="{% url 'asl_dictionary:search' %}" method="GET">
+  <input name="query" />
+  <button type="submit">SUBMIT</button>
+</form>
+
 {% if object_list %}
 <ul>
   {% for word in object_list %}

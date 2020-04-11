@@ -14,6 +14,17 @@ from urllib.parse import urljoin
 import re
 
 
+def search_lifeprint(query):
+    pages = search_lifeprint_for_page(query)
+
+    results = []
+    for page in pages:
+        images = get_images_from_lifeprint(page)
+        results.append((page, images))
+
+    return results
+
+
 def search_lifeprint_for_images(query):
     """ Consumes a search query, and produces a list of URLs. """
 
@@ -67,9 +78,15 @@ def get_images_from_lifeprint(url):
 def filter_lifeprint_images(image_links):
     """ Consumes a list of URLs, and produces a list of URLs. """
 
-    BLACKLIST = ["https://www.lifeprint.com/asl101/images-layout/back.gif"]
+    BLACKLIST = ["https://www.lifeprint.com/asl101/images-layout/"]
 
-    return list(filter(lambda x: x not in BLACKLIST, image_links))
+    def not_in_blacklist(link):
+        for item in BLACKLIST:
+            if re.search(item, link):
+                return False
+        return True
+
+    return list(filter(not_in_blacklist, image_links))
 
 
 def get_images(url):

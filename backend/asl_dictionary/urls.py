@@ -14,4 +14,5 @@ app_name = "asl_dictionary"
 urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
     path("<int:pk>/", views.DetailView.as_view(), name="detail"),
+    path("search/", views.SearchView.as_view(), name="search"),
 ]

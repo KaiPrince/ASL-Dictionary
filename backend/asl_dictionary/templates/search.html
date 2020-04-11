@@ -1,0 +1,33 @@
+<!--
+* Project Name: ASL Dictionary
+* File Name: search.html
+* Programmer: Kai Prince
+* Date: Sat, Apr 11, 2020
+* Description: This file contains the search page for the ASL Dictionary app.
+-->
+
+<form method="GET">
+  <input name="query" />
+  <button type="submit">SUBMIT</button>
+</form>
+
+{% if results %}
+<table>
+  <tr>
+    <th>Link</th>
+    <th>Images</th>
+  </tr>
+  {% for link, images in results %}
+  <tr>
+    <td>
+      <a href="{{link}}">{{link}}</a>
+    </td>
+    <td>
+      {%for image in images %}
+      <img src="{{image}}" width="200" height="200" />
+      {% endfor %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
