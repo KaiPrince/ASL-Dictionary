@@ -40,7 +40,7 @@ class ImageScraper(TestCase):
         ]
         self.assertCountEqual(lifeprint_links, expected)
 
-    def test_get_all_images_from_lifeprint(self):
+    def test_get_all_images_from_handspeak(self):
         # Arrange
         url = "https://www.handspeak.com/word/search/index.php?id=2180"
 

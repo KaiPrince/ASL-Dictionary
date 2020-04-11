@@ -13,6 +13,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 import re
 
+
 def search_handspeak(query):
     """ Consumes a search query, and produces a list of tuples. """
     pages = search_handspeak_for_page(query)
