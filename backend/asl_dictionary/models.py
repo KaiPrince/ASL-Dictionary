@@ -34,7 +34,7 @@ class MediaResource(models.Model):
     caption = models.TextField()
 
     def __str__(self):
-        return self.caption
+        return self.alt_text
 
 
 class SignImage(MediaResource):
