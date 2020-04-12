@@ -20,3 +20,14 @@ $ yarn generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+# TODO
+
+- Limit word card preview to first gif, video, or picture.
+- Have search bar send you to web scraper search page
+- Get web scraper search results from API
+- Show loading spinner
+- Search bar filters words.
+- Lazy fetch for images and video.
+- Web Scraper Search page.
+- Resources & Links page.

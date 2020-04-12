@@ -8,6 +8,8 @@
         class="mx-auto"
         max-width="350"
         raised
+        nuxt
+        :to="{ name: 'detail', params: { id: word.id } }"
       >
         <v-card-title>
           {{ word.label }}
