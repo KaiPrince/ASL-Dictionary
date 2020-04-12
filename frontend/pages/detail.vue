@@ -18,42 +18,8 @@
       align-content="space-around"
     >
       <v-col v-for="item in media" :key="item.id">
-        <v-card width="400">
-          <v-container>
-            <v-row>
-              <v-col>
-                <div>
-                  <v-img
-                    v-if="item.type === 'image'"
-                    :src="item.src"
-                    :alt="item.altText"
-                    contain
-                    min-height="300"
-                  >
-                    <template v-slot:placeholder>
-                      <v-row
-                        class="fill-height ma-0"
-                        align="center"
-                        justify="center"
-                      >
-                        <v-progress-circular
-                          indeterminate
-                          color="grey lighten-5"
-                        ></v-progress-circular>
-                      </v-row>
-                    </template>
-                  </v-img>
-                  <video v-else width="375" controls autoplay loop muted>
-                    <source :src="item.src" type="video/mp4" />
-                    {{ item.altText }}
-                  </video>
-                </div>
-                <v-card-text>{{ item.caption }}</v-card-text>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card>
-      </v-col>
+        <MediaCard :item="item"
+      /></v-col>
     </v-row>
     <p class="mt-10">
       {{ word.description }}
@@ -64,15 +30,14 @@
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
 import SignWord from '~/models/SignWord'
+import Media from '~/models/Media'
+import MediaCard from '~/components/MediaCard.vue'
 
-interface Media {
-  id: number
-  altText: string
-  caption: string
-  src: string
-  type: 'image' | 'video'
-}
 export default Vue.extend({
+  name: 'DetailPage',
+  components: {
+    MediaCard,
+  },
   computed: {
     ...mapGetters('words', ['words']),
     word(): SignWord {
