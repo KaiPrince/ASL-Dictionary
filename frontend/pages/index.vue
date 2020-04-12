@@ -16,9 +16,9 @@
       align-content="space-around"
     >
       <v-progress-circular v-if="loading" indeterminate />
-      <v-col v-for="word in filterWords" :key="word.id">
+      <v-col v-for="word in filterWords" :key="word.id" cols="4">
         <v-slide-y-reverse-transition>
-          <WordCard :word="word" width="350" />
+          <WordCard :word="word" width="268" />
         </v-slide-y-reverse-transition>
       </v-col>
     </v-row>
