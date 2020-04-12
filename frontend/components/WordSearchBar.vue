@@ -10,14 +10,18 @@
   <v-autocomplete
     :items="words"
     :item-text="itemText"
+    :item-value="itemValue"
     placeholder="Search..."
-    autofocus
+    :autofocus="!appBar"
     auto-select-first
     solo
     prepend-inner-icon="mdi-magnify"
     :search-input.sync="value"
     :hint="hint"
     hide-no-data
+    :dense="appBar"
+    :flat="appBar"
+    @change="onChange"
   />
 </template>
 <script lang="ts">
@@ -30,6 +34,14 @@ export default Vue.extend({
       type: Array,
       required: true,
     } as PropOptions<Array<SignWord>>,
+    onChange: {
+      type: Function,
+      default: () => {},
+    },
+    appBar: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -37,9 +49,9 @@ export default Vue.extend({
     }
   },
   computed: {
-    hint(): string {
-      if (!this.words.length) {
-        return ''
+    hint(): string | undefined {
+      if (this.appBar || !this.words.length) {
+        return undefined
       }
 
       const randomIndex = this.getRandomInt(0, this.words.length)
@@ -55,6 +67,9 @@ export default Vue.extend({
   methods: {
     itemText(item: SignWord): string {
       return item.label
+    },
+    itemValue(item: SignWord): number {
+      return item.id
     },
     getRandomInt(min: number, max: number) {
       min = Math.ceil(min)

@@ -18,7 +18,7 @@
       <v-progress-circular v-if="loading" indeterminate />
       <v-col v-for="word in filterWords" :key="word.id" lg="4">
         <v-slide-y-reverse-transition>
-          <WordCard :word="word" width="268" />
+          <WordCard :word="word" :width="268" />
         </v-slide-y-reverse-transition>
       </v-col>
     </v-row>

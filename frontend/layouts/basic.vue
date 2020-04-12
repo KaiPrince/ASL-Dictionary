@@ -8,10 +8,14 @@
 
 <template>
   <v-app>
-    <v-app-bar dense flat fixed>
+    <v-app-bar flat app dense>
       <v-btn icon to="/" nuxt>
         <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
+      <v-spacer />
+      <v-toolbar-items>
+        <WordSearchBar :words="words" :on-change="goToDetails" app-bar />
+      </v-toolbar-items>
     </v-app-bar>
     <v-content class="pt-12">
       <v-container>
@@ -24,8 +28,22 @@
   </v-app>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+import { mapGetters } from 'vuex'
+import WordSearchBar from '~/components/WordSearchBar.vue'
+export default Vue.extend({
   name: 'BasicLayout',
-}
+  components: {
+    WordSearchBar,
+  },
+  computed: {
+    ...mapGetters('words', ['words']),
+  },
+  methods: {
+    goToDetails(wordId: number): void {
+      this.$router.push({ name: 'detail', query: { id: wordId.toString() } })
+    },
+  },
+})
 </script>
