@@ -1,3 +1,11 @@
+<!--
+* Project Name: ASL Dictionary
+* File Name: index.vue
+* Programmer: Kai Prince
+* Date: Sun, Apr 12, 2020
+* Description: This file contains the home page for the project.
+-->
+
 <template>
   <v-container>
     <WordSearchBar :words="words" :value.sync="filterText" />
