@@ -9,6 +9,8 @@
       solo
       prepend-inner-icon="mdi-magnify"
       :search-input.sync="filterText"
+      :hint="hint"
+      hide-no-data
     />
     <v-layout column justify-center align-center>
       <v-card
@@ -58,6 +60,13 @@ export default Vue.extend({
       return this.words.filter((word: SignWord) =>
         word.label.toLowerCase().includes(this.filterText.toLowerCase())
       )
+    },
+    hint(): string {
+      if (!this.words.length) {
+        return ''
+      }
+
+      return `Try "${this.words[0].label}"...`
     },
   },
   mounted() {
