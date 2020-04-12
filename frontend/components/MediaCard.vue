@@ -9,36 +9,22 @@
 
 <template>
   <v-card :width="width">
-    <div>
-      <v-img
-        v-if="item.type === 'image'"
-        :src="item.src"
-        :alt="item.altText"
-        contain
-        :min-height="imageMinHeight"
-      >
-        <template v-slot:placeholder>
-          <v-row class="fill-height ma-0" align="center" justify="center">
-            <v-progress-circular
-              indeterminate
-              color="grey lighten-5"
-            ></v-progress-circular>
-          </v-row>
-        </template>
-      </v-img>
-      <video v-else :width="width" controls autoplay loop muted>
-        <source :src="item.src" type="video/mp4" />
-        {{ item.altText }}
-      </video>
-    </div>
+    <MediaDisplay
+      :item="item"
+      :video-width="width"
+      :image-min-height="imageMinHeight"
+    />
     <v-card-text>{{ item.caption }}</v-card-text>
   </v-card>
 </template>
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
 import Media from '~/models/Media'
+import { MEDIA_CARD } from '~/utils/constants'
+import MediaDisplay from '~/components/MediaDisplay.vue'
 export default Vue.extend({
   name: 'MediaCard',
+  components: { MediaDisplay },
   props: {
     item: {
       type: Object,
@@ -46,12 +32,12 @@ export default Vue.extend({
     } as PropOptions<Media>,
     width: {
       type: Number,
-      default: 400,
+      default: MEDIA_CARD.width,
     },
   },
   computed: {
     imageMinHeight(): number {
-      return (3 / 4) * this.width
+      return this.width * MEDIA_CARD.imageHeightRatio
     },
   },
 })

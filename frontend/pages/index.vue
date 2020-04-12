@@ -23,7 +23,7 @@
         <v-slide-y-reverse-transition>
           <v-card
             class="mx-auto"
-            max-width="350"
+            :max-width="cardWidth"
             raised
             nuxt
             :to="{ name: 'detail', params: { id: word.id } }"
@@ -31,20 +31,10 @@
             <v-card-title>
               {{ word.label }}
             </v-card-title>
-            <v-img
-              v-for="image in word.images"
-              :key="image.id"
-              :src="image.imageFile"
-            >
-              <template v-slot:placeholder>
-                <v-row class="fill-height ma-0" align="center" justify="center">
-                  <v-progress-circular
-                    indeterminate
-                    color="grey lighten-5"
-                  ></v-progress-circular>
-                </v-row>
-              </template>
-            </v-img>
+            <MediaDisplay
+              :item="getPreviewMedia(word)"
+              :video-width="cardWidth"
+            />
             <v-card-text class="text-truncate">
               {{ word.description }}
             </v-card-text>
@@ -59,9 +49,11 @@
 import Vue from 'vue'
 import { mapActions, mapGetters } from 'vuex'
 import SignWord from '~/models/SignWord'
+import Media, { fromImage, fromVideo } from '~/models/Media'
+import MediaDisplay from '~/components/MediaDisplay.vue'
 export default Vue.extend({
   name: 'IndexPage',
-  components: {},
+  components: { MediaDisplay },
   data() {
     return {
       filterText: '',
@@ -85,6 +77,9 @@ export default Vue.extend({
 
       return `Try "${this.words[0].label}"...`
     },
+    cardWidth(): number {
+      return 350
+    },
   },
   mounted() {
     this.fetchWords()
@@ -93,6 +88,15 @@ export default Vue.extend({
     ...mapActions('words', ['fetchWords']),
     itemText(item: SignWord): string {
       return item.label
+    },
+    getPreviewMedia(word: SignWord): Media {
+      if (word.images.length) {
+        const image = word.images[0]
+        return fromImage(image)
+      } else {
+        const video = word.videos[0]
+        return fromVideo(video)
+      }
     },
   },
 })

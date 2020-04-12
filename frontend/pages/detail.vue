@@ -18,8 +18,8 @@
       align-content="space-around"
     >
       <v-col v-for="item in media" :key="item.id">
-        <MediaCard :item="item"
-      /></v-col>
+        <MediaCard :item="item" />
+      </v-col>
     </v-row>
     <p class="mt-10">
       {{ word.description }}
@@ -30,7 +30,7 @@
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
 import SignWord from '~/models/SignWord'
-import Media from '~/models/Media'
+import Media, { fromImage, fromVideo } from '~/models/Media'
 import MediaCard from '~/components/MediaCard.vue'
 
 export default Vue.extend({
@@ -46,20 +46,8 @@ export default Vue.extend({
       )
     },
     media(): Array<Media> {
-      const images: Array<Media> = this.word.images.map((image) => ({
-        id: image.id,
-        altText: image.altText,
-        caption: image.caption,
-        src: image.imageFile,
-        type: 'image',
-      }))
-      const videos: Array<Media> = this.word.videos.map((video) => ({
-        id: video.id,
-        altText: video.altText,
-        caption: video.caption,
-        src: video.videoFile,
-        type: 'video',
-      }))
+      const images: Array<Media> = this.word.images.map(fromImage)
+      const videos: Array<Media> = this.word.videos.map(fromVideo)
       return [...images, ...videos]
     },
   },

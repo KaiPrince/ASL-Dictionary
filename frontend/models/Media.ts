@@ -6,6 +6,9 @@
  * Description: This file contains the definition of the Media model.
  */
 
+import SignImage from '~/models/SignImage'
+import SignVideo from '~/models/SignVideo'
+
 export default interface Media {
   id: number
   altText: string
@@ -13,3 +16,19 @@ export default interface Media {
   src: string
   type: 'image' | 'video'
 }
+
+export const fromImage = (image: SignImage): Media => ({
+  id: image.id,
+  altText: image.altText,
+  caption: image.caption,
+  src: image.imageFile,
+  type: 'image',
+})
+
+export const fromVideo = (video: SignVideo): Media => ({
+  id: video.id,
+  altText: video.altText,
+  caption: video.caption,
+  src: video.videoFile,
+  type: 'video',
+})
