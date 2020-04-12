@@ -12,28 +12,30 @@
       :hint="hint"
       hide-no-data
     />
-    <v-layout column justify-center align-center>
-      <v-card
-        v-for="word in filterWords"
-        :key="word.id"
-        class="mx-auto"
-        max-width="350"
-        raised
-        nuxt
-        :to="{ name: 'detail', params: { id: word.id } }"
-      >
-        <v-card-title>
-          {{ word.label }}
-        </v-card-title>
-        <v-img
-          v-for="image in word.images"
-          :key="image.id"
-          :src="image.imageFile"
-        />
-        <v-card-text class="text-truncate">
-          {{ word.description }}
-        </v-card-text>
-      </v-card>
+    <v-layout column justify-center align-center class="mt-12">
+      <v-slide-y-reverse-transition>
+        <v-card
+          v-for="word in filterWords"
+          :key="word.id"
+          class="mx-auto"
+          max-width="350"
+          raised
+          nuxt
+          :to="{ name: 'detail', params: { id: word.id } }"
+        >
+          <v-card-title>
+            {{ word.label }}
+          </v-card-title>
+          <v-img
+            v-for="image in word.images"
+            :key="image.id"
+            :src="image.imageFile"
+          />
+          <v-card-text class="text-truncate">
+            {{ word.description }}
+          </v-card-text>
+        </v-card>
+      </v-slide-y-reverse-transition>
     </v-layout>
   </v-container>
 </template>
