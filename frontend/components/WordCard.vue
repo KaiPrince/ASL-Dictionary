@@ -17,7 +17,7 @@
     <v-card-title>
       {{ word.label }}
     </v-card-title>
-    <MediaDisplay :item="getPreviewMedia(word)" :video-width="width" />
+    <MediaDisplay :item="getPreviewMedia" :video-width="width" />
     <v-card-text class="text-truncate">
       {{ word.description }}
     </v-card-text>
@@ -41,13 +41,13 @@ export default Vue.extend({
       default: 350,
     },
   },
-  methods: {
-    getPreviewMedia(word: SignWord): Media {
-      if (word.images.length) {
-        const image = word.images[0]
+  computed: {
+    getPreviewMedia(): Media {
+      if (this.word.images.length) {
+        const image = this.word.images[0]
         return fromImage(image)
       } else {
-        const video = word.videos[0]
+        const video = this.word.videos[0]
         return fromVideo(video)
       }
     },
