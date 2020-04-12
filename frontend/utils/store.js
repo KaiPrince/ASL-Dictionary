@@ -6,10 +6,10 @@
  * Description: This file contains the common functions for the Vuex Store.
  */
 
-export const stateHelpers = () => ({
+export const stateHelpers = {
   loading: false,
   error: null,
-})
+}
 
 export const mutationHelpers = {
   setLoading(state, payload) {

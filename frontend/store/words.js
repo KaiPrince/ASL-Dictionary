@@ -21,17 +21,20 @@ export const mutations = {
 }
 
 export const actions = {
-  ...getterHelpers,
   async fetchWords({ commit }) {
     try {
+      commit('setLoading', true)
       const { data } = await this.$axios.get('signwords/')
       commit('setWords', data)
     } catch (error) {
       commit('setError', error)
+    } finally {
+      commit('setLoading', false)
     }
   },
 }
 
 export const getters = {
+  ...getterHelpers,
   words: (state) => state.words,
 }

@@ -18,6 +18,7 @@
       justify="space-around"
       align-content="space-around"
     >
+      <v-progress-circular v-if="loading" indeterminate />
       <v-col v-for="word in filterWords" :key="word.id">
         <v-slide-y-reverse-transition>
           <v-card
@@ -67,7 +68,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapGetters('words', ['words']),
+    ...mapGetters('words', ['words', 'loading']),
     filterWords(): Array<SignWord> {
       if (!this.filterText) {
         return this.words
