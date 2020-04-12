@@ -14,8 +14,8 @@ class SignWord(models.Model):
 
     label = models.CharField(max_length=200)
     description = models.TextField()
-    images = models.ManyToManyField("SignImage")
-    videos = models.ManyToManyField("SignVideo")
+    images = models.ManyToManyField("SignImage", blank=True)
+    videos = models.ManyToManyField("SignVideo", blank=True)
 
     def __str__(self):
         return self.label
