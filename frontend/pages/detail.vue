@@ -40,6 +40,7 @@ export default Vue.extend({
     MediaCard,
   },
   middleware({ store }) {
+    // Fetch Words from API
     const { loading, words } = store.state.words
     if (!loading && !words.length) {
       return store.dispatch('words/fetchWords')
