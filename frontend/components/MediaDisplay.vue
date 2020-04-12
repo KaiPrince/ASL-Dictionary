@@ -24,7 +24,7 @@
         </v-row>
       </template>
     </v-img>
-    <video v-else :width="videoWidth" controls autoplay loop muted>
+    <video v-else :width="videoWidth" autoplay loop muted>
       <source :src="item.src" type="video/mp4" />
       {{ item.altText }}
     </video>
