@@ -12,6 +12,9 @@ from django.db import models
 class SignWord(models.Model):
     """ A word in ASL, such as 'Hello'. """
 
+    class Meta:
+        ordering = ["-id"]
+
     label = models.CharField(max_length=200)
     description = models.TextField()
     images = models.ManyToManyField("SignImage", blank=True)
