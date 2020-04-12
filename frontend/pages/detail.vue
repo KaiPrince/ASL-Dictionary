@@ -35,14 +35,21 @@ import MediaCard from '~/components/MediaCard.vue'
 
 export default Vue.extend({
   name: 'DetailPage',
+  layout: 'basic',
   components: {
     MediaCard,
+  },
+  middleware({ store }) {
+    const { loading, words } = store.state.words
+    if (!loading && !words.length) {
+      return store.dispatch('words/fetchWords')
+    }
   },
   computed: {
     ...mapGetters('words', ['words']),
     word(): SignWord {
       return this.words.find(
-        (x: SignWord) => x.id.toString() === this.$route.params.id.toString()
+        (x: SignWord) => x.id.toString() === this.$route.query.id.toString()
       )
     },
     media(): Array<Media> {

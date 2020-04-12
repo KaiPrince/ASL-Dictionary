@@ -26,7 +26,7 @@
             :max-width="cardWidth"
             raised
             nuxt
-            :to="{ name: 'detail', params: { id: word.id } }"
+            :to="{ name: 'detail', query: { id: word.id } }"
           >
             <v-card-title>
               {{ word.label }}

@@ -10,7 +10,7 @@ import SignImage from '~/models/SignImage'
 import SignVideo from '~/models/SignVideo'
 
 export default interface Media {
-  id: number
+  id: string
   altText: string
   caption: string
   src: string
@@ -18,7 +18,7 @@ export default interface Media {
 }
 
 export const fromImage = (image: SignImage): Media => ({
-  id: image.id,
+  id: 'img' + image.id,
   altText: image.altText,
   caption: image.caption,
   src: image.imageFile,
@@ -26,7 +26,7 @@ export const fromImage = (image: SignImage): Media => ({
 })
 
 export const fromVideo = (video: SignVideo): Media => ({
-  id: video.id,
+  id: 'vid' + video.id,
   altText: video.altText,
   caption: video.caption,
   src: video.videoFile,
