@@ -1,17 +1,6 @@
 <template>
   <v-container>
-    <v-autocomplete
-      :items="words"
-      :item-text="itemText"
-      placeholder="Search..."
-      autofocus
-      auto-select-first
-      solo
-      prepend-inner-icon="mdi-magnify"
-      :search-input.sync="filterText"
-      :hint="hint"
-      hide-no-data
-    />
+    <WordSearchBar :words="words" :value.sync="filterText" />
     <v-row
       class="mt-10"
       align="center"
@@ -33,10 +22,12 @@ import Vue from 'vue'
 import { mapActions, mapGetters } from 'vuex'
 import SignWord from '~/models/SignWord'
 import WordCard from '~/components/WordCard.vue'
+import WordSearchBar from '~/components/WordSearchBar.vue'
 export default Vue.extend({
   name: 'IndexPage',
   components: {
     WordCard,
+    WordSearchBar,
   },
   data() {
     return {
@@ -54,22 +45,12 @@ export default Vue.extend({
         word.label.toLowerCase().includes(this.filterText.toLowerCase())
       )
     },
-    hint(): string {
-      if (!this.words.length) {
-        return ''
-      }
-
-      return `Try "${this.words[0].label}"...`
-    },
   },
   mounted() {
     this.fetchWords()
   },
   methods: {
     ...mapActions('words', ['fetchWords']),
-    itemText(item: SignWord): string {
-      return item.label
-    },
   },
 })
 </script>
