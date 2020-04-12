@@ -60,7 +60,7 @@ export default Vue.extend({
         src: video.videoFile,
         type: 'video',
       }))
-      return [...images, ...videos, ...images, ...images, ...images, ...images]
+      return [...images, ...videos]
     },
   },
 })
