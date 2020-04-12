@@ -23,14 +23,11 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 
 # TODO
 
-- Limit word card preview to first gif, video, or picture.
 - Have search bar send you to web scraper search page
 - Get web scraper search results from API
-- Show loading spinner
 - Lazy fetch for images and video.
 - Web Scraper Search page.
 - Resources & Links page.
 - Add media order index
 - Click on image to open in solo modal
 - Index page handle no image, smart select image/video, choose preview image in Django.
-- Use MediaCard component on Index page
