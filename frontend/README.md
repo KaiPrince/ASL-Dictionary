@@ -30,3 +30,5 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 - Lazy fetch for images and video.
 - Web Scraper Search page.
 - Resources & Links page.
+- Add media order index
+- Click on image to open in solo modal
