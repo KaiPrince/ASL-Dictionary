@@ -120,7 +120,11 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-CORS_ORIGIN_WHITELIST = ["http://localhost:3000", "http://127.0.0.1:3000"]
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://asl-dictionary.web.app",
+]
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -128,3 +132,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # Configure Django App for Heroku.
 
 django_heroku.settings(locals())
+
+# Storage
+
+DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+GS_BUCKET_NAME = "asl-dictionary.appspot.com"
+
+# Uncomment to put static files in bucket.
+# STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
