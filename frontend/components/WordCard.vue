@@ -8,7 +8,6 @@
 
 <template>
   <v-card
-    class="mx-auto"
     :max-width="width"
     raised
     nuxt

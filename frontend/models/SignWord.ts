@@ -15,4 +15,5 @@ export default interface SignWord {
   description: string
   images: Array<SignImage>
   videos: Array<SignVideo>
+  seeAlso: Array<number>
 }
