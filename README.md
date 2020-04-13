@@ -5,7 +5,10 @@ A visual dictionary for American Sign Langauge.
 This full-stack web app is a useful reference for basic ASL words and phrases. Add new words to the app as you learn them. Much more effective than written notes.
 
 ## Screenshots
-<i>Coming soon...</i>
+<img src="https://imgur.com/xT8mEi4.png" alt="Index page" width="400" />
+<img src="https://imgur.com/2p1N0qC.png" alt="Detail page" width="400" />
+
+<small>Sample data from [Lifeprint.com](https://www.lifeprint.com). Used for demo purposes only.</small>
 
 ## Features
 This app features:
@@ -29,11 +32,29 @@ This app features:
 See READMEs of individual projects for installation instructions.
 
 ## How to use?
-To view the dictionary, navigate to the frontend (localhost:3000 by default).
-To edit the dictionary, navigate to the backend (localhost:8000 by default) + '/admin'.
+To view the dictionary, navigate to the frontend at 'localhost:3000'. <br />
+To edit the dictionary, navigate to the backend at 'localhost:8000/admin'.
 
 ## API Reference
-<i>Coming soon...</i>
+```json
+[
+    {
+        "id": 6,
+        "label": "Enthusiastic",
+        "description": "To do the concept \"enthusiastic\" (or \"enthusiasm\"), rub your hands together in enthusiastic anticipation",
+        "images": [
+            {
+                "id": 4,
+                "alt_text": "ENTHUSIASTIC",
+                "caption": "Enthusiastic",
+                "image_file": "[path to file]"
+            }
+        ],
+        "videos": [],
+        "see_also": []
+    },
+]
+```
 
 ## Tests
 Frontend:
