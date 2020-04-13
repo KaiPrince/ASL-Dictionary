@@ -18,9 +18,9 @@
       justify-md="space-around"
       align-content="space-around"
     >
-      <v-col v-for="word in filterWords" :key="word.id" lg="4">
+      <v-col v-for="word in filterWords" :key="word.id" cols="4">
         <v-slide-y-reverse-transition>
-          <WordCard :word="word" :width="cardWidth" class="mx-auto" />
+          <WordCard :word="word" class="mx-auto" />
         </v-slide-y-reverse-transition>
       </v-col>
       <p v-if="!loading && !filterWords.length">

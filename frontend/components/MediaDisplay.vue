@@ -13,7 +13,6 @@
       :src="item.src"
       :alt="item.altText"
       contain
-      :min-height="imageMinHeight"
     >
       <template v-slot:placeholder>
         <v-row class="fill-height ma-0" align="center" justify="center">
@@ -35,7 +34,6 @@
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
 import Media from '~/models/Media'
-import { MEDIA_CARD } from '~/utils/constants'
 export default Vue.extend({
   name: 'MediaDisplay',
   props: {
@@ -43,10 +41,6 @@ export default Vue.extend({
       type: Object,
       required: true,
     } as PropOptions<Media>,
-    imageMinHeight: {
-      type: Number,
-      default: MEDIA_CARD.imageHeight,
-    },
   },
 })
 </script>

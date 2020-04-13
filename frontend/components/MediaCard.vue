@@ -8,7 +8,7 @@
 -->
 
 <template>
-  <v-card :width="width">
+  <v-card>
     <MediaDisplay :item="item" :image-min-height="imageMinHeight" />
     <v-card-text class="preserve-whitespace">{{ item.caption }}</v-card-text>
   </v-card>
@@ -16,7 +16,6 @@
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
 import Media from '~/models/Media'
-import { MEDIA_CARD } from '~/utils/constants'
 import MediaDisplay from '~/components/MediaDisplay.vue'
 export default Vue.extend({
   name: 'MediaCard',
@@ -26,15 +25,6 @@ export default Vue.extend({
       type: Object,
       required: true,
     } as PropOptions<Media>,
-    width: {
-      type: Number,
-      default: MEDIA_CARD.width,
-    },
-  },
-  computed: {
-    imageMinHeight(): number {
-      return this.width * MEDIA_CARD.imageHeightRatio
-    },
   },
 })
 </script>

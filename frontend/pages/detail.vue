@@ -12,7 +12,7 @@
       {{ word.label }}
     </h1>
     <v-row class="mt-10" justify="space-around" align-content="space-around">
-      <v-col v-for="item in media" :key="item.id">
+      <v-col v-for="item in media" :key="item.id" cols="6">
         <MediaCard :item="item" class="mx-auto" />
       </v-col>
     </v-row>
@@ -21,9 +21,13 @@
     </p>
     <div v-if="seeAlsoWords.length">
       <h2 class="mt-10">See Also</h2>
-      <v-row justify="space-around" align-content="space-around">
-        <v-col v-for="seeAlsoWord in seeAlsoWords" :key="seeAlsoWord.id">
-          <WordCard :word="seeAlsoWord" class="mx-auto" />
+      <v-row align-content="space-around">
+        <v-col
+          v-for="seeAlsoWord in seeAlsoWords"
+          :key="seeAlsoWord.id"
+          cols="3"
+        >
+          <WordCard :word="seeAlsoWord" />
         </v-col>
       </v-row>
     </div>

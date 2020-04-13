@@ -37,7 +37,7 @@ export default Vue.extend({
     } as PropOptions<SignWord>,
     width: {
       type: Number,
-      default: 350,
+      default: 400,
     },
   },
   computed: {
