@@ -19,6 +19,7 @@ class SignWord(models.Model):
     description = models.TextField()
     images = models.ManyToManyField("SignImage", blank=True)
     videos = models.ManyToManyField("SignVideo", blank=True)
+    see_also = models.ManyToManyField("SignWord", blank=True, symmetrical=True)
 
     def __str__(self):
         return self.label
@@ -30,8 +31,12 @@ class MediaResource(models.Model):
     class Meta:
         abstract = True
 
-    alt_text = models.TextField()
-    caption = models.TextField()
+    alt_text = models.CharField(
+        unique=True,
+        max_length=50,
+        help_text="Textual representation of the image. Used by screen-readers and when the image is unavailable.",
+    )
+    caption = models.TextField(help_text="Displayed alongside the image.")
 
     def __str__(self):
         return self.alt_text
