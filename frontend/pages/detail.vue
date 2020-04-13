@@ -19,12 +19,14 @@
     <p class="preserve-whitespace">
       {{ word.description }}
     </p>
-    <h2 class="mt-10">See Also</h2>
-    <v-row justify="space-around" align-content="space-around">
-      <v-col v-for="seeAlsoWord in seeAlsoWords" :key="seeAlsoWord.id">
-        <WordCard :word="seeAlsoWord" />
-      </v-col>
-    </v-row>
+    <div v-if="seeAlsoWords.length">
+      <h2 class="mt-10">See Also</h2>
+      <v-row justify="space-around" align-content="space-around">
+        <v-col v-for="seeAlsoWord in seeAlsoWords" :key="seeAlsoWord.id">
+          <WordCard :word="seeAlsoWord" />
+        </v-col>
+      </v-row>
+    </div>
   </v-container>
 </template>
 <script lang="ts">
