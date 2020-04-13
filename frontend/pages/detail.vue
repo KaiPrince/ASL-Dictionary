@@ -21,7 +21,7 @@
         <MediaCard :item="item" />
       </v-col>
     </v-row>
-    <p class="mt-10">
+    <p class="mt-10 preserve-whitespace">
       {{ word.description }}
     </p>
   </v-container>
@@ -61,3 +61,7 @@ export default Vue.extend({
   },
 })
 </script>
+<style lang="sass" scoped>
+.preserve-whitespace
+  white-space: pre-line
+</style>

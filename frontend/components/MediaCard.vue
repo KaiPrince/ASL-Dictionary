@@ -14,7 +14,7 @@
       :video-width="width"
       :image-min-height="imageMinHeight"
     />
-    <v-card-text>{{ item.caption }}</v-card-text>
+    <v-card-text class="preserve-whitespace">{{ item.caption }}</v-card-text>
   </v-card>
 </template>
 <script lang="ts">
@@ -42,3 +42,7 @@ export default Vue.extend({
   },
 })
 </script>
+<style lang="sass" scoped>
+.preserve-whitespace
+  white-space: pre-line
+</style>
