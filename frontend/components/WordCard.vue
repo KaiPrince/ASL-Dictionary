@@ -17,7 +17,11 @@
     <v-card-title>
       {{ word.label }}
     </v-card-title>
-    <MediaDisplay :item="getPreviewMedia" :video-width="width" />
+    <MediaDisplay
+      v-if="getPreviewMedia"
+      :item="getPreviewMedia"
+      :video-width="width"
+    />
     <v-card-text class="text-truncate">
       {{ word.description }}
     </v-card-text>
@@ -42,14 +46,16 @@ export default Vue.extend({
     },
   },
   computed: {
-    getPreviewMedia(): Media {
+    getPreviewMedia(): Media | null {
       if (this.word.images.length) {
         const image = this.word.images[0]
         return fromImage(image)
-      } else {
+      } else if (this.word.videos.length) {
         const video = this.word.videos[0]
         return fromVideo(video)
+      } else {
       }
+      return null
     },
   },
 })
