@@ -12,10 +12,15 @@
     <v-row v-if="loading" justify="center">
       <v-progress-circular indeterminate />
     </v-row>
-    <v-row class="mt-10" justify="space-around" align-content="space-around">
+    <v-row
+      class="mt-10"
+      justify="center"
+      justify-md="space-around"
+      align-content="space-around"
+    >
       <v-col v-for="word in filterWords" :key="word.id" lg="4">
         <v-slide-y-reverse-transition>
-          <WordCard :word="word" :width="cardWidth" />
+          <WordCard :word="word" :width="cardWidth" class="mx-auto" />
         </v-slide-y-reverse-transition>
       </v-col>
       <p v-if="!loading && !filterWords.length">

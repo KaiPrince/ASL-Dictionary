@@ -22,7 +22,7 @@
         <nuxt />
       </v-container>
     </v-content>
-    <v-footer app>
+    <v-footer app tile absolute>
       <span>Made by Kai Prince</span>
     </v-footer>
   </v-app>
