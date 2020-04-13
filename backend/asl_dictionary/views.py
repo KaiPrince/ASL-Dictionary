@@ -41,16 +41,16 @@ class SearchView(generic.TemplateView):
         return self.get(request)
 
 
-class SignWordViewSet(viewsets.ModelViewSet):
+class SignWordViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = SignWord.objects.all()
     serializer_class = SignWordSerializer
 
 
-class SignImageViewSet(viewsets.ModelViewSet):
+class SignImageViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = SignImage.objects.all()
     serializer_class = SignImageSerializer
 
 
-class SignVideoViewSet(viewsets.ModelViewSet):
+class SignVideoViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = SignVideo.objects.all()
     serializer_class = SignVideoSerializer
