@@ -16,11 +16,7 @@
     <v-card-title>
       {{ word.label }}
     </v-card-title>
-    <MediaDisplay
-      v-if="getPreviewMedia"
-      :item="getPreviewMedia"
-      :video-width="width"
-    />
+    <MediaDisplay v-if="getPreviewMedia" :item="getPreviewMedia" />
     <v-card-text class="text-truncate">
       {{ word.description }}
     </v-card-text>

@@ -24,16 +24,12 @@
         </v-row>
       </template>
     </v-img>
-    <video
-      v-else-if="item.type === 'video'"
-      :width="videoWidth"
-      autoplay
-      loop
-      muted
-    >
-      <source :src="item.src" type="video/mp4" />
-      {{ item.altText }}
-    </video>
+    <div v-else-if="item.type === 'video'" class="d-flex">
+      <video class="flex-shrink-1" autoplay loop muted>
+        <source :src="item.src" type="video/mp4" />
+        {{ item.altText }}
+      </video>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -47,10 +43,6 @@ export default Vue.extend({
       type: Object,
       required: true,
     } as PropOptions<Media>,
-    videoWidth: {
-      type: Number,
-      default: MEDIA_CARD.width,
-    },
     imageMinHeight: {
       type: Number,
       default: MEDIA_CARD.imageHeight,

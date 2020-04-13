@@ -9,11 +9,7 @@
 
 <template>
   <v-card :width="width">
-    <MediaDisplay
-      :item="item"
-      :video-width="width"
-      :image-min-height="imageMinHeight"
-    />
+    <MediaDisplay :item="item" :image-min-height="imageMinHeight" />
     <v-card-text class="preserve-whitespace">{{ item.caption }}</v-card-text>
   </v-card>
 </template>
