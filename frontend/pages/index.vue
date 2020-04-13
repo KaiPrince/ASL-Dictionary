@@ -16,11 +16,17 @@
       align-content="space-around"
     >
       <v-progress-circular v-if="loading" indeterminate />
-      <v-col v-for="word in filterWords" :key="word.id" lg="4">
+      <v-col
+        v-for="word in filterWords"
+        v-else-if="filterWords.length"
+        :key="word.id"
+        lg="4"
+      >
         <v-slide-y-reverse-transition>
           <WordCard :word="word" :width="268" />
         </v-slide-y-reverse-transition>
       </v-col>
+      <p v-else>There's nothing here...</p>
     </v-row>
   </v-container>
 </template>
