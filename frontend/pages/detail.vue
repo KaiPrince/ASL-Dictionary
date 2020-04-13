@@ -11,12 +11,7 @@
     <h1 class="display-3">
       {{ word.label }}
     </h1>
-    <v-row
-      class="mt-10"
-      align="center"
-      justify="space-around"
-      align-content="space-around"
-    >
+    <v-row class="mt-10" justify="space-around" align-content="space-around">
       <v-col v-for="item in media" :key="item.id">
         <MediaCard :item="item" />
       </v-col>

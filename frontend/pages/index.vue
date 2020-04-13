@@ -9,24 +9,18 @@
 <template>
   <v-container>
     <WordSearchBar :words="words" :value.sync="filterText" />
-    <v-row
-      class="mt-10"
-      align="center"
-      justify="space-around"
-      align-content="space-around"
-    >
-      <v-progress-circular v-if="loading" indeterminate />
-      <v-col
-        v-for="word in filterWords"
-        v-else-if="filterWords.length"
-        :key="word.id"
-        lg="4"
-      >
+    <v-row v-if="loading" justify="center">
+      <v-progress-circular indeterminate />
+    </v-row>
+    <v-row class="mt-10" justify="space-around" align-content="space-around">
+      <v-col v-for="word in filterWords" :key="word.id" lg="4">
         <v-slide-y-reverse-transition>
-          <WordCard :word="word" :width="268" />
+          <WordCard :word="word" :width="cardWidth" />
         </v-slide-y-reverse-transition>
       </v-col>
-      <p v-else>There's nothing here...</p>
+      <p v-if="!loading && !filterWords.length">
+        There's nothing here...
+      </p>
     </v-row>
   </v-container>
 </template>
@@ -58,6 +52,9 @@ export default Vue.extend({
       return this.words.filter((word: SignWord) =>
         word.label.toLowerCase().includes(this.filterText.toLowerCase())
       )
+    },
+    cardWidth(): number {
+      return this.filterWords.length < 3 ? 400 : 268
     },
   },
   mounted() {
