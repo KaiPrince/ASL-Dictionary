@@ -18,7 +18,7 @@
       justify-md="space-around"
       align-content="space-around"
     >
-      <v-col v-for="word in filterWords" :key="word.id" md="4">
+      <v-col v-for="word in filterWords" :key="word.id" sm="6" md="4">
         <v-slide-y-reverse-transition>
           <WordCard :word="word" class="mx-auto" />
         </v-slide-y-reverse-transition>
@@ -57,9 +57,6 @@ export default Vue.extend({
       return this.words.filter((word: SignWord) =>
         word.label.toLowerCase().includes(this.filterText.toLowerCase())
       )
-    },
-    cardWidth(): number {
-      return this.filterWords.length < 3 ? 400 : 268
     },
   },
   mounted() {

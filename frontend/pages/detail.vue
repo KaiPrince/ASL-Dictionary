@@ -12,7 +12,7 @@
       {{ word.label }}
     </h1>
     <v-row class="mt-10" justify="space-around" align-content="space-around">
-      <v-col v-for="item in media" :key="item.id" md="6">
+      <v-col v-for="item in media" :key="item.id" sm="6">
         <MediaCard :item="item" class="mx-auto" />
       </v-col>
     </v-row>
@@ -22,7 +22,7 @@
     <div v-if="seeAlsoWords.length">
       <h2 class="mt-10">See Also</h2>
       <v-row align-content="space-around">
-        <v-col v-for="seeAlsoWord in seeAlsoWords" :key="seeAlsoWord.id" md="3">
+        <v-col v-for="seeAlsoWord in seeAlsoWords" :key="seeAlsoWord.id" sm="4">
           <WordCard :word="seeAlsoWord" />
         </v-col>
       </v-row>
@@ -32,7 +32,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
-import _ from 'lodash'
 import SignWord from '~/models/SignWord'
 import Media, { fromImage, fromVideo } from '~/models/Media'
 import MediaCard from '~/components/MediaCard.vue'
@@ -55,11 +54,20 @@ export default Vue.extend({
   computed: {
     ...mapGetters('words', ['words']),
     id() {
-      return _.get(this, '$route.query.id', 0)
+      return this.$route.query.id
     },
     word(): SignWord {
-      return this.words.find(
-        (x: SignWord) => x.id.toString() === this.id.toString()
+      const emptyWord: SignWord = {
+        id: 1,
+        label: '',
+        description: '',
+        images: [],
+        videos: [],
+        seeAlso: [],
+      }
+      return (
+        this.words.find((x: SignWord) => String(x.id) === String(this.id)) ||
+        emptyWord
       )
     },
     media(): Array<Media> {
@@ -72,6 +80,11 @@ export default Vue.extend({
         this.word.seeAlso.includes(word.id)
       )
     },
+  },
+  created() {
+    if (!this.id && String(this.id) !== String(0)) {
+      this.$router.replace({ name: 'index' })
+    }
   },
 })
 </script>
