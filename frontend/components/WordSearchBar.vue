@@ -54,7 +54,8 @@ export default Vue.extend({
         return undefined
       }
 
-      const randomIndex = this.getRandomInt(0, this.words.length)
+      // To generate the hint, get a random word's label (except the top)
+      const randomIndex = this.getRandomInt(1, this.words.length)
       const label = this.words[randomIndex].label
       return `Try "${label}"...`
     },
