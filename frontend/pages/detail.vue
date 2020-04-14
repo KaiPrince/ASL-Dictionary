@@ -58,17 +58,17 @@ export default Vue.extend({
     },
     word(): SignWord {
       const emptyWord: SignWord = {
-        id: 1,
+        id: -1,
         label: '',
         description: '',
         images: [],
         videos: [],
         seeAlso: [],
       }
-      return (
-        this.words.find((x: SignWord) => String(x.id) === String(this.id)) ||
-        emptyWord
+      const foundWord = this.words.find(
+        (x: SignWord) => String(x.id) === String(this.id)
       )
+      return foundWord || emptyWord
     },
     media(): Array<Media> {
       const images: Array<Media> = this.word.images.map(fromImage)
@@ -82,7 +82,9 @@ export default Vue.extend({
     },
   },
   created() {
-    if (!this.id && String(this.id) !== String(0)) {
+    const noRouteId = !this.id && String(this.id) !== String(0)
+    const wordNotFound = this.word.id === -1
+    if (noRouteId || wordNotFound) {
       this.$router.replace({ name: 'index' })
     }
   },
