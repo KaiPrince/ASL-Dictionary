@@ -28,13 +28,14 @@
       class="flex-shrink-1"
       :width="videoWidth"
       :controls="onMobile"
-      autoplay
+      :autoplay="!onMobile"
       loop
       muted
     >
       <source :src="item.src" type="video/mp4" />
       {{ item.altText }}
     </video>
+    <v-resize :value="autoSizeVideo" />
   </div>
 </template>
 <script lang="ts">
@@ -62,7 +63,10 @@ export default Vue.extend({
   },
   mounted() {
     this.autoSizeVideo()
-    window.addEventListener('resize', this.autoSizeVideo)
+    window.addEventListener('deviceorientation', this.autoSizeVideo)
+  },
+  beforeDestroy() {
+    window.removeEventListener('deviceorientation', this.autoSizeVideo)
   },
   methods: {
     autoSizeVideo(): void {
