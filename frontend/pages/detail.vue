@@ -32,6 +32,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
+import _ from 'lodash'
 import SignWord from '~/models/SignWord'
 import Media, { fromImage, fromVideo } from '~/models/Media'
 import MediaCard from '~/components/MediaCard.vue'
@@ -54,7 +55,7 @@ export default Vue.extend({
   computed: {
     ...mapGetters('words', ['words']),
     id() {
-      return this.$route.query.id
+      return _.get(this, '$route.query.id', 0)
     },
     word(): SignWord {
       return this.words.find(
