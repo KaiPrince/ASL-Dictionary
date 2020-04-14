@@ -57,18 +57,18 @@ export default Vue.extend({
       return this.$route.query.id
     },
     word(): SignWord {
-      const emptyWord: SignWord = {
-        id: -1,
-        label: '',
-        description: '',
-        images: [],
-        videos: [],
-        seeAlso: [],
-      }
+      // const emptyWord: SignWord = {
+      //   id: -1,
+      //   label: '',
+      //   description: '',
+      //   images: [],
+      //   videos: [],
+      //   seeAlso: [],
+      // }
       const foundWord = this.words.find(
         (x: SignWord) => String(x.id) === String(this.id)
       )
-      return foundWord || emptyWord
+      return foundWord
     },
     media(): Array<Media> {
       const images: Array<Media> = this.word.images.map(fromImage)
