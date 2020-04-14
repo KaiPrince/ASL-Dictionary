@@ -23,19 +23,17 @@
         </v-row>
       </template>
     </v-img>
-    <div v-else-if="item.type === 'video'" class="d-flex">
-      <video
-        class="flex-shrink-1"
-        :width="videoWidth"
-        :controls="videoControls"
-        autoplay
-        loop
-        muted
-      >
-        <source :src="item.src" type="video/mp4" />
-        {{ item.altText }}
-      </video>
-    </div>
+    <video
+      v-else-if="item.type === 'video'"
+      :width="videoWidth"
+      :controls="videoControls"
+      autoplay
+      loop
+      muted
+    >
+      <source :src="item.src" type="video/mp4" />
+      {{ item.altText }}
+    </video>
   </div>
 </template>
 <script lang="ts">
@@ -49,21 +47,23 @@ export default Vue.extend({
       required: true,
     } as PropOptions<Media>,
   },
+  data() {
+    return {
+      videoWidth: undefined,
+    } as { videoWidth: number | undefined }
+  },
   computed: {
     onMobile(): boolean {
       // Typescript doesn't recognize $vuetify
       const _this: any = this
       return _this.$vuetify.breakpoint.smAndDown
     },
-    videoWidth(): number | undefined {
-      // Typescript doesn't recognize $vuetify
-      const _this: any = this
-      const screenWidth = _this.$vuetify.breakpoint.width
-      return this.onMobile ? screenWidth - 48 : undefined
-    },
     videoControls(): boolean {
       return this.onMobile
     },
+  },
+  mounted() {
+    this.videoWidth = this.$el.clientWidth
   },
 })
 </script>
