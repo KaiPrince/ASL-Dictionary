@@ -61,7 +61,13 @@ export default Vue.extend({
     },
   },
   mounted() {
-    this.videoWidth = this.$el.clientWidth
+    this.autoSizeVideo()
+    window.addEventListener('resize', this.autoSizeVideo)
+  },
+  methods: {
+    autoSizeVideo(): void {
+      this.videoWidth = this.$el.clientWidth
+    },
   },
 })
 </script>
