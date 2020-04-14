@@ -7,12 +7,7 @@
 -->
 
 <template>
-  <v-card
-    :max-width="width"
-    raised
-    nuxt
-    :to="{ name: 'detail', query: { id: word.id } }"
-  >
+  <v-card raised nuxt :to="{ name: 'detail', query: { id: word.id } }">
     <v-card-title>
       {{ word.label }}
     </v-card-title>
@@ -35,13 +30,10 @@ export default Vue.extend({
       type: Object,
       required: true,
     } as PropOptions<SignWord>,
-    width: {
-      type: Number,
-      default: 400,
-    },
   },
   computed: {
     getPreviewMedia(): Media | null {
+      // Find first image, or video
       if (this.word.images.length) {
         const image = this.word.images[0]
         return fromImage(image)

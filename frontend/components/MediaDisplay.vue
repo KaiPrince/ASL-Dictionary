@@ -25,8 +25,9 @@
     </v-img>
     <video
       v-else-if="item.type === 'video'"
+      class="flex-shrink-1"
       :width="videoWidth"
-      :controls="videoControls"
+      :controls="onMobile"
       autoplay
       loop
       muted
@@ -57,9 +58,6 @@ export default Vue.extend({
       // Typescript doesn't recognize $vuetify
       const _this: any = this
       return _this.$vuetify.breakpoint.smAndDown
-    },
-    videoControls(): boolean {
-      return this.onMobile
     },
   },
   mounted() {
