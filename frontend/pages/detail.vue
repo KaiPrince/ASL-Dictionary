@@ -57,14 +57,6 @@ export default Vue.extend({
       return this.$route.query.id
     },
     word(): SignWord {
-      // const emptyWord: SignWord = {
-      //   id: -1,
-      //   label: '',
-      //   description: '',
-      //   images: [],
-      //   videos: [],
-      //   seeAlso: [],
-      // }
       const foundWord = this.words.find(
         (x: SignWord) => String(x.id) === String(this.id)
       )
@@ -83,7 +75,7 @@ export default Vue.extend({
   },
   created() {
     const noRouteId = !this.id && String(this.id) !== String(0)
-    const wordNotFound = this.word.id === -1
+    const wordNotFound = !this.word
     if (noRouteId || wordNotFound) {
       this.$router.replace({ name: 'index' })
     }
