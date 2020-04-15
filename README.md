@@ -1,5 +1,6 @@
 # ASL Dictionary
 A visual dictionary for American Sign Langauge.
+<br/>Check out the live [website](https://asl-dictionary.web.app/).
 
 ## Motivation
 This full-stack web app is a useful reference for basic ASL words and phrases. Add new words to the app as you learn them. Much more effective than written notes.
