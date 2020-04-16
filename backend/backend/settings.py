@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import django_heroku
 
+# Get deployment stage from environment vars
+IN_PRODUCTION = os.getenv("PRODUCTION") == "True"
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,7 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "=33j#&6ap05sk1r4n-mzu4-@%n&pj^vodbv65in6uqjopprc4h"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not IN_PRODUCTION
 
 ALLOWED_HOSTS = []
 
@@ -127,14 +130,18 @@ CORS_ORIGIN_WHITELIST = [
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-# Configure Django App for Heroku.
-
-django_heroku.settings(locals())
-
 # Storage
 
-DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+DEFAULT_FILE_STORAGE = (
+    "storages.backends.gcloud.GoogleCloudStorage"
+    if IN_PRODUCTION
+    else "django.core.files.storage.FileSystemStorage"
+)
 GS_BUCKET_NAME = "asl-dictionary.appspot.com"
 
 # Uncomment to put static files in bucket.
 # STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+
+
+# Configure Django App for Heroku.
+django_heroku.settings(locals())
