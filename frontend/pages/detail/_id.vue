@@ -54,7 +54,7 @@ export default Vue.extend({
   computed: {
     ...mapGetters('words', ['words']),
     id() {
-      return this.$route.query.id
+      return this.$route.params.id
     },
     word(): SignWord {
       const foundWord = this.words.find(
