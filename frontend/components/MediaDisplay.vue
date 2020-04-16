@@ -25,6 +25,7 @@
     </v-img>
     <video
       v-else-if="item.type === 'video'"
+      v-resize="autoSizeVideo"
       class="flex-shrink-1"
       :width="videoWidth"
       :controls="onMobile"
@@ -35,7 +36,6 @@
       <source :src="item.src" />
       {{ item.altText }}
     </video>
-    <v-resize :value="autoSizeVideo" />
   </div>
 </template>
 <script lang="ts">
