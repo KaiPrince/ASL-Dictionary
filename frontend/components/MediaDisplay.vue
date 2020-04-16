@@ -32,7 +32,7 @@
       loop
       muted
     >
-      <source :src="item.src" type="video/mp4" />
+      <source :src="item.src" />
       {{ item.altText }}
     </video>
     <v-resize :value="autoSizeVideo" />
@@ -63,10 +63,6 @@ export default Vue.extend({
   },
   mounted() {
     this.autoSizeVideo()
-    window.addEventListener('deviceorientation', this.autoSizeVideo)
-  },
-  beforeDestroy() {
-    window.removeEventListener('deviceorientation', this.autoSizeVideo)
   },
   methods: {
     autoSizeVideo(): void {
