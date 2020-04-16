@@ -43,15 +43,10 @@ def get_video_file(in_memory_file):
     return File(open("temp_uploaded_file", "rb"))  # TODO close
 
 
-def get_params(temp_file, form_file, ext):
-    file_path_name = form_file.name.rsplit(".", 1)[0]
+def get_output_file_name(input_file, ext):
+    file_path_name = input_file.name.rsplit(".", 1)[0]
     file_name = file_path_name.rsplit("/", 1)[-1] + "." + ext
-    temp_file_url = temp_file.file.name
-    if temp_file_url.startswith("/"):
-        # /media/sign... => media/sign...
-        temp_file_url = temp_file_url[1:]
-
-    return (file_name, temp_file_url)
+    return file_name
 
 
 def convert_video(input_file, ext):
@@ -79,7 +74,12 @@ def maybe_convert_video(current_file, new_file_in_mem, preferred_ext):
     if new_file_ext != preferred_ext:
         cleanup_temp_files(["temp_uploaded_file", "temp.webm"])
         file = get_video_file(new_file_in_mem)
-        [file_name, temp_file_url] = get_params(file, new_file_in_mem, preferred_ext)
+
+        # sign_videos/test.mp4 => test.webm
+        file_name = get_output_file_name(new_file_in_mem, preferred_ext)
+
+        # temp_uploaded_file
+        temp_file_url = file.file.name
 
         convert_video(temp_file_url, preferred_ext)
 
