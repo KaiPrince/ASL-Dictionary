@@ -45,10 +45,14 @@ class MediaResource(models.Model):
 class SignImage(MediaResource):
     """ An image which demostrates how to sign a word. """
 
-    image_file = models.ImageField(upload_to="sign_images/")
+    image_file = models.ImageField(
+        upload_to="sign_images/", help_text="GIFs should be uploaded as videos instead."
+    )
 
 
 class SignVideo(MediaResource):
     """ A video which demonstrates how to sign a word. """
 
-    video_file = models.FileField(upload_to="sign_videos/")
+    video_file = models.FileField(
+        upload_to="sign_videos/", help_text="Will be converted to WebM format."
+    )
