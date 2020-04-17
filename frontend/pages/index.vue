@@ -42,13 +42,7 @@ export default Vue.extend({
     WordCard,
     WordSearchBar,
   },
-  middleware({ store }) {
-    // Fetch Words from API
-    const { loading, words } = store.state.words
-    if (!loading && !words.length) {
-      return store.dispatch('words/fetchWords')
-    }
-  },
+  middleware: ['fetchWords'],
   data() {
     return {
       filterText: '',
