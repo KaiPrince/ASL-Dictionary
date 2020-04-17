@@ -13,7 +13,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || '',
+        content: 'An American Sign Language dictionary',
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
@@ -69,6 +69,13 @@ export default {
           success: colors.green.accent3,
         },
       },
+    },
+  },
+  pwa: {
+    manifest: {
+      name: 'ASL Dictionary',
+      short_name: 'ASL',
+      display: 'fullscreen',
     },
   },
   /*
