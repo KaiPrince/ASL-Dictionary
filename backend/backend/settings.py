@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "asl_dictionary.apps.AslDictionaryConfig",
+    "sortedm2m",
 ]
 
 MIDDLEWARE = [

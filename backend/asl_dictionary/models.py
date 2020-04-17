@@ -7,6 +7,7 @@
 """
 
 from django.db import models
+from sortedm2m.fields import SortedManyToManyField
 
 
 class SignWord(models.Model):
@@ -17,9 +18,9 @@ class SignWord(models.Model):
 
     label = models.CharField(max_length=200)
     description = models.TextField()
-    images = models.ManyToManyField("SignImage", blank=True)
-    videos = models.ManyToManyField("SignVideo", blank=True)
-    see_also = models.ManyToManyField("SignWord", blank=True, symmetrical=True)
+    images = SortedManyToManyField("SignImage", blank=True)
+    videos = SortedManyToManyField("SignVideo", blank=True)
+    see_also = SortedManyToManyField("SignWord", blank=True, symmetrical=True)
 
     def __str__(self):
         return self.label

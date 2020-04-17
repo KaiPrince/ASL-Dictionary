@@ -7,11 +7,11 @@
 """
 
 
+import os
+
 import ffmpeg
 from django.contrib import admin
 from django.core.files import File
-
-import os
 
 from .models import SignImage, SignVideo, SignWord
 
