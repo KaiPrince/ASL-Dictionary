@@ -42,6 +42,13 @@ export default Vue.extend({
     WordCard,
     WordSearchBar,
   },
+  middleware({ store }) {
+    // Fetch Words from API
+    const { loading, words } = store.state.words
+    if (!loading && !words.length) {
+      return store.dispatch('words/fetchWords')
+    }
+  },
   data() {
     return {
       filterText: '',
@@ -58,12 +65,6 @@ export default Vue.extend({
         word.label.toLowerCase().includes(this.filterText.toLowerCase())
       )
     },
-  },
-  mounted() {
-    this.fetchWords()
-  },
-  methods: {
-    ...mapActions('words', ['fetchWords']),
   },
 })
 </script>
