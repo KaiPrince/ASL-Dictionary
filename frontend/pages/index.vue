@@ -60,5 +60,11 @@ export default Vue.extend({
       )
     },
   },
+  mounted() {
+    this.fetchWords()
+  },
+  methods: {
+    ...mapActions('words', ['fetchWords']),
+  },
 })
 </script>
