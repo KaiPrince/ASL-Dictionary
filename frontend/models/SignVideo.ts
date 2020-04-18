@@ -11,4 +11,5 @@ export default interface SignVideo {
   altText: string
   caption: string
   videoFile: string
+  thumbnailFile: string
 }

@@ -26,10 +26,11 @@
     <video
       v-else-if="item.type === 'video'"
       v-resize="autoSizeVideo"
+      :poster="item.poster"
       class="flex-shrink-1"
       :width="videoWidth"
       :controls="onMobile"
-      :autoplay="!onMobile"
+      autoplay
       loop
       muted
       playsinline

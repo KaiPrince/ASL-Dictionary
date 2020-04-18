@@ -19,7 +19,7 @@ class SignImageSerializer(serializers.ModelSerializer):
 class SignVideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = SignVideo
-        fields = ["id", "alt_text", "caption", "video_file"]
+        fields = ["id", "alt_text", "caption", "video_file", "thumbnail_file"]
 
 
 class SignWordSerializer(serializers.ModelSerializer):
