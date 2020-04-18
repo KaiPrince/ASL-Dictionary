@@ -47,7 +47,7 @@ export default Vue.extend({
   middleware: ['fetchWords'],
   computed: {
     ...mapGetters('words', ['words']),
-    id() {
+    id(): string {
       return this.$route.params.id
     },
     word(): SignWord {
