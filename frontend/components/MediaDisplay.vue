@@ -29,7 +29,6 @@
       :poster="item.poster"
       class="flex-shrink-1"
       :width="videoWidth"
-      :controls="onMobile"
       autoplay
       loop
       muted
@@ -60,13 +59,6 @@ export default Vue.extend({
     return {
       videoWidth: undefined,
     } as { videoWidth: number | undefined }
-  },
-  computed: {
-    onMobile(): boolean {
-      // Typescript doesn't recognize $vuetify
-      const _this: any = this
-      return _this.$vuetify.breakpoint.smAndDown
-    },
   },
   mounted() {
     this.autoSizeVideo()
