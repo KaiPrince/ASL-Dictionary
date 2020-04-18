@@ -32,6 +32,7 @@
       :autoplay="!onMobile"
       loop
       muted
+      playsinline
     >
       <source :src="item.src" />
       {{ item.altText }}
