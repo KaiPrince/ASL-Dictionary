@@ -57,6 +57,11 @@ class SignVideo(MediaResource):
     video_file = models.FileField(
         upload_to="sign_videos/", help_text="Will be converted to WebM format."
     )
+
+    optimized_video_file = models.FileField(
+        upload_to="sign_videos/optimized/", editable=False, null=True
+    )
+
     thumbnail_file = models.ImageField(
         upload_to="sign_videos/thumbnails/",
         help_text="Will be automatically generated.",

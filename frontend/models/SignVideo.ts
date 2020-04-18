@@ -7,9 +7,10 @@
  */
 
 export default interface SignVideo {
-  id: number
+  id: string
   altText: string
   caption: string
   videoFile: string
+  optimizedVideoFile: string
   thumbnailFile: string
 }

@@ -35,6 +35,11 @@
       muted
       playsinline
     >
+      <source
+        v-if="item.optimizedSrc"
+        :src="item.optimizedSrc"
+        type="video/webm"
+      />
       <source :src="item.src" />
       {{ item.altText }}
     </video>

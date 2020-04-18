@@ -14,7 +14,8 @@ export default interface Media {
   altText: string
   caption: string
   src: string
-  poster: string | null
+  optimizedSrc?: string
+  poster?: string
   type: 'image' | 'video'
 }
 
@@ -23,7 +24,6 @@ export const fromImage = (image: SignImage): Media => ({
   altText: image.altText,
   caption: image.caption,
   src: image.imageFile,
-  poster: null,
   type: 'image',
 })
 
@@ -32,6 +32,7 @@ export const fromVideo = (video: SignVideo): Media => ({
   altText: video.altText,
   caption: video.caption,
   src: video.videoFile,
+  optimizedSrc: video.optimizedVideoFile,
   poster: video.thumbnailFile,
   type: 'video',
 })

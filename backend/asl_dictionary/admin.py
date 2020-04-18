@@ -23,7 +23,7 @@ class SignVideoAdmin(admin.ModelAdmin):
         if change and form.files.get("video_file"):
             preferred_ext = "webm"
             maybe_convert_video(
-                obj.video_file, form.files.get("video_file"), preferred_ext
+                obj.optimized_video_file, form.files.get("video_file"), preferred_ext
             )
             generate_thumbnail(obj.thumbnail_file, form.files.get("video_file"))
 
@@ -73,7 +73,8 @@ def maybe_convert_video(current_file, new_file_in_mem, preferred_ext):
     new_file_ext = new_file_in_mem.name.rsplit(".", 1)[-1]
 
     if new_file_ext != preferred_ext:
-        cleanup_temp_files(["temp_uploaded_file", "temp.webm"])
+        temp_output_file = f"temp.{preferred_ext}"
+        cleanup_temp_files(["temp_uploaded_file", temp_output_file])
         file = get_video_file(new_file_in_mem)
 
         # sign_videos/test.mp4 => test.webm
@@ -84,18 +85,21 @@ def maybe_convert_video(current_file, new_file_in_mem, preferred_ext):
 
         convert_video(temp_file_url, preferred_ext)
 
-        save_file_to_storage(current_file, "temp.webm", file_name)
+        save_file_to_storage(current_file, temp_output_file, file_name)
 
         file.close()
-        cleanup_temp_files(["temp_uploaded_file", "temp.webm"])
+        cleanup_temp_files(["temp_uploaded_file", temp_output_file])
 
 
 def generate_thumbnail(current_file, new_file_in_mem):
-    cleanup_temp_files(["temp_uploaded_file", "temp.webp"])
+    preferred_ext = "jpg"
+    temp_output_file = f"temp.{preferred_ext}"
+    cleanup_temp_files(["temp_uploaded_file", temp_output_file])
+
     file = get_video_file(new_file_in_mem)
 
     # sign_videos/test.mp4 => test.webp
-    file_name = get_output_file_name(new_file_in_mem, "webp")
+    file_name = get_output_file_name(new_file_in_mem, preferred_ext)
 
     # temp_uploaded_file
     temp_file_url = file.file.name
@@ -103,11 +107,11 @@ def generate_thumbnail(current_file, new_file_in_mem):
     (
         ffmpeg.input(temp_file_url, ss="0:00")
         .filter("thumbnail")
-        .output("temp.webp", vframes=1)
+        .output(temp_output_file, vframes=1)
         .run(overwrite_output=True)
     )
 
-    save_file_to_storage(current_file, "temp.webp", file_name)
+    save_file_to_storage(current_file, temp_output_file, file_name)
 
     file.close()
-    cleanup_temp_files(["temp_uploaded_file", "temp.webp"])
+    cleanup_temp_files(["temp_uploaded_file", temp_output_file])

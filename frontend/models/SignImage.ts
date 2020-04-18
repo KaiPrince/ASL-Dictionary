@@ -7,7 +7,7 @@
  */
 
 export default interface SignImage {
-  id: number
+  id: string
   altText: string
   caption: string
   imageFile: string
