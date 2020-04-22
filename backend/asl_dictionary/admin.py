@@ -41,7 +41,7 @@ def get_video_file(in_memory_file, temp_uploaded_file):
         for chunk in in_memory_file.chunks():
             temp_file.write(chunk)
 
-    return File(open(temp_uploaded_file, "rb"))  # TODO close
+    return File(open(temp_uploaded_file, "rb"))
 
 
 def get_output_file_name(input_file, ext):
