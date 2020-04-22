@@ -35,13 +35,13 @@ admin.site.register(SignImage)
 admin.site.register(SignVideo, SignVideoAdmin)
 
 
-def get_video_file(in_memory_file):
+def get_video_file(in_memory_file, temp_uploaded_file):
     # write InMemoryFile to disk
-    with open("temp_uploaded_file", "xb") as temp_file:
+    with open(temp_uploaded_file, "xb") as temp_file:
         for chunk in in_memory_file.chunks():
             temp_file.write(chunk)
 
-    return File(open("temp_uploaded_file", "rb"))  # TODO close
+    return File(open(temp_uploaded_file, "rb"))  # TODO close
 
 
 def get_output_file_name(input_file, ext):
@@ -74,8 +74,9 @@ def maybe_convert_video(current_file, new_file_in_mem, preferred_ext):
 
     if new_file_ext != preferred_ext:
         temp_output_file = f"temp.{preferred_ext}"
-        cleanup_temp_files(["temp_uploaded_file", temp_output_file])
-        file = get_video_file(new_file_in_mem)
+        temp_uploaded_file = f"temp_uploaded_file.{new_file_ext}"
+        cleanup_temp_files([temp_uploaded_file, temp_output_file])
+        file = get_video_file(new_file_in_mem, temp_uploaded_file)
 
         # sign_videos/test.mp4 => test.webm
         file_name = get_output_file_name(new_file_in_mem, preferred_ext)
@@ -88,15 +89,19 @@ def maybe_convert_video(current_file, new_file_in_mem, preferred_ext):
         save_file_to_storage(current_file, temp_output_file, file_name)
 
         file.close()
-        cleanup_temp_files(["temp_uploaded_file", temp_output_file])
+        cleanup_temp_files([temp_uploaded_file, temp_output_file])
 
 
 def generate_thumbnail(current_file, new_file_in_mem):
+    new_file_ext = new_file_in_mem.name.rsplit(".", 1)[-1]
     preferred_ext = "jpg"
-    temp_output_file = f"temp.{preferred_ext}"
-    cleanup_temp_files(["temp_uploaded_file", temp_output_file])
 
-    file = get_video_file(new_file_in_mem)
+    temp_output_file = f"temp.{preferred_ext}"
+    temp_uploaded_file = f"temp_uploaded_file.{new_file_ext}"
+
+    cleanup_temp_files([temp_uploaded_file, temp_output_file])
+
+    file = get_video_file(new_file_in_mem, temp_uploaded_file)
 
     # sign_videos/test.mp4 => test.webp
     file_name = get_output_file_name(new_file_in_mem, preferred_ext)
@@ -114,4 +119,4 @@ def generate_thumbnail(current_file, new_file_in_mem):
     save_file_to_storage(current_file, temp_output_file, file_name)
 
     file.close()
-    cleanup_temp_files(["temp_uploaded_file", temp_output_file])
+    cleanup_temp_files([temp_uploaded_file, temp_output_file])
