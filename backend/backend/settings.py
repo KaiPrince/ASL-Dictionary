@@ -27,7 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "=33j#&6ap05sk1r4n-mzu4-@%n&pj^vodbv65in6uqjopprc4h"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = not IN_PRODUCTION
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "asl_dictionary.apps.AslDictionaryConfig",
     "sortedm2m",
+    "video_processor.apps.VideoProcessorConfig",
 ]
 
 MIDDLEWARE = [
