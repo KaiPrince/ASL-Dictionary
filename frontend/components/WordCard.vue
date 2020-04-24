@@ -41,8 +41,8 @@ export default Vue.extend({
         const video = this.word.videos[0]
         return fromVideo(video)
       } else {
+        return null
       }
-      return null
     },
   },
 })
