@@ -27,12 +27,12 @@
       v-else-if="item.type === 'video'"
       v-resize="autoSizeVideo"
       :poster="item.poster"
-      class="flex-shrink-1"
       :width="videoWidth"
       autoplay
       loop
       muted
       playsinline
+      class="mb-n2"
     >
       <source
         v-if="item.optimizedSrc"

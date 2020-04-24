@@ -12,7 +12,7 @@
       {{ word.label }}
     </v-card-title>
     <MediaDisplay v-if="getPreviewMedia" :item="getPreviewMedia" />
-    <v-card-text class="text-truncate">
+    <v-card-text v-if="word.description" class="text-truncate">
       {{ word.description }}
     </v-card-text>
   </v-card>

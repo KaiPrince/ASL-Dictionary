@@ -10,7 +10,9 @@
 <template>
   <v-card>
     <MediaDisplay :item="item" />
-    <v-card-text class="preserve-whitespace">{{ item.caption }}</v-card-text>
+    <v-card-text v-if="item.caption" class="preserve-whitespace">{{
+      item.caption
+    }}</v-card-text>
   </v-card>
 </template>
 <script lang="ts">
