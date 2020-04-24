@@ -27,7 +27,7 @@
           :options="{
             threshold: 0.5,
           }"
-          min-height="200"
+          min-height="400"
           transition="fade-transition"
         >
           <WordCard :word="word" class="mx-auto" />
