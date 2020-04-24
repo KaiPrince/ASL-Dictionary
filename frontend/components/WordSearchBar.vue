@@ -75,6 +75,7 @@ export default Vue.extend({
     },
     filter(item: SignWord, queryText: string, itemText: string): Boolean {
       const query = queryText.toLocaleLowerCase()
+
       const textMatch = itemText.toLocaleLowerCase().includes(query)
 
       const imagesMatch = item.images.some((image) =>
@@ -83,7 +84,10 @@ export default Vue.extend({
       const videosMatch = item.videos.some((video) =>
         video.altText.toLocaleLowerCase().includes(query)
       )
-      return textMatch || imagesMatch || videosMatch
+
+      const synonymsMatch = item.synonyms.toLocaleLowerCase().includes(query)
+
+      return textMatch || imagesMatch || videosMatch || synonymsMatch
     },
     getRandomInt(min: number, max: number) {
       min = Math.ceil(min)

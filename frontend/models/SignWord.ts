@@ -13,6 +13,7 @@ export default interface SignWord {
   id: number
   label: string
   description: string
+  synonyms: string
   images: Array<SignImage>
   videos: Array<SignVideo>
   seeAlso: Array<number>

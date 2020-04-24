@@ -17,9 +17,12 @@ class SignWord(models.Model):
         ordering = ["-id"]
 
     label = models.CharField(max_length=200)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
+    synonyms = models.CharField(max_length=255, null=True, blank=True)
+
     images = SortedManyToManyField("SignImage", blank=True)
     videos = SortedManyToManyField("SignVideo", blank=True)
+
     see_also = SortedManyToManyField("SignWord", blank=True, symmetrical=True)
 
     def __str__(self):
