@@ -6386,6 +6386,13 @@ locate-path@^5.0.0:
   dependencies:
     p-locate "^4.1.0"
 
+lodash-humps@^3.1.5:
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/lodash-humps/-/lodash-humps-3.1.5.tgz#3e81b45d2f60ef2066d75f9372639512949beee9"
+  integrity sha512-bMQKPP99Rxhd+AI83GZ8K/4uYFIOQ6BrAdGoBZ0lLJfJ3426U+7fcGuX7w11IY4a81DXXlxoxY6mIQpSbQtarg==
+  dependencies:
+    lodash "^4.17.14"
+
 lodash._reinterpolate@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
