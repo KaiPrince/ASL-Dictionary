@@ -23,9 +23,15 @@
       align-content="space-around"
     >
       <v-col v-for="word in filterWords" :key="word.id" sm="6" md="4">
-        <v-slide-y-reverse-transition>
+        <v-lazy
+          :options="{
+            threshold: 0.5,
+          }"
+          min-height="200"
+          transition="fade-transition"
+        >
           <WordCard :word="word" class="mx-auto" />
-        </v-slide-y-reverse-transition>
+        </v-lazy>
       </v-col>
       <p
         v-if="!loading && !filterWords.length"
