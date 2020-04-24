@@ -32,7 +32,15 @@ class SignVideoSerializer(serializers.ModelSerializer):
 class SignWordSerializer(serializers.ModelSerializer):
     class Meta:
         model = SignWord
-        fields = ["id", "label", "description", "images", "videos", "see_also"]
+        fields = [
+            "id",
+            "label",
+            "description",
+            "synonyms",
+            "images",
+            "videos",
+            "see_also",
+        ]
 
     images = SignImageSerializer(many=True)
     videos = SignVideoSerializer(many=True)
