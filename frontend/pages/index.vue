@@ -8,7 +8,11 @@
 
 <template>
   <v-container>
-    <WordSearchBar :words="words" :value.sync="filterText" />
+    <WordSearchBar
+      :words="words"
+      :value.sync="filterText"
+      :on-change="goToDetails"
+    />
     <v-row v-if="loading" justify="center">
       <v-progress-circular indeterminate />
     </v-row>
@@ -23,7 +27,10 @@
           <WordCard :word="word" class="mx-auto" />
         </v-slide-y-reverse-transition>
       </v-col>
-      <p v-if="!loading && !filterWords.length">
+      <p
+        v-if="!loading && !filterWords.length"
+        class="text-center text--secondary"
+      >
         There's nothing here...
       </p>
     </v-row>
@@ -65,6 +72,12 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions('words', ['fetchWords']),
+    goToDetails(wordId: number): void {
+      this.$router.push({
+        name: 'detail-id',
+        params: { id: wordId.toString() },
+      })
+    },
   },
 })
 </script>

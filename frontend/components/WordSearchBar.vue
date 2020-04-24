@@ -21,6 +21,7 @@
     hide-no-data
     :dense="appBar"
     :flat="appBar"
+    :filter="filter"
     @change="onChange"
   />
 </template>
@@ -71,6 +72,18 @@ export default Vue.extend({
     },
     itemValue(item: SignWord): number {
       return item.id
+    },
+    filter(item: SignWord, queryText: string, itemText: string): Boolean {
+      const query = queryText.toLocaleLowerCase()
+      const textMatch = itemText.toLocaleLowerCase().includes(query)
+
+      const imagesMatch = item.images.some((image) =>
+        image.altText.toLocaleLowerCase().includes(query)
+      )
+      const videosMatch = item.videos.some((video) =>
+        video.altText.toLocaleLowerCase().includes(query)
+      )
+      return textMatch || imagesMatch || videosMatch
     },
     getRandomInt(min: number, max: number) {
       min = Math.ceil(min)

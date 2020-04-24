@@ -42,7 +42,10 @@ export default Vue.extend({
   },
   methods: {
     goToDetails(wordId: number): void {
-      this.$router.push({ name: 'detail', query: { id: wordId.toString() } })
+      this.$router.push({
+        name: 'detail-id',
+        params: { id: wordId.toString() },
+      })
     },
   },
 })
