@@ -17,7 +17,11 @@ class SignWord(models.Model):
         ordering = ["-id"]
 
     label = models.CharField(max_length=200)
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(
+        null=True,
+        blank=True,
+        help_text="If not provided, the caption of the first image or video is shown on the card.",
+    )
     synonyms = models.CharField(max_length=255, null=True, blank=True)
 
     images = SortedManyToManyField("SignImage", blank=True)
