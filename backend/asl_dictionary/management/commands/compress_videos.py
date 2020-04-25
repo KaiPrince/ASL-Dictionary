@@ -1,17 +1,17 @@
 """
 * Project Name: ASL Dictionary
-* File Name: optimize_videos.py
+* File Name: compress_videos.py
 * Programmer: Kai Prince
 * Date: Thu, Apr 23, 2020
-* Description: This file contains a management command to optimize videos.
+* Description: This file contains a management command to compress videos.
 """
 
 import ffmpeg
 from django.core.management.base import BaseCommand
 from django.utils.termcolors import colorize
-
 from asl_dictionary.models import SignVideo
-from video_processor.service import optimize_video
+
+from video_processor.service import compress_video
 
 
 class Command(BaseCommand):
@@ -29,15 +29,17 @@ class Command(BaseCommand):
 
         videos = SignVideo.objects.all()
         for video in videos:
-            if not options["all"] and video.optimized_video_file:
+            if "compressed_" in video.video_file.name and not options["all"]:
                 continue
 
-            self.stdout.write(f"Generating optimized version for {video}...", ending="")
+            self.stdout.write(
+                f"Generating compressed version for {video}...", ending=""
+            )
             self.stdout.flush()
-            try:
-                optimize_video(video)
-                video.save()
 
+            try:
+                compress_video(video)
+                video.save()
             except ffmpeg.Error:
                 count_failure += 1
                 self.stdout.write(colorize("Error", fg="red"))

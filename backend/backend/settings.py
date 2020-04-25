@@ -43,8 +43,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "corsheaders",
-    "asl_dictionary.apps.AslDictionaryConfig",
     "sortedm2m",
+    "django_cleanup.apps.CleanupConfig",
+    "asl_dictionary.apps.AslDictionaryConfig",
     "video_processor.apps.VideoProcessorConfig",
 ]
 
@@ -140,6 +141,7 @@ DEFAULT_FILE_STORAGE = (
     else "django.core.files.storage.FileSystemStorage"
 )
 GS_BUCKET_NAME = "asl-dictionary.appspot.com"
+GS_FILE_OVERWRITE = True
 
 # Uncomment to put static files in bucket.
 # STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"

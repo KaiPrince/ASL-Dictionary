@@ -20,6 +20,7 @@ class SignVideoAdmin(admin.ModelAdmin):
 
         if change and input_file:
             rename_file(obj.video_file, obj.alt_text)
+            rename_file(input_file, obj.alt_text)
 
         return super().save_model(request, obj, form, change)
 

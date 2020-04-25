@@ -1,9 +1,9 @@
 """
 * Project Name: ASL Dictionary
-* File Name: optimize_videos.py
+* File Name: rename_videos.py
 * Programmer: Kai Prince
 * Date: Thu, Apr 23, 2020
-* Description: This file contains a management command to optimize videos.
+* Description: This file contains a management command to rename videos.
 """
 
 import ffmpeg
@@ -11,7 +11,17 @@ from django.core.management.base import BaseCommand
 from django.utils.termcolors import colorize
 
 from asl_dictionary.models import SignVideo
-from video_processor.service import optimize_video
+from video_processor.service import (
+    save_file_to_storage,
+    get_output_file_name,
+    get_file_ext,
+)
+
+
+def rename_file(input_file, new_name):
+    ext = input_file.name.rsplit(".", 1)[-1]
+    file_name = new_name + "." + ext
+    return file_name
 
 
 class Command(BaseCommand):
@@ -24,31 +34,24 @@ class Command(BaseCommand):
         return super().add_arguments(parser)
 
     def handle(self, *args, **options):
-        count_success = 0
-        count_failure = 0
 
         videos = SignVideo.objects.all()
         for video in videos:
-            if not options["all"] and video.optimized_video_file:
+            video_file = video.video_file
+            new_name = rename_file(video_file, video.alt_text)
+
+            if not options["all"] and video_file.name == new_name:
                 continue
 
-            self.stdout.write(f"Generating optimized version for {video}...", ending="")
+            self.stdout.write(f"Renaming {video}...", ending="")
             self.stdout.flush()
             try:
-                optimize_video(video)
+                video_file.name = new_name
+                output_name = get_output_file_name(video_file, get_file_ext(video_file))
+                save_file_to_storage(video_file, video_file, output_name)
                 video.save()
 
             except ffmpeg.Error:
-                count_failure += 1
                 self.stdout.write(colorize("Error", fg="red"))
             else:
-                count_success += 1
                 self.stdout.write(colorize("Done", fg="green"))
-
-        self.stdout.write(
-            colorize(f"Successfully processed {count_success} items.", fg="green")
-        )
-        if count_failure:
-            self.stdout.write(
-                colorize(f"Failed to process {count_failure} items.", fg="red")
-            )
