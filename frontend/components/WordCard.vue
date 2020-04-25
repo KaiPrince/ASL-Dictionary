@@ -11,9 +11,13 @@
     <v-card-title>
       {{ word.label }}
     </v-card-title>
-    <MediaDisplay v-if="getPreviewMedia" :item="getPreviewMedia" />
-    <v-card-text v-if="word.description" class="text-truncate">
-      {{ word.description }}
+    <MediaDisplay
+      v-if="getPreviewMedia"
+      :item="getPreviewMedia"
+      :class="cardFooter ? null : 'mb-n2'"
+    />
+    <v-card-text v-if="cardFooter" class="text-truncate">
+      {{ cardFooter }}
     </v-card-text>
   </v-card>
 </template>
@@ -43,6 +47,10 @@ export default Vue.extend({
       } else {
         return null
       }
+    },
+    cardFooter(): string {
+      const caption = this.getPreviewMedia ? this.getPreviewMedia.caption : ''
+      return this.word.description || caption
     },
   },
 })

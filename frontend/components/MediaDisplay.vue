@@ -32,7 +32,6 @@
       loop
       muted
       playsinline
-      class="mb-n2"
     >
       <source
         v-if="item.optimizedSrc"
