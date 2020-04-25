@@ -30,5 +30,5 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 - Add media order index
 - Click on image to open in solo modal
 - Index page handle no image, smart select image/video, choose preview image in Django.
-- Add icons and manifest for installable PWA
 - Happy Messages
+- Show optimized(compressed) image on WordCard, original image on MediaCard

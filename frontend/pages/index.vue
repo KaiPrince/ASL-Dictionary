@@ -23,7 +23,7 @@
       align-content="space-around"
     >
       <v-col v-for="word in filterWords" :key="word.id" sm="6" md="4">
-        <v-lazy min-height="400" transition="fade-transition">
+        <v-lazy min-height="500">
           <WordCard :word="word" class="mx-auto" />
         </v-lazy>
       </v-col>

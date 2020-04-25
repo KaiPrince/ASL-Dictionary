@@ -26,6 +26,7 @@
     <video
       v-else-if="item.type === 'video'"
       v-resize="autoSizeVideo"
+      v-intersect.quiet="autoSizeVideo"
       :poster="item.poster"
       :width="videoWidth"
       autoplay
@@ -33,11 +34,7 @@
       muted
       playsinline
     >
-      <source
-        v-if="item.optimizedSrc"
-        :src="item.optimizedSrc"
-        type="video/webm"
-      />
+      <source v-if="preview && item.optimizedSrc" :src="item.optimizedSrc" />
       <source :src="item.src" />
       {{ item.altText }}
     </video>
@@ -53,6 +50,10 @@ export default Vue.extend({
       type: Object,
       required: true,
     } as PropOptions<Media>,
+    preview: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -60,6 +61,9 @@ export default Vue.extend({
     } as { videoWidth: number | undefined }
   },
   mounted() {
+    this.autoSizeVideo()
+  },
+  updated() {
     this.autoSizeVideo()
   },
   methods: {

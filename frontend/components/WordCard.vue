@@ -15,6 +15,7 @@
       v-if="getPreviewMedia"
       :item="getPreviewMedia"
       :class="cardFooter ? null : 'mb-n2'"
+      preview
     />
     <v-card-text v-if="cardFooter" class="text-truncate">
       {{ cardFooter }}
