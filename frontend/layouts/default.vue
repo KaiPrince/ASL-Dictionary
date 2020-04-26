@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <v-progress-linear v-if="loading" indeterminate />
     <v-content class="pt-12">
       <v-container>
         <nuxt />
@@ -11,8 +12,13 @@
   </v-app>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+import { mapGetters } from 'vuex'
+export default Vue.extend({
   name: 'DefaultLayout',
-}
+  computed: {
+    ...mapGetters('words', ['loading']),
+  },
+})
 </script>

@@ -13,9 +13,6 @@
       :value.sync="filterText"
       :on-change="goToDetails"
     />
-    <v-row v-if="loading" justify="center">
-      <v-progress-circular indeterminate />
-    </v-row>
     <v-row
       class="mt-10"
       justify="center"
@@ -56,7 +53,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapGetters('words', ['words', 'loading']),
+    ...mapGetters('words', ['words']),
     filterWords(): Array<SignWord> {
       if (!this.filterText) {
         return this.words
