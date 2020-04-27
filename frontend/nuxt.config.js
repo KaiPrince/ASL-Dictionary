@@ -77,6 +77,12 @@ export default {
       short_name: 'ASL',
       display: 'fullscreen',
     },
+    workbox: {
+      runtimeCaching: [
+        { urlpattern: /\.(?:png|gif|jpg|jpeg|svg)$/ },
+        { urlpattern: /\.(?:mp4|webm|mov|)$/i },
+      ],
+    },
   },
   /*
    ** Build configuration
