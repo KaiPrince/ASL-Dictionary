@@ -18,6 +18,8 @@ This app features:
 - Beautiful styling with Material Design spec
 - Autocomplete search function
 - Compare resources on external sites via web scraping
+- Video compression for low network usage
+- Thumbnail generation for faster first paint
 
 ## Tech/framework used
 
@@ -28,6 +30,7 @@ This app features:
 - [Jest](https://www.jestjs.io)
 - [Django](https://www.djangoproject.com)
 - [Django REST Framework](https://www.django-rest-framework.org/)
+- [FFMPEG](https://ffmpeg.org/)
 
 ## Installation
 See READMEs of individual projects for installation instructions.
