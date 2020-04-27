@@ -36,6 +36,7 @@
     >
       <source v-if="preview && item.optimizedSrc" :src="item.optimizedSrc" />
       <source :src="item.src" />
+      <source v-if="item.optimizedSrc" :src="item.optimizedSrc" />
       {{ item.altText }}
     </video>
   </div>
