@@ -1,6 +1,5 @@
 <template>
-  <v-app>
-    <v-progress-linear v-if="loading" indeterminate />
+  <BaseLayout>
     <v-content class="pt-12">
       <v-container>
         <nuxt />
@@ -9,16 +8,16 @@
     <v-footer app tile absolute>
       <span>Made by Kai Prince</span>
     </v-footer>
-  </v-app>
+  </BaseLayout>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapGetters } from 'vuex'
+import BaseLayout from '~/layouts/base.vue'
 export default Vue.extend({
   name: 'DefaultLayout',
-  computed: {
-    ...mapGetters('words', ['loading']),
+  components: {
+    BaseLayout,
   },
 })
 </script>

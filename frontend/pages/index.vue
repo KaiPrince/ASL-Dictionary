@@ -53,7 +53,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapGetters('words', ['words']),
+    ...mapGetters('words', ['words', 'loading']),
     filterWords(): Array<SignWord> {
       if (!this.filterText) {
         return this.words
