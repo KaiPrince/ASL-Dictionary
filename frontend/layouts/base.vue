@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import ConnectionStatus from '~/components/ConnectionStatus.vue'
 export default Vue.extend({
   name: 'BaseLayout',
@@ -25,6 +25,16 @@ export default Vue.extend({
   },
   computed: {
     ...mapGetters('words', ['loading']),
+  },
+  watch: {
+    '$nuxt.isOnline'(isOnline, wasOnline): void {
+      if (isOnline && !wasOnline) {
+        this.fetchWords()
+      }
+    },
+  },
+  methods: {
+    ...mapActions('words', ['fetchWords']),
   },
 })
 </script>
