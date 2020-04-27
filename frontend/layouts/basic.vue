@@ -17,8 +17,8 @@
         <WordSearchBar :words="words" :on-change="goToDetails" app-bar />
       </v-toolbar-items>
     </v-app-bar>
-    <v-content class="pt-12">
-      <v-progress-linear v-if="loading" indeterminate />
+    <v-content class="pt-11">
+      <v-progress-linear v-show="loading" indeterminate />
       <v-container>
         <nuxt />
       </v-container>
@@ -41,7 +41,7 @@ export default Vue.extend({
     WordSearchBar,
   },
   computed: {
-    ...mapGetters('words', ['words']),
+    ...mapGetters('words', ['words', 'loading']),
   },
   methods: {
     goToDetails(wordId: number): void {
