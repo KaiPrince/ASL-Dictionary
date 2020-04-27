@@ -79,8 +79,8 @@ export default {
     },
     workbox: {
       runtimeCaching: [
-        { urlpattern: /\.(?:png|gif|jpg|jpeg|svg)$/ },
-        { urlpattern: /\.(?:mp4|webm|mov|)$/i },
+        { urlpattern: /\.(?:png|gif|jpg|jpeg|svg)/i },
+        { urlpattern: /optimized.*\.(?:mp4|webm|mov)/i },
       ],
     },
   },
