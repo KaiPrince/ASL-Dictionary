@@ -85,7 +85,9 @@ export default Vue.extend({
         video.altText.toLocaleLowerCase().includes(query)
       )
 
-      const synonymsMatch = item.synonyms.toLocaleLowerCase().includes(query)
+      const synonymsMatch = item.synonyms
+        ? item.synonyms.toLocaleLowerCase().includes(query)
+        : false
 
       return textMatch || imagesMatch || videosMatch || synonymsMatch
     },
