@@ -29,7 +29,7 @@ export default Vue.extend({
   watch: {
     '$nuxt.isOnline'(isOnline, wasOnline): void {
       if (isOnline && !wasOnline) {
-        this.fetchWords()
+        window.location.reload()
       }
     },
   },
