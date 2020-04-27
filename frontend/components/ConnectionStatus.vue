@@ -11,7 +11,7 @@
     <v-snackbar v-model="$nuxt.isOffline" left :timeout="0">
       You're offline.
     </v-snackbar>
-    <v-snackbar v-model="showOnline" left color="info">
+    <v-snackbar v-model="showOnline" left color="info" :timeout="2000">
       Back online.
     </v-snackbar>
   </div>
