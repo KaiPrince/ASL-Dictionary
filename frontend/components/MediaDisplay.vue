@@ -29,6 +29,7 @@
       v-intersect.quiet="autoSizeVideo"
       :poster="item.poster"
       :width="videoWidth"
+      :style="{ maxHeight: height + 'px' }"
       autoplay
       loop
       muted
@@ -54,6 +55,10 @@ export default Vue.extend({
     preview: {
       type: Boolean,
       default: false,
+    },
+    height: {
+      type: Number,
+      default: undefined,
     },
   },
   data() {

@@ -9,7 +9,7 @@
 
 <template>
   <v-card>
-    <MediaDisplay :item="item" />
+    <MediaDisplay :item="item" :height="mediaHeight" />
     <v-card-text v-if="item.caption" class="preserve-whitespace">{{
       item.caption
     }}</v-card-text>
@@ -27,6 +27,10 @@ export default Vue.extend({
       type: Object,
       required: true,
     } as PropOptions<Media>,
+    mediaHeight: {
+      type: Number,
+      default: undefined,
+    },
   },
 })
 </script>

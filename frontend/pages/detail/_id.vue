@@ -13,7 +13,7 @@
     </h1>
     <v-row class="mt-10" justify="space-around" align-content="space-around">
       <v-col v-for="item in media" :key="item.id" sm="6">
-        <MediaCard :item="item" class="mx-auto" />
+        <MediaCard :item="item" class="mx-auto" :media-height="500" />
       </v-col>
     </v-row>
     <p class="preserve-whitespace">
