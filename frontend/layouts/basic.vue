@@ -14,11 +14,15 @@
       </v-btn>
       <v-spacer />
       <v-toolbar-items>
-        <WordSearchBar :words="words" :on-change="goToDetails" app-bar />
+        <WordSearchBar
+          :words="words"
+          :on-change="goToDetails"
+          app-bar
+          class="mt-1"
+        />
       </v-toolbar-items>
     </v-app-bar>
-    <v-content class="pt-11">
-      <v-progress-linear v-show="loading" indeterminate />
+    <v-content>
       <v-container>
         <nuxt />
       </v-container>

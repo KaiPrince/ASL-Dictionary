@@ -8,7 +8,12 @@
 
 <template>
   <v-app>
-    <v-progress-linear v-if="loading" indeterminate />
+    <v-progress-linear
+      v-if="loading"
+      indeterminate
+      fixed
+      class="app-loading-bar"
+    />
     <slot></slot>
     <ConnectionStatus />
   </v-app>
@@ -38,3 +43,7 @@ export default Vue.extend({
   },
 })
 </script>
+<style lang="sass" scoped>
+.app-loading-bar
+  z-index: 6
+</style>
