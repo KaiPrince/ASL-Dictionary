@@ -78,10 +78,8 @@ export default {
       display: 'fullscreen',
     },
     workbox: {
-      runtimeCaching: [
-        { urlpattern: /\.(?:png|gif|jpg|jpeg|svg)/i },
-        { urlpattern: /optimized.*\.(?:mp4|webm|mov)/i },
-      ],
+      // Cache all optimized videos in service worker
+      runtimeCaching: [{ urlpattern: /optimized/i }],
     },
   },
   /*
