@@ -80,6 +80,7 @@ export default {
     workbox: {
       // Cache all optimized videos in service worker
       runtimeCaching: [{ urlpattern: /optimized/i }],
+      cachingExtensions: '@/plugins/workbox-range-request.js',
     },
   },
   /*
