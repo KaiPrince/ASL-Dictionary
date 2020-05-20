@@ -142,6 +142,7 @@ def upload_to_storage(storage_file, local_file, file_name, overwrite=False):
     if (
         overwrite
         and not settings.IN_PRODUCTION
+        and storage_file.name
         and default_storage.exists(storage_file.name)
     ):
         default_storage.delete(storage_file.name)
