@@ -74,6 +74,20 @@ export default Vue.extend({
       this.$router.replace({ name: 'index' })
     }
   },
+  head() {
+    const word: SignWord = this.word
+    return {
+      titleTemplate: '%s - ' + 'ASL Dictionary',
+      title: word.label,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'The sign for ' + word.label + ' in ASL',
+        },
+      ],
+    }
+  },
 })
 </script>
 <style lang="sass" scoped>
