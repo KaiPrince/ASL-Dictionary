@@ -24,6 +24,9 @@ class Command(BaseCommand):
         return super().add_arguments(parser)
 
     def handle(self, *args, **options):
+        count_success = 0
+        count_failure = 0
+
         videos = SignVideo.objects.all()
         for video in videos:
             if not options["all"] and video.thumbnail_file:
@@ -36,6 +39,15 @@ class Command(BaseCommand):
                 generate_thumbnail_from_video(video)
                 video.save()
             except ffmpeg.Error:
+                count_failure += 1
                 self.stdout.write(colorize("Error", fg="red"))
             else:
+                count_success += 1
                 self.stdout.write(colorize("Done", fg="green"))
+        self.stdout.write(
+            colorize(f"Successfully processed {count_success} items.", fg="green")
+        )
+        if count_failure:
+            self.stdout.write(
+                colorize(f"Failed to process {count_failure} items.", fg="red")
+            )
