@@ -75,3 +75,5 @@ class SignVideo(MediaResource):
         null=True,
         blank=True,
     )
+
+    words = models.ManyToManyField("SignWord", through="signword_videos", blank=True)
