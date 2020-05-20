@@ -142,6 +142,7 @@ DEFAULT_FILE_STORAGE = (
 )
 GS_BUCKET_NAME = "asl-dictionary.appspot.com"
 GS_FILE_OVERWRITE = True
+GS_DEFAULT_ACL = "publicRead"
 
 # Uncomment to put static files in bucket.
 # STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
