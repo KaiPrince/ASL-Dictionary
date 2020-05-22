@@ -8,34 +8,28 @@
 
 from django.contrib import messages
 
-from video_processor import service
+from asl_dictionary import tasks
 
 
 def compress_video(_modeladmin, request, queryset):
     for obj in queryset:
-        service.compress_video(obj)
-        obj.save()
-    messages.success(request, "Video(s) processed successfully.")
+        tasks.compress_video.delay(obj.id)
+    messages.success(request, "Task started.")
 
 
 def optimize_video(_modeladmin, request, queryset):
     for obj in queryset:
-        service.optimize_video(obj)
-        obj.save()
-    messages.success(request, "Video(s) processed successfully.")
+        tasks.optimize_video.delay(obj.id)
+    messages.success(request, "Task started.")
 
 
 def generate_thumbnail(_modeladmin, request, queryset):
     for obj in queryset:
-        service.generate_thumbnail_from_video(obj)
-        obj.save()
-    messages.success(request, "Video(s) processed successfully.")
+        tasks.generate_thumbnail_from_video.delay(obj.id)
+    messages.success(request, "Task started.")
 
 
 def postprocess_video(_modeladmin, request, queryset):
-    for video in queryset:
-        service.generate_thumbnail_from_video(video)
-        service.optimize_video(video)
-        service.compress_video(video)
-        video.save()
-    messages.success(request, "Video(s) processed successfully.")
+    for obj in queryset:
+        tasks.postprocess_video.delay(obj.id)
+    messages.success(request, "Task started.")

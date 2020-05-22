@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "sortedm2m",
     "social_django",
     "django_cleanup.apps.CleanupConfig",
+    "django_celery_results",
     "asl_dictionary.apps.AslDictionaryConfig",
     "video_processor.apps.VideoProcessorConfig",
 ]
@@ -162,6 +163,17 @@ GS_DEFAULT_ACL = "publicRead"
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
+
+
+# Celery Results
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_CACHE_BACKEND = "django-cache"
+
+CELERY_BROKER_URL = os.getenv("REDIS_URL")
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+# CELERY_TIMEZONE = "US/Eastern"
 
 # Configure Django App for Heroku.
 django_heroku.settings(locals())

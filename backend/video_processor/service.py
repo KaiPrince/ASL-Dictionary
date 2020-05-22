@@ -27,7 +27,11 @@ def generate_thumbnail_from_video(video: SignVideo):
     try:
         generate_thumbnail(input_file, local_file)
     except ffmpeg.Error as err:
-        sys.stderr.buffer.write(err.stderr)
+        try:
+            sys.stderr.buffer.write(err.stderr)
+        except AttributeError:
+            # Docker uses a 'LoggingProxy' object, which does not have a buffer.
+            sys.stderr.write(err.stderr)
         raise err
 
     upload_to_storage(video.thumbnail_file, local_file, output_name, overwrite=True)
@@ -41,7 +45,12 @@ def optimize_video(video: SignVideo):
     try:
         generate_optimized_video(input_file, local_file)
     except ffmpeg.Error as err:
-        sys.stderr.buffer.write(err.stderr)
+        try:
+            sys.stderr.buffer.write(err.stderr)
+        except AttributeError:
+            # Docker uses a 'LoggingProxy' object, which does not have a buffer.
+            sys.stderr.write(err.stderr)
+
         raise err
 
     upload_to_storage(
@@ -57,7 +66,11 @@ def compress_video(video: SignVideo):
     try:
         generate_compressed_video(input_file, local_file)
     except ffmpeg.Error as err:
-        sys.stderr.buffer.write(err.stderr)
+        try:
+            sys.stderr.buffer.write(err.stderr)
+        except AttributeError:
+            # Docker uses a 'LoggingProxy' object, which does not have a buffer.
+            sys.stdout.write(err.stderr)
         raise err
 
     output_name = "compressed_" + output_name

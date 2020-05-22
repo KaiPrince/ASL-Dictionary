@@ -20,6 +20,8 @@ from asl_dictionary.models import SignImage, SignVideo, SignWord
 
 from asl_dictionary.admin.filters import IsCompressedVideo, HasWord
 
+from asl_dictionary import tasks
+
 
 class SignVideoAdmin(admin.ModelAdmin):
     """ Admin for SignVideo """
@@ -50,7 +52,9 @@ class SignVideoAdmin(admin.ModelAdmin):
             rename_file(obj.video_file, obj.alt_text)
             rename_file(input_file, obj.alt_text)
 
-        return super().save_model(request, obj, form, change)
+        super().save_model(request, obj, form, change)
+
+        tasks.postprocess_video.delay(obj.id)
 
 
 class SignWordAdmin(admin.ModelAdmin):
