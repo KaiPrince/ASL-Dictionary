@@ -32,4 +32,4 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 - Index page handle no image, smart select image/video, choose preview image in Django.
 - Happy Messages
 - Fix Static Generation. Load payload in middleware.
-- Add url support for duplicate labels
+- Add copy link button.
