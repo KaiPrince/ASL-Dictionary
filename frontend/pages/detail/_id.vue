@@ -97,7 +97,7 @@ export default Vue.extend({
   head() {
     const word: SignWord = this.word
     const title = `${word.label} - ASL Dictionary`
-    const description = `The sign for ${word.label} in ASL`
+    const description = `The sign for ${word.label.toLocaleLowerCase()} in American Sign Language`
     const image = word.videos.length ? word.videos[0].thumbnailFile : '' ?? ''
     const video = word.videos.length ? word.videos[0].videoFile : '' ?? ''
 
