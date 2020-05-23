@@ -6,10 +6,18 @@
  * Description: This file contains middleware to fetch Words.
  */
 
-export default function ({ store }) {
+import { Middleware } from '@nuxt/types'
+
+const fetchWords: Middleware = async ({ store, payload }) => {
+  if (payload) {
+    return store.commit('setWords', payload)
+  }
+
   // Fetch Words from API
   const { loading, words } = store.state.words
   if (!loading && !words.length) {
-    return store.dispatch('words/fetchWords')
+    return await store.dispatch('words/fetchWords')
   }
 }
+
+export default fetchWords

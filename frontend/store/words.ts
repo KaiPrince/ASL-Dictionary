@@ -6,6 +6,7 @@
  * Description: This file contains the Vuex Store module for the dictionary.
  */
 
+import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import { stateHelpers, mutationHelpers, getterHelpers } from '@/utils/store'
 
 export const state = () => ({
@@ -13,14 +14,16 @@ export const state = () => ({
   words: [],
 })
 
-export const mutations = {
+export type RootState = ReturnType<typeof state>
+
+export const mutations: MutationTree<RootState> = {
   ...mutationHelpers,
   setWords(state, words) {
     state.words = words
   },
 }
 
-export const actions = {
+export const actions: ActionTree<RootState, RootState> = {
   async fetchWords({ commit }) {
     try {
       commit('setLoading', true)
@@ -34,7 +37,7 @@ export const actions = {
   },
 }
 
-export const getters = {
+export const getters: GetterTree<RootState, RootState> = {
   ...getterHelpers,
   words: (state) => state.words,
 }

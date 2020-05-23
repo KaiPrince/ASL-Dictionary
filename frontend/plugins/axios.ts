@@ -6,9 +6,10 @@
  * Description: This file contains Axios interceptors.
  */
 
+import { Plugin } from '@nuxt/types'
 import { toCamelCase, toSnakeCase } from '~/utils/lodash'
 
-export default function ({ $axios }) {
+const axios: Plugin = ({ $axios }) => {
   $axios.onRequest((config) => {
     config.data = toSnakeCase(config.data)
   })
@@ -17,3 +18,5 @@ export default function ({ $axios }) {
     response.data = toCamelCase(response.data)
   })
 }
+
+export default axios
