@@ -7,7 +7,7 @@
 -->
 
 <template>
-  <v-card raised nuxt :to="{ name: 'detail-id', params: { id: word.id } }">
+  <v-card raised nuxt :to="{ name: 'detail-slug', params: { slug: word.id } }">
     <v-card-title>
       {{ word.label }}
     </v-card-title>

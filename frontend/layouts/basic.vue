@@ -50,8 +50,8 @@ export default Vue.extend({
   methods: {
     goToDetails(wordId: number): void {
       this.$router.push({
-        name: 'detail-id',
-        params: { id: wordId.toString() },
+        name: 'detail-slug',
+        params: { slug: wordId.toString() },
       })
     },
   },

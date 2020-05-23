@@ -16,6 +16,8 @@ interface WordSlug {
   index: number
 }
 
+export type RouteSlug = string | number
+
 export const parseSlug = (slug: string) => {
   // 'hello-2' -> hello, 2
   // 'hello' -> hello, 0

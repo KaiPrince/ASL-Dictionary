@@ -71,8 +71,8 @@ export default Vue.extend({
     ...mapActions('words', ['fetchWords']),
     goToDetails(wordId: number): void {
       this.$router.push({
-        name: 'detail-id',
-        params: { id: wordId.toString() },
+        name: 'detail-slug',
+        params: { slug: wordId.toString() },
       })
     },
   },

@@ -37,6 +37,7 @@ import {
   wrongCase,
   wordToSlug as _wordToSlug,
   slugToWord as _slugToWord,
+  RouteSlug,
 } from '~/utils/helpers'
 import SignWord from '~/models/SignWord'
 import Media, { fromImage, fromVideo } from '~/models/Media'
@@ -76,9 +77,9 @@ export default Vue.extend({
       return words
     },
     slug(): string {
-      const { id } = this.$route.params
+      const { slug } = this.$route.params
 
-      return String(id)
+      return String(slug)
     },
     word(): SignWord | undefined {
       const foundWord = this.words.find(
@@ -108,18 +109,18 @@ export default Vue.extend({
     }
 
     // Force label-based route
-    const routeSlug: string = this.$route.params.id
-    const trimZeroIndex = routeSlug.endsWith('-0')
+    const routeSlug: RouteSlug = this.$route.params.slug
+    const trimZeroIndex = routeSlug.toString().endsWith('-0')
     if (
       !isNaN(routeSlug as any) ||
-      wrongCase(word.label, routeSlug) ||
+      wrongCase(word.label, routeSlug.toString()) ||
       trimZeroIndex
     ) {
       const slug = _wordToSlug(word, this.words)
 
       return this.$router.replace({
-        name: 'detail-id',
-        params: { id: slug },
+        name: 'detail-slug',
+        params: { slug },
       })
     }
   },
@@ -145,7 +146,9 @@ export default Vue.extend({
     const video = word?.videos[0].videoFile
 
     const path: string = this.$route.path
-    const url = `${path.slice(1, path.lastIndexOf('/'))}/${word?.label}`
+    const url = word?.label
+      ? `${path.slice(1, path.lastIndexOf('/'))}/${word?.label}`
+      : undefined
     const urlTemplate = (s: string) => FRONTEND_BASE_URL + s
 
     return {
