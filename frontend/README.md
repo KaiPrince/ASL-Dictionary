@@ -31,4 +31,5 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 - Click on image to open in solo modal
 - Index page handle no image, smart select image/video, choose preview image in Django.
 - Happy Messages
-- Show optimized(compressed) image on WordCard, original image on MediaCard
+- Fix Static Generation. Load payload in middleware.
+- Change URL to use word label instead of Id
