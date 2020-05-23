@@ -8,6 +8,8 @@
 
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import { stateHelpers, mutationHelpers, getterHelpers } from '@/utils/store'
+import { RouteSlug, slugToWord, wordToSlug } from '~/utils/helpers'
+import SignWord from '~/models/SignWord'
 
 export const state = () => ({
   ...stateHelpers,
@@ -40,4 +42,12 @@ export const actions: ActionTree<RootState, RootState> = {
 export const getters: GetterTree<RootState, RootState> = {
   ...getterHelpers,
   words: (state) => state.words,
+  getBySlug: ({ words }) => (slug: RouteSlug) => {
+    const foundWord = words.find((x: SignWord) => String(x.id) === String(slug))
+    const word = foundWord ?? slugToWord(String(slug), words)
+    return word
+  },
+  getSlug: ({ words }) => (word: SignWord) => {
+    return wordToSlug(word, words)
+  },
 }

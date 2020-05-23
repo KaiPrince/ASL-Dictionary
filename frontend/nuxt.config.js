@@ -1,6 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 import axios from 'axios'
 import { toCamelCase } from './utils/lodash'
+// import { wordToSlug } from './utils/helpers.ts'
 
 export const META_DESCRIPTION = 'An American Sign Language dictionary'
 export const FRONTEND_BASE_URL = 'https://asl-dictionary.web.app/'
@@ -8,6 +9,10 @@ export const BACKEND_BASE_URL = 'https://asl-dictionary.herokuapp.com/api/' // '
 
 export default {
   mode: 'universal',
+  // env: {
+  //   baseUrl: process.env.BASE_URL || FRONTEND_BASE_URL,
+  //   apiUrl: process.env.BACKEND_URL || BACKEND_BASE_URL,
+  // },
   /*
    ** Headers of the page
    */
@@ -27,7 +32,7 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: colors.blue },
   /*
    ** Global CSS
    */
@@ -109,10 +114,16 @@ export default {
 
       const words = toCamelCase(data)
 
-      return words.map((word) => ({
-        route: '/detail/' + word.id,
-        payload: words,
-      }))
+      return [
+        ...words.map((word) => ({
+          route: '/detail/' + word.id,
+          payload: words,
+        })),
+        // ...words.map((word) => ({
+        //   route: '/detail/' + wordToSlug(word, words),
+        //   payload: words,
+        // })),
+      ]
     },
   },
 }

@@ -32,13 +32,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
-import { FRONTEND_BASE_URL } from '~/nuxt.config'
-import {
-  wrongCase,
-  wordToSlug as _wordToSlug,
-  slugToWord as _slugToWord,
-  RouteSlug,
-} from '~/utils/helpers'
 import SignWord from '~/models/SignWord'
 import Media, { fromImage, fromVideo } from '~/models/Media'
 import MediaCard from '~/components/MediaCard.vue'
@@ -65,8 +58,10 @@ export default Vue.extend({
       payloadWords: [],
     }
   },
-  middleware: ['fetchWords'],
+  middleware: ['fetchWords', 'requireWordSlug', 'forceLabelSlug'],
   computed: {
+    ...mapGetters('words', ['getBySlug']),
+    // Static Generation
     ...mapGetters('words', { storeWords: 'words' }),
     words(): Array<SignWord> {
       // Static Generation
@@ -82,11 +77,7 @@ export default Vue.extend({
       return String(slug)
     },
     word(): SignWord | undefined {
-      const foundWord = this.words.find(
-        (x: SignWord) => String(x.id) === this.slug
-      )
-
-      return foundWord ?? this.slugToWord(this.slug)
+      return this.getBySlug(this.slug)
     },
     media(): Array<Media> {
       const images: Array<Media> = this.word?.images.map(fromImage) ?? []
@@ -97,39 +88,6 @@ export default Vue.extend({
       return this.words.filter((word: SignWord) =>
         this.word?.seeAlso.includes(word.id)
       )
-    },
-  },
-  created() {
-    const noRouteId = !this.slug && String(this.slug) !== String(0)
-    const word: SignWord | undefined = this.word
-
-    // Redirect if not found
-    if (noRouteId || !word) {
-      return this.$router.replace({ name: 'index' })
-    }
-
-    // Force label-based route
-    const routeSlug: RouteSlug = this.$route.params.slug
-    const trimZeroIndex = routeSlug.toString().endsWith('-0')
-    if (
-      !isNaN(routeSlug as any) ||
-      wrongCase(word.label, routeSlug.toString()) ||
-      trimZeroIndex
-    ) {
-      const slug = _wordToSlug(word, this.words)
-
-      return this.$router.replace({
-        name: 'detail-slug',
-        params: { slug },
-      })
-    }
-  },
-  methods: {
-    wordToSlug(word: SignWord): string {
-      return _wordToSlug(word, this.words)
-    },
-    slugToWord(slug: string): SignWord | undefined {
-      return _slugToWord(slug, this.words)
     },
   },
   head() {
@@ -149,7 +107,7 @@ export default Vue.extend({
     const url = word?.label
       ? `${path.slice(1, path.lastIndexOf('/'))}/${word?.label}`
       : undefined
-    const urlTemplate = (s: string) => FRONTEND_BASE_URL + s
+    const urlTemplate = (s: string) => process.env.baseUrl + s
 
     return {
       title,
