@@ -44,6 +44,20 @@ export default Vue.extend({
     MediaCard,
     WordCard,
   },
+  asyncData({ payload }) {
+    // Static Generation
+    // .. This only exists because I can't get it to work in the
+    // middleware. Remove it if a fix is found.
+    return {
+      payloadWords: payload,
+    }
+  },
+  data() {
+    // Static Generation
+    return {
+      payloadWords: [],
+    }
+  },
   middleware: ['fetchWords'],
   computed: {
     ...mapGetters('words', ['words']),
@@ -51,7 +65,10 @@ export default Vue.extend({
       return this.$route.params.id
     },
     word(): SignWord {
-      const foundWord = this.words.find(
+      // Static Generation
+      const words = this.words.length ? this.words : this.payloadWords
+
+      const foundWord = words.find(
         (x: SignWord) => String(x.id) === String(this.id)
       )
       return foundWord
@@ -62,7 +79,10 @@ export default Vue.extend({
       return [...images, ...videos]
     },
     seeAlsoWords(): Array<SignWord> {
-      return this.words.filter((word: SignWord) =>
+      // Static Generation
+      const words = this.words.length ? this.words : this.payloadWords
+
+      return words.filter((word: SignWord) =>
         this.word.seeAlso.includes(word.id)
       )
     },
@@ -76,14 +96,43 @@ export default Vue.extend({
   },
   head() {
     const word: SignWord = this.word
+    const title = `${word.label} - ASL Dictionary`
+    const description = `The sign for ${word.label} in ASL`
+    const image = word.videos.length ? word.videos[0].thumbnailFile : '' ?? ''
+    const video = word.videos.length ? word.videos[0].videoFile : '' ?? ''
+
     return {
-      titleTemplate: '%s - ' + 'ASL Dictionary',
-      title: word.label,
+      title,
       meta: [
         {
           hid: 'description',
+          property: 'description',
           name: 'description',
-          content: 'The sign for ' + word.label + ' in ASL',
+          content: description,
+        },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          name: 'og:title',
+          content: title,
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          name: 'og:description',
+          content: description,
+        },
+        {
+          hid: 'og:image',
+          property: 'og:image',
+          name: 'og:image',
+          content: image,
+        },
+        {
+          hid: 'og:video',
+          property: 'og:video',
+          name: 'og:video',
+          content: video,
         },
       ],
     }

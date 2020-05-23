@@ -1,5 +1,8 @@
 import colors from 'vuetify/es5/util/colors'
+import axios from 'axios'
+import { toCamelCase } from './utils/lodash'
 
+const META_DESCRIPTION = 'An American Sign Language dictionary'
 export default {
   mode: 'universal',
   /*
@@ -13,7 +16,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: 'An American Sign Language dictionary',
+        content: META_DESCRIPTION,
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
@@ -76,6 +79,12 @@ export default {
       name: 'ASL Dictionary',
       short_name: 'ASL',
       display: 'fullscreen',
+      description: META_DESCRIPTION,
+    },
+    meta: {
+      description: META_DESCRIPTION,
+      ogHost: 'https://asl-dictionary.web.app/',
+      ogImage: true,
     },
     workbox: {
       // Cache all optimized videos in service worker
@@ -91,5 +100,19 @@ export default {
      ** You can extend webpack config here
      */
     extend(_config, _ctx) {},
+  },
+  generate: {
+    async routes() {
+      const { data } = await axios.get(
+        'https://asl-dictionary.herokuapp.com/api/signwords/'
+      )
+
+      const words = toCamelCase(data)
+
+      return words.map((word) => ({
+        route: '/detail/' + word.id,
+        payload: words,
+      }))
+    },
   },
 }
