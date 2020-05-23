@@ -2,7 +2,10 @@ import colors from 'vuetify/es5/util/colors'
 import axios from 'axios'
 import { toCamelCase } from './utils/lodash'
 
-const META_DESCRIPTION = 'An American Sign Language dictionary'
+export const META_DESCRIPTION = 'An American Sign Language dictionary'
+export const FRONTEND_BASE_URL = 'https://asl-dictionary.web.app/'
+export const BACKEND_BASE_URL = 'https://asl-dictionary.herokuapp.com/api/' // 'http://localhost:8000/api/'
+
 export default {
   mode: 'universal',
   /*
@@ -50,8 +53,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    // baseURL: 'http://localhost:8000/api/',
-    baseURL: 'https://asl-dictionary.herokuapp.com/api/',
+    baseURL: BACKEND_BASE_URL,
   },
   /*
    ** vuetify module configuration
@@ -83,7 +85,7 @@ export default {
     },
     meta: {
       description: META_DESCRIPTION,
-      ogHost: 'https://asl-dictionary.web.app/',
+      ogHost: FRONTEND_BASE_URL,
       ogImage: true,
     },
     workbox: {
@@ -103,9 +105,7 @@ export default {
   },
   generate: {
     async routes() {
-      const { data } = await axios.get(
-        'https://asl-dictionary.herokuapp.com/api/signwords/'
-      )
+      const { data } = await axios.get(BACKEND_BASE_URL + 'signwords/')
 
       const words = toCamelCase(data)
 
