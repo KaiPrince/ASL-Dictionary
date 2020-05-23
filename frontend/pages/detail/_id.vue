@@ -61,19 +61,22 @@ export default Vue.extend({
   },
   middleware: ['fetchWords'],
   computed: {
-    ...mapGetters('words', ['words']),
+    ...mapGetters('words', { storeWords: 'words' }),
+    words(): Array<SignWord> {
+      // Static Generation
+      const words: Array<SignWord> = this.storeWords.length
+        ? this.storeWords
+        : this.payloadWords
+
+      return words
+    },
     id(): string {
       const { id } = this.$route.params
 
       return String(id)
     },
     word(): SignWord | undefined {
-      // Static Generation
-      const words: Array<SignWord> = this.words.length
-        ? this.words
-        : this.payloadWords
-
-      const foundWord = words.find(
+      const foundWord = this.words.find(
         (x: SignWord) =>
           String(x.id) === this.id ||
           x.label.toLocaleUpperCase() === this.id.toLocaleUpperCase()
@@ -86,10 +89,7 @@ export default Vue.extend({
       return [...images, ...videos]
     },
     seeAlsoWords(): Array<SignWord> {
-      // Static Generation
-      const words = this.words.length ? this.words : this.payloadWords
-
-      return words.filter((word: SignWord) =>
+      return this.words.filter((word: SignWord) =>
         this.word?.seeAlso.includes(word.id)
       )
     },
