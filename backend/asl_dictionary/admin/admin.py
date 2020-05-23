@@ -44,16 +44,17 @@ class SignVideoAdmin(admin.ModelAdmin):
     list_filter = [IsCompressedVideo, HasWord]
 
     def save_model(self, request, obj, form, change):
+
         # Change file name to match alt_text
-
         input_file = form.files.get("video_file")
-
-        if change and input_file:
-            rename_file(obj.video_file, obj.alt_text)
+        if input_file:
             rename_file(input_file, obj.alt_text)
+            rename_file(obj.video_file, obj.alt_text)
 
+        # Save model
         super().save_model(request, obj, form, change)
 
+        # Start background job
         tasks.postprocess_video.delay(obj.id)
 
 
