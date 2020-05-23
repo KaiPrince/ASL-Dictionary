@@ -33,6 +33,11 @@
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
 import { FRONTEND_BASE_URL } from '~/nuxt.config'
+import {
+  wrongCase,
+  wordToSlug as _wordToSlug,
+  slugToWord as _slugToWord,
+} from '~/utils/helpers'
 import SignWord from '~/models/SignWord'
 import Media, { fromImage, fromVideo } from '~/models/Media'
 import MediaCard from '~/components/MediaCard.vue'
@@ -70,18 +75,17 @@ export default Vue.extend({
 
       return words
     },
-    id(): string {
+    slug(): string {
       const { id } = this.$route.params
 
       return String(id)
     },
     word(): SignWord | undefined {
       const foundWord = this.words.find(
-        (x: SignWord) =>
-          String(x.id) === this.id ||
-          x.label.toLocaleUpperCase() === this.id.toLocaleUpperCase()
+        (x: SignWord) => String(x.id) === this.slug
       )
-      return foundWord
+
+      return foundWord ?? this.slugToWord(this.slug)
     },
     media(): Array<Media> {
       const images: Array<Media> = this.word?.images.map(fromImage) ?? []
@@ -95,19 +99,45 @@ export default Vue.extend({
     },
   },
   created() {
-    const noRouteId = !this.id && String(this.id) !== String(0)
-    const wordNotFound = !this.word
-    if (noRouteId || wordNotFound) {
-      this.$router.replace({ name: 'index' })
+    const noRouteId = !this.slug && String(this.slug) !== String(0)
+    const word: SignWord | undefined = this.word
+
+    // Redirect if not found
+    if (noRouteId || !word) {
+      return this.$router.replace({ name: 'index' })
     }
+
+    // Force label-based route
+    const routeSlug: string = this.$route.params.id
+    const trimZeroIndex = routeSlug.endsWith('-0')
+    if (
+      !isNaN(routeSlug as any) ||
+      wrongCase(word.label, routeSlug) ||
+      trimZeroIndex
+    ) {
+      const slug = _wordToSlug(word, this.words)
+
+      return this.$router.replace({
+        name: 'detail-id',
+        params: { id: slug },
+      })
+    }
+  },
+  methods: {
+    wordToSlug(word: SignWord): string {
+      return _wordToSlug(word, this.words)
+    },
+    slugToWord(slug: string): SignWord | undefined {
+      return _slugToWord(slug, this.words)
+    },
   },
   head() {
     // Opt-out of typing, because MetaInfo spec should allow
     // content: undefined, but TypeDef does not.
     const word: SignWord | undefined | any = this.word
 
-    const title = word.label
-    const description = word.label.toLocaleLowerCase()
+    const title = word?.label
+    const description = word?.label.toLocaleLowerCase()
     const titleTemplate = (s: string) => `${s} - ASL Dictionary`
     const descriptionTemplate = (s: string) =>
       `The sign for ${s} in American Sign Language`
@@ -115,8 +145,8 @@ export default Vue.extend({
     const video = word?.videos[0].videoFile
 
     const path: string = this.$route.path
-    const url = `${path.slice(1, path.lastIndexOf('/'))}/${word.label}`
-    const urlTemplate = (s: String) => FRONTEND_BASE_URL + s
+    const url = `${path.slice(1, path.lastIndexOf('/'))}/${word?.label}`
+    const urlTemplate = (s: string) => FRONTEND_BASE_URL + s
 
     return {
       title,
