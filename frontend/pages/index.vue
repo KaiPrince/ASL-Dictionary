@@ -60,7 +60,7 @@ export default Vue.extend({
       }
 
       return this.words.filter((word: SignWord) =>
-        word.label.toLowerCase().includes(this.filterText.toLowerCase())
+        word.label.toUpperCase().includes(this.filterText.toUpperCase())
       )
     },
   },

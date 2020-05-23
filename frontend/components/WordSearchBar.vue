@@ -74,19 +74,19 @@ export default Vue.extend({
       return item.id
     },
     filter(item: SignWord, queryText: string, itemText: string): Boolean {
-      const query = queryText.toLocaleLowerCase()
+      const query = queryText.toUpperCase()
 
-      const textMatch = itemText.toLocaleLowerCase().includes(query)
+      const textMatch = itemText.toUpperCase().includes(query)
 
       const imagesMatch = item.images.some((image) =>
-        image.altText.toLocaleLowerCase().includes(query)
+        image.altText.toUpperCase().includes(query)
       )
       const videosMatch = item.videos.some((video) =>
-        video.altText.toLocaleLowerCase().includes(query)
+        video.altText.toUpperCase().includes(query)
       )
 
       const synonymsMatch = item.synonyms
-        ? item.synonyms.toLocaleLowerCase().includes(query)
+        ? item.synonyms.toUpperCase().includes(query)
         : false
 
       return textMatch || imagesMatch || videosMatch || synonymsMatch
