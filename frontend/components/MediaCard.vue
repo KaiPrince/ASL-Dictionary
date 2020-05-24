@@ -8,12 +8,16 @@
 -->
 
 <template>
-  <v-card>
-    <MediaDisplay :item="item" :height="mediaHeight" />
-    <v-card-text v-if="item.caption" class="preserve-whitespace">{{
-      item.caption
-    }}</v-card-text>
-  </v-card>
+  <v-row justify="center">
+    <v-col :class="mediaHeight ? 'flex-grow-0' : null">
+      <v-card>
+        <MediaDisplay :item="item" :height="mediaHeight" />
+        <v-card-text v-if="item.caption" class="preserve-whitespace">{{
+          item.caption
+        }}</v-card-text>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'

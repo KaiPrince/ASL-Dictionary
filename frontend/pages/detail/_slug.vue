@@ -12,12 +12,11 @@
       {{ word ? word.label : '' }}
     </h1>
     <v-row class="mt-10" justify="space-around" align-content="space-around">
-      <v-col v-for="item in media" :key="item.id">
-        <v-row justify="center">
-          <v-col class="flex-grow-0">
-            <MediaCard :item="item" :media-height="350" />
-          </v-col>
-        </v-row>
+      <v-col v-for="item in media" :key="item.id" sm="3">
+        <MediaCard
+          :item="item"
+          :media-height="$vuetify.breakpoint.xs ? null : 350"
+        />
       </v-col>
     </v-row>
     <p class="preserve-whitespace">
@@ -26,7 +25,7 @@
     <div v-if="seeAlsoWords.length">
       <h2 class="mt-10">See Also</h2>
       <v-row align-content="space-around">
-        <v-col v-for="seeAlsoWord in seeAlsoWords" :key="seeAlsoWord.id" sm="3">
+        <v-col v-for="seeAlsoWord in seeAlsoWords" :key="seeAlsoWord.id" sm="4">
           <WordCard :word="seeAlsoWord" />
         </v-col>
       </v-row>
@@ -111,7 +110,7 @@ export default Vue.extend({
     const url = word?.label
       ? `${path.slice(1, path.lastIndexOf('/'))}/${word?.label}`
       : undefined
-    const urlTemplate = (s: string) => process.env.baseUrl + s
+    const urlTemplate = (s: string) => this.$el.baseURI + s
 
     return {
       title,
