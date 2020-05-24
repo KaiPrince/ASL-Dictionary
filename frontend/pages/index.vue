@@ -19,9 +19,9 @@
       justify-md="space-around"
       align-content="space-around"
     >
-      <v-col v-for="word in filterWords" :key="word.id">
+      <v-col v-for="word in filterWords" :key="word.id" sm="6" md="3">
         <v-lazy min-height="500">
-          <WordCard :word="word" :media-height="300" />
+          <WordCard :word="word" />
         </v-lazy>
       </v-col>
       <p
