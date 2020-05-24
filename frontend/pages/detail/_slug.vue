@@ -13,10 +13,7 @@
     </h1>
     <v-row class="mt-10" justify="space-around" align-content="space-around">
       <v-col v-for="item in media" :key="item.id" sm="3">
-        <MediaCard
-          :item="item"
-          :media-height="$vuetify.breakpoint.xs ? null : 350"
-        />
+        <SignCard :media="item" :media-height="350" />
       </v-col>
     </v-row>
     <p class="preserve-whitespace">
@@ -26,7 +23,7 @@
       <h2 class="mt-10">See Also</h2>
       <v-row align-content="space-around">
         <v-col v-for="seeAlsoWord in seeAlsoWords" :key="seeAlsoWord.id" sm="4">
-          <WordCard :word="seeAlsoWord" :media-height="350" />
+          <SignCard :word="seeAlsoWord" :media-height="350" />
         </v-col>
       </v-row>
     </div>
@@ -37,15 +34,13 @@ import Vue from 'vue'
 import { mapGetters } from 'vuex'
 import SignWord from '~/models/SignWord'
 import Media, { fromImage, fromVideo } from '~/models/Media'
-import MediaCard from '~/components/MediaCard.vue'
-import WordCard from '~/components/WordCard.vue'
+import SignCard from '~/components/SignCard.vue'
 
 export default Vue.extend({
   name: 'DetailPage',
   layout: 'basic',
   components: {
-    MediaCard,
-    WordCard,
+    SignCard,
   },
   asyncData({ payload }) {
     // Static Generation

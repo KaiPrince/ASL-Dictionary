@@ -19,9 +19,9 @@
       justify-md="space-around"
       align-content="space-around"
     >
-      <v-col v-for="word in filterWords" :key="word.id" sm="6" md="3">
+      <v-col v-for="word in filterWords" :key="word.id" cols="6" sm="4" md="3">
         <v-lazy min-height="500">
-          <WordCard :word="word" />
+          <SignCard :word="word" />
         </v-lazy>
       </v-col>
       <p
@@ -38,12 +38,12 @@
 import Vue from 'vue'
 import { mapActions, mapGetters } from 'vuex'
 import SignWord from '~/models/SignWord'
-import WordCard from '~/components/WordCard.vue'
+import SignCard from '~/components/SignCard.vue'
 import WordSearchBar from '~/components/WordSearchBar.vue'
 export default Vue.extend({
   name: 'IndexPage',
   components: {
-    WordCard,
+    SignCard,
     WordSearchBar,
   },
   middleware: ['fetchWords'],

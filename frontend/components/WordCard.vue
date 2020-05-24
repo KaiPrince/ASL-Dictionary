@@ -7,29 +7,21 @@
 -->
 
 <template>
-  <v-row justify="center">
-    <v-col :class="mediaHeight ? 'flex-grow-0' : null">
-      <v-card
-        raised
-        nuxt
-        :to="{ name: 'detail-slug', params: { slug: word.id } }"
-      >
-        <v-card-title>
-          {{ word.label }}
-        </v-card-title>
-        <MediaDisplay
-          v-if="getPreviewMedia"
-          :item="getPreviewMedia"
-          :height="mediaHeight"
-          :class="[cardFooter ? null : 'mb-n2']"
-          preview
-        />
-        <v-card-text v-if="cardFooter">
-          {{ cardFooter }}
-        </v-card-text>
-      </v-card>
-    </v-col>
-  </v-row>
+  <v-card raised nuxt :to="{ name: 'detail-slug', params: { slug: word.id } }">
+    <v-card-title>
+      {{ word.label }}
+    </v-card-title>
+    <MediaDisplay
+      v-if="getPreviewMedia"
+      :item="getPreviewMedia"
+      :height="mediaHeight"
+      :class="[cardFooter ? null : 'mb-n2']"
+      preview
+    />
+    <v-card-text v-if="cardFooter">
+      {{ cardFooter }}
+    </v-card-text>
+  </v-card>
 </template>
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
