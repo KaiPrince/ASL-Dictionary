@@ -12,8 +12,12 @@
       {{ word ? word.label : '' }}
     </h1>
     <v-row class="mt-10" justify="space-around" align-content="space-around">
-      <v-col v-for="item in media" :key="item.id" sm="6">
-        <MediaCard :item="item" class="mx-auto" :media-height="500" />
+      <v-col v-for="item in media" :key="item.id">
+        <v-row justify="center">
+          <v-col class="flex-grow-0">
+            <MediaCard :item="item" :media-height="350" />
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
     <p class="preserve-whitespace">

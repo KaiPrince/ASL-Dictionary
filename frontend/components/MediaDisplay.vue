@@ -7,40 +7,35 @@
 -->
 
 <template>
-  <div>
-    <v-img
-      v-if="item.type === 'image'"
-      :src="item.src"
-      :alt="item.altText"
-      contain
-    >
-      <template v-slot:placeholder>
-        <v-row class="fill-height ma-0" align="center" justify="center">
-          <v-progress-circular
-            indeterminate
-            color="grey lighten-5"
-          ></v-progress-circular>
-        </v-row>
-      </template>
-    </v-img>
-    <video
-      v-else-if="item.type === 'video'"
-      v-resize="autoSizeVideo"
-      v-intersect.quiet="autoSizeVideo"
-      :poster="item.poster"
-      :width="videoWidth"
-      :style="{ maxHeight: height + 'px' }"
-      autoplay
-      loop
-      muted
-      playsinline
-    >
-      <source v-if="preview && item.optimizedSrc" :src="item.optimizedSrc" />
-      <source :src="item.src" />
-      <source v-if="item.optimizedSrc" :src="item.optimizedSrc" />
-      {{ item.altText }}
-    </video>
-  </div>
+  <v-img
+    v-if="item.type === 'image'"
+    :src="item.src"
+    :alt="item.altText"
+    contain
+  >
+    <template v-slot:placeholder>
+      <v-row class="fill-height ma-0" align="center" justify="center">
+        <v-progress-circular
+          indeterminate
+          color="grey lighten-5"
+        ></v-progress-circular>
+      </v-row>
+    </template>
+  </v-img>
+  <video
+    v-else-if="item.type === 'video'"
+    :poster="item.poster"
+    :style="{ maxHeight: height + 'px' }"
+    autoplay
+    loop
+    muted
+    playsinline
+  >
+    <source v-if="preview && item.optimizedSrc" :src="item.optimizedSrc" />
+    <source :src="item.src" />
+    <source v-if="item.optimizedSrc" :src="item.optimizedSrc" />
+    {{ item.altText }}
+  </video>
 </template>
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
@@ -59,22 +54,6 @@ export default Vue.extend({
     height: {
       type: Number,
       default: undefined,
-    },
-  },
-  data() {
-    return {
-      videoWidth: undefined,
-    } as { videoWidth: number | undefined }
-  },
-  mounted() {
-    this.autoSizeVideo()
-  },
-  updated() {
-    this.autoSizeVideo()
-  },
-  methods: {
-    autoSizeVideo(): void {
-      this.videoWidth = this.$el.clientWidth
     },
   },
 })

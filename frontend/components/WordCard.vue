@@ -14,7 +14,8 @@
     <MediaDisplay
       v-if="getPreviewMedia"
       :item="getPreviewMedia"
-      :class="cardFooter ? null : 'mb-n2'"
+      :class="[cardFooter ? null : 'mb-n2']"
+      :style="{ width: '100%' }"
       preview
     />
     <v-card-text v-if="cardFooter" class="text-truncate">
