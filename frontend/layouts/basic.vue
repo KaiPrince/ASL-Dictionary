@@ -27,9 +27,7 @@
         <nuxt />
       </v-container>
     </v-content>
-    <v-footer app tile absolute>
-      <span>Made by Kai Prince</span>
-    </v-footer>
+    <BasicFooter />
   </BaseLayout>
 </template>
 
@@ -38,11 +36,13 @@ import Vue from 'vue'
 import { mapGetters } from 'vuex'
 import BaseLayout from '~/layouts/base.vue'
 import WordSearchBar from '~/components/WordSearchBar.vue'
+import BasicFooter from '~/components/BasicFooter.vue'
 export default Vue.extend({
   name: 'BasicLayout',
   components: {
     BaseLayout,
     WordSearchBar,
+    BasicFooter,
   },
   computed: {
     ...mapGetters('words', ['words', 'loading']),

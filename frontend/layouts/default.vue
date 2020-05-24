@@ -5,19 +5,19 @@
         <nuxt />
       </v-container>
     </v-content>
-    <v-footer app tile absolute>
-      <span>Made by Kai Prince</span>
-    </v-footer>
+    <BasicFooter />
   </BaseLayout>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import BaseLayout from '~/layouts/base.vue'
+import BasicFooter from '~/components/BasicFooter.vue'
 export default Vue.extend({
   name: 'DefaultLayout',
   components: {
     BaseLayout,
+    BasicFooter,
   },
 })
 </script>
