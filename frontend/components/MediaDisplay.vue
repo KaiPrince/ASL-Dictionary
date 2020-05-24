@@ -25,7 +25,10 @@
   <video
     v-else-if="item.type === 'video'"
     :poster="item.poster"
-    :style="{ maxHeight: height + 'px' }"
+    :style="{
+      maxHeight: height ? height + 'px' : null,
+      width: height ? null : '100%',
+    }"
     autoplay
     loop
     muted

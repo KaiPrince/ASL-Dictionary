@@ -21,7 +21,11 @@
     >
       <v-col v-for="word in filterWords" :key="word.id" sm="6" md="4">
         <v-lazy min-height="500">
-          <WordCard :word="word" />
+          <v-row justify="center">
+            <v-col class="flex-grow-0">
+              <WordCard :word="word" :media-height="350" />
+            </v-col>
+          </v-row>
         </v-lazy>
       </v-col>
       <p
