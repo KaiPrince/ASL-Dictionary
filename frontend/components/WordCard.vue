@@ -14,6 +14,7 @@
     <MediaDisplay
       v-if="getPreviewMedia"
       :item="getPreviewMedia"
+      :height="mediaHeight"
       :class="[cardFooter ? null : 'mb-n2']"
       :style="{ width: '100%' }"
       preview
@@ -36,6 +37,10 @@ export default Vue.extend({
       type: Object,
       required: true,
     } as PropOptions<SignWord>,
+    mediaHeight: {
+      type: Number,
+      default: undefined,
+    },
   },
   computed: {
     getPreviewMedia(): Media | null {
