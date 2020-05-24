@@ -19,21 +19,12 @@
         </v-card-title>
         <MediaDisplay
           v-if="getPreviewMedia"
-          ref="media"
-          v-resize="autoSizeText"
-          v-intersect.quiet="autoSizeText"
           :item="getPreviewMedia"
           :height="mediaHeight"
           :class="[cardFooter ? null : 'mb-n2']"
           preview
         />
-        <v-card-text
-          v-if="cardFooter"
-          class="text-truncate"
-          :style="{
-            maxWidth: textWidth + 'px',
-          }"
-        >
+        <v-card-text v-if="cardFooter">
           {{ cardFooter }}
         </v-card-text>
       </v-card>
@@ -42,6 +33,7 @@
 </template>
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
+import _ from 'lodash'
 import SignWord from '~/models/SignWord'
 import MediaDisplay from '~/components/MediaDisplay.vue'
 import Media, { fromImage, fromVideo } from '~/models/Media'
@@ -57,11 +49,6 @@ export default Vue.extend({
       type: Number,
       default: undefined,
     },
-  },
-  data() {
-    return {
-      textWidth: this.mediaHeight ? 0 : null,
-    } as { textWidth: number | null }
   },
   computed: {
     getPreviewMedia(): Media | null {
@@ -79,19 +66,10 @@ export default Vue.extend({
 
     cardFooter(): string {
       const caption = this.getPreviewMedia ? this.getPreviewMedia.caption : ''
-      return this.word.description || caption
-    },
-  },
-  mounted() {
-    this.autoSizeText()
-  },
-  updated() {
-    this.autoSizeText()
-  },
-  methods: {
-    autoSizeText(): void {
-      const el = this.$refs.media as Vue
-      this.textWidth = el.$el.clientWidth
+      const textContent = this.word.description || caption
+
+      const footerText = _.truncate(textContent, { length: 50 })
+      return footerText
     },
   },
 })
