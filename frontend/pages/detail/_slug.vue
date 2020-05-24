@@ -26,7 +26,7 @@
       <h2 class="mt-10">See Also</h2>
       <v-row align-content="space-around">
         <v-col v-for="seeAlsoWord in seeAlsoWords" :key="seeAlsoWord.id" sm="4">
-          <WordCard :word="seeAlsoWord" />
+          <WordCard :word="seeAlsoWord" :media-height="350" />
         </v-col>
       </v-row>
     </div>
@@ -110,7 +110,7 @@ export default Vue.extend({
     const url = word?.label
       ? `${path.slice(1, path.lastIndexOf('/'))}/${word?.label}`
       : undefined
-    const urlTemplate = (s: string) => this.$el.baseURI + s
+    const urlTemplate = (s: string) => process.env.baseUrl + s
 
     return {
       title,
