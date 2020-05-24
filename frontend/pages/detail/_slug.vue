@@ -26,12 +26,8 @@
     <div v-if="seeAlsoWords.length">
       <h2 class="mt-10">See Also</h2>
       <v-row align-content="space-around">
-        <v-col
-          v-for="seeAlsoWord in seeAlsoWords"
-          :key="seeAlsoWord.id"
-          class="flex-grow-0"
-        >
-          <WordCard :word="seeAlsoWord" :media-height="350" />
+        <v-col v-for="seeAlsoWord in seeAlsoWords" :key="seeAlsoWord.id" sm="3">
+          <WordCard :word="seeAlsoWord" />
         </v-col>
       </v-row>
     </div>
