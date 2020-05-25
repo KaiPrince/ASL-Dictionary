@@ -11,9 +11,12 @@
     <h1 class="display-3">
       {{ word ? word.label : '' }}
     </h1>
-    <v-row class="mt-10" justify="space-around" align-content="space-around">
-      <v-col v-for="item in media" :key="item.id" sm="3">
-        <SignCard :media="item" :media-height="350" />
+    <v-row class="mt-10">
+      <v-col v-for="item in media" :key="item.id">
+        <SignCard
+          :media="item"
+          :media-height="$vuetify.breakpoint.xs ? 350 : 700"
+        />
       </v-col>
     </v-row>
     <p class="preserve-whitespace">

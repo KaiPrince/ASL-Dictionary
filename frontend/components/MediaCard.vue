@@ -8,8 +8,15 @@
 -->
 
 <template>
-  <v-card>
-    <MediaDisplay :item="item" :height="mediaHeight" />
+  <v-card class="d-sm-flex">
+    <MediaDisplay
+      :item="item"
+      :height="mediaHeight"
+      :style="{
+        borderTopRightRadius: $vuetify.breakpoint.xs ? null : 'revert',
+        borderBottomLeftRadius: $vuetify.breakpoint.xs ? null : 'inherit',
+      }"
+    />
     <v-card-text v-if="item.caption" class="preserve-whitespace">{{
       item.caption
     }}</v-card-text>
