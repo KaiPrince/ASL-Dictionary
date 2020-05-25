@@ -8,9 +8,6 @@
 
 <template>
   <v-card raised nuxt :to="{ name: 'detail-slug', params: { slug: word.id } }">
-    <v-card-title>
-      {{ word.label }}
-    </v-card-title>
     <MediaDisplay
       v-if="getPreviewMedia"
       :item="getPreviewMedia"
@@ -18,7 +15,12 @@
       :class="[cardFooter ? null : 'mb-n2']"
       preview
     />
-    <v-card-text v-if="cardFooter">
+    <v-card-title class="mt-n11 py-0 px-1">
+      <v-sheet color="rgba(0, 0, 0, 0.5)" class="white--text px-1"
+        >{{ word.label }}
+      </v-sheet>
+    </v-card-title>
+    <v-card-text v-if="cardFooter" class="pt-4">
       {{ cardFooter }}
     </v-card-text>
   </v-card>
