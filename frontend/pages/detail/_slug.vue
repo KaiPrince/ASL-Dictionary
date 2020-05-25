@@ -11,7 +11,7 @@
     <h1 class="display-3">
       {{ word ? word.label : '' }}
     </h1>
-    <v-row class="mt-10">
+    <v-row class="mt-10" justify="space-around">
       <v-col
         v-for="item in media"
         :key="item.id"
