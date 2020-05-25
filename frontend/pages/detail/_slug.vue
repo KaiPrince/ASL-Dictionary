@@ -12,7 +12,11 @@
       {{ word ? word.label : '' }}
     </h1>
     <v-row class="mt-10">
-      <v-col v-for="item in media" :key="item.id">
+      <v-col
+        v-for="item in media"
+        :key="item.id"
+        :md="media.length > 1 ? 6 : null"
+      >
         <SignCard
           :media="item"
           :media-height="$vuetify.breakpoint.xs ? 350 : 700"
