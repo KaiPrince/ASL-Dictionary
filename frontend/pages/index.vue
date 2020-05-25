@@ -14,7 +14,7 @@
       :on-change="goToDetails"
     />
     <v-row class="mt-10" justify="center" justify-md="space-around">
-      <v-col v-for="word in filterWords" :key="word.id" cols="12" sm="4" md="3">
+      <v-col v-for="word in filterWords" :key="word.id" cols="10" sm="4" md="3">
         <v-lazy min-height="500">
           <SignCard :word="word" />
         </v-lazy>
