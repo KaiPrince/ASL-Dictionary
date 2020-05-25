@@ -17,9 +17,13 @@
         borderBottomLeftRadius: $vuetify.breakpoint.xs ? null : 'inherit',
       }"
     />
-    <v-card-text v-if="item.caption" class="preserve-whitespace">{{
-      item.caption
-    }}</v-card-text>
+    <v-card-text
+      v-if="item.caption"
+      class="d-flex flex-column justify-space-between preserve-whitespace"
+    >
+      <span>{{ item.caption }}</span>
+      <span class="caption text--disabled">{{ item.altText }}</span>
+    </v-card-text>
   </v-card>
 </template>
 <script lang="ts">
