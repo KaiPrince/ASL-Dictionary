@@ -47,6 +47,7 @@ export const slugToProperties = (slug: string): WordSlug => {
   }
 }
 
+// NOTE: if you make changes here be sure to copy them to _wordToSlug.js
 const propertiesToSlug = (props: WordSlug): string =>
   // 'hello' or 'hello-2' because human lists start at 1
   props.index ? `${props.label}-${props.index + 1}` : props.label
