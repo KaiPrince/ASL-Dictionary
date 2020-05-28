@@ -18,7 +18,7 @@
           :words="words"
           :on-change="goToDetails"
           app-bar
-          class="mt-1"
+          class="my-auto"
         />
       </v-toolbar-items>
     </v-app-bar>

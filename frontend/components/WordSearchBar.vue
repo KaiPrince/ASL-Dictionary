@@ -12,16 +12,17 @@
     :item-text="itemText"
     :item-value="itemValue"
     placeholder="Search..."
-    :autofocus="!appBar"
     auto-select-first
     solo
     prepend-inner-icon="mdi-magnify"
     :search-input.sync="value"
     :hint="hint"
     hide-no-data
+    :filter="filter"
+    :autofocus="!appBar"
     :dense="appBar"
     :flat="appBar"
-    :filter="filter"
+    :hide-details="appBar"
     @change="onChange"
   />
 </template>
