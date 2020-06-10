@@ -9,6 +9,7 @@
 export default interface SignVideo {
   id: string
   altText: string
+  isSentence: boolean
   caption: string
   videoFile: string
   optimizedVideoFile: string

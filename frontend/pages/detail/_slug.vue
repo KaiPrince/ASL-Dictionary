@@ -40,6 +40,7 @@
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
 import SignWord from '~/models/SignWord'
+import SignVideo from '~/models/SignVideo'
 import Media, { fromImage, fromVideo } from '~/models/Media'
 import SignCard from '~/components/SignCard.vue'
 
@@ -65,7 +66,11 @@ export default Vue.extend({
   },
   middleware: ['fetchWords', 'requireWordSlug', 'forceLabelSlug'],
   computed: {
-    ...mapGetters('words', ['getBySlug']),
+    ...mapGetters('words', [
+      'getBySlug',
+      'getDefinitionVideos',
+      'getSentenceVideos',
+    ]),
     // Static Generation
     ...mapGetters('words', { storeWords: 'words' }),
     words(): Array<SignWord> {
@@ -86,8 +91,17 @@ export default Vue.extend({
     },
     media(): Array<Media> {
       const images: Array<Media> = this.word?.images.map(fromImage) ?? []
-      const videos: Array<Media> = this.word?.videos.map(fromVideo) ?? []
+      const videos: Array<Media> = [
+        ...this.definitionVideos,
+        ...(this.word?.videos.filter(
+          (video) => !this.definitionVideos.includes(video)
+        ) ?? []),
+      ].map(fromVideo)
+
       return [...images, ...videos]
+    },
+    definitionVideos(): Array<SignVideo> {
+      return this.getDefinitionVideos(this.word)
     },
     seeAlsoWords(): Array<SignWord> {
       return this.words.filter((word: SignWord) =>

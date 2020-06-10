@@ -30,8 +30,10 @@
 </template>
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
+import { mapGetters } from 'vuex'
 import _ from 'lodash'
 import SignWord from '~/models/SignWord'
+import SignVideo from '~/models/SignVideo'
 import MediaDisplay from '~/components/MediaDisplay.vue'
 import Media, { fromImage, fromVideo } from '~/models/Media'
 export default Vue.extend({
@@ -48,19 +50,25 @@ export default Vue.extend({
     },
   },
   computed: {
+    ...mapGetters('words', ['getDefinitionVideos']),
     getPreviewMedia(): Media | null {
       // Find first image, or video
       if (this.word.images.length) {
         const image = this.word.images[0]
         return fromImage(image)
       } else if (this.word.videos.length) {
-        const video = this.word.videos[0]
+        const definitionVideo = this.definitionVideos.length
+          ? this.definitionVideos[0]
+          : null
+        const video = definitionVideo ?? this.word.videos[0]
         return fromVideo(video)
       } else {
         return null
       }
     },
-
+    definitionVideos(): Array<SignVideo> {
+      return this.getDefinitionVideos(this.word)
+    },
     cardFooter(): string {
       const caption = this.getPreviewMedia ? this.getPreviewMedia.caption : ''
       const textContent = this.word.description || caption

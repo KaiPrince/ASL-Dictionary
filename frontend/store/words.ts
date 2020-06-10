@@ -50,4 +50,14 @@ export const getters: GetterTree<RootState, RootState> = {
   getSlug: ({ words }) => (word: SignWord) => {
     return wordToSlug(word, words)
   },
+  getDefinitionVideos: () => (word: SignWord) => {
+    const signVideos = word.videos
+    const definitionVideos = signVideos.filter((video) => !video.isSentence)
+    return definitionVideos
+  },
+  getSentenceVideos: () => (word: SignWord) => {
+    const signVideos = word.videos
+    const sentenceVideos = signVideos.filter((video) => video.isSentence)
+    return sentenceVideos
+  },
 }
