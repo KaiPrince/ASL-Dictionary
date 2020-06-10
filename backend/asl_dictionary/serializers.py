@@ -22,6 +22,7 @@ class SignVideoSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "alt_text",
+            "is_sentence",
             "caption",
             "video_file",
             "optimized_video_file",

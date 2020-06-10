@@ -15,6 +15,7 @@ from asl_dictionary.admin.actions import (
     generate_thumbnail,
     optimize_video,
     postprocess_video,
+    mark_as_sentence,
 )
 from asl_dictionary.models import SignImage, SignVideo, SignWord
 
@@ -31,6 +32,7 @@ class SignVideoAdmin(admin.ModelAdmin):
         compress_video,
         optimize_video,
         generate_thumbnail,
+        mark_as_sentence,
     ]
 
     formfield_overrides = {
@@ -41,7 +43,7 @@ class SignVideoAdmin(admin.ModelAdmin):
 
     search_fields = ["alt_text", "caption"]
     list_display = ("alt_text", "caption")
-    list_filter = [IsCompressedVideo, HasWord]
+    list_filter = [IsCompressedVideo, HasWord, "is_sentence"]
 
     def save_model(self, request, obj, form, change):
 

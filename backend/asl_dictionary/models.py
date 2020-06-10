@@ -42,7 +42,7 @@ class MediaResource(models.Model):
     alt_text = models.CharField(
         unique=True,
         max_length=50,
-        help_text="Textual representation of the image. Used by screen-readers and when the image is unavailable.",
+        help_text="Textual representation of the image or glossed ASL.",
     )
     caption = models.TextField(help_text="Displayed alongside the image.")
 
@@ -61,8 +61,14 @@ class SignImage(MediaResource):
 class SignVideo(MediaResource):
     """ A video which demonstrates how to sign a word. """
 
+    is_sentence = models.BooleanField(
+        default=False,
+        verbose_name="video is a sentence?",
+        help_text="Sentences are shown after definitions.",
+    )
+
     video_file = models.FileField(
-        upload_to="sign_videos/", help_text="Will be converted to WebM format."
+        upload_to="sign_videos/", help_text="Will be compressed automatically."
     )
 
     optimized_video_file = models.FileField(

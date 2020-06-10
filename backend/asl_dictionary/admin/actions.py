@@ -33,3 +33,9 @@ def postprocess_video(_modeladmin, request, queryset):
     for obj in queryset:
         tasks.postprocess_video.delay(obj.id)
     messages.success(request, "Task started.")
+
+
+def mark_as_sentence(_modeladmin, _request, queryset):
+    for obj in queryset:
+        obj.is_sentence = True
+        obj.save()
