@@ -10,7 +10,9 @@ import { Middleware } from '@nuxt/types'
 import { RouteSlug, wrongCase } from '~/utils/helpers'
 
 const forceLabelSlug: Middleware = ({ route, store: { getters, $router } }) => {
-  if (process.server) return
+  // Static Generation
+  // ..skip the redirect
+  if (process.static) return
 
   const routeSlug: RouteSlug = route.params.slug
 

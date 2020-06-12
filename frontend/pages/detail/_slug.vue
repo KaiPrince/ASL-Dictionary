@@ -70,6 +70,7 @@ export default Vue.extend({
       'getBySlug',
       'getDefinitionVideos',
       'getSentenceVideos',
+      'getPreviewMedia',
     ]),
     // Static Generation
     ...mapGetters('words', { storeWords: 'words' }),
@@ -87,7 +88,8 @@ export default Vue.extend({
       return String(slug)
     },
     word(): SignWord | undefined {
-      return this.getBySlug(this.slug)
+      // Static Generation (this.payloadWords)
+      return this.getBySlug(this.slug, this.payloadWords)
     },
     media(): Array<Media> {
       const images: Array<Media> = this.word?.images.map(fromImage) ?? []
@@ -113,14 +115,15 @@ export default Vue.extend({
     // Opt-out of typing, because MetaInfo spec should allow
     // content: undefined, but TypeDef does not.
     const word: SignWord | undefined | any = this.word
+    const previewMedia: Media | null | any = this.getPreviewMedia(word)
 
     const title = word?.label
     const description = word?.label.toLocaleLowerCase()
     const titleTemplate = (s: string) => `${s} - ASL Dictionary`
     const descriptionTemplate = (s: string) =>
       `The sign for ${s} in American Sign Language`
-    const image = word?.videos[0].thumbnailFile
-    const video = word?.videos[0].videoFile
+    const image = previewMedia?.poster // word?.videos[0].thumbnailFile
+    const video = previewMedia?.src // word?.videos[0].videoFile
 
     const path: string = this.$route.path
     const url = word?.label

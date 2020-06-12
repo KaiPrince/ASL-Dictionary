@@ -12,8 +12,8 @@
       {{ word.label }}
     </v-card-title>
     <MediaDisplay
-      v-if="getPreviewMedia"
-      :item="getPreviewMedia"
+      v-if="previewMedia"
+      :item="previewMedia"
       :height="mediaHeight"
       :class="[cardFooter ? null : 'mb-n2']"
       preview
@@ -33,9 +33,8 @@ import Vue, { PropOptions } from 'vue'
 import { mapGetters } from 'vuex'
 import _ from 'lodash'
 import SignWord from '~/models/SignWord'
-import SignVideo from '~/models/SignVideo'
 import MediaDisplay from '~/components/MediaDisplay.vue'
-import Media, { fromImage, fromVideo } from '~/models/Media'
+import Media from '~/models/Media'
 export default Vue.extend({
   name: 'WordCard',
   components: { MediaDisplay },
@@ -50,27 +49,12 @@ export default Vue.extend({
     },
   },
   computed: {
-    ...mapGetters('words', ['getDefinitionVideos']),
-    getPreviewMedia(): Media | null {
-      // Find first image, or video
-      if (this.word.images.length) {
-        const image = this.word.images[0]
-        return fromImage(image)
-      } else if (this.word.videos.length) {
-        const definitionVideo = this.definitionVideos.length
-          ? this.definitionVideos[0]
-          : null
-        const video = definitionVideo ?? this.word.videos[0]
-        return fromVideo(video)
-      } else {
-        return null
-      }
-    },
-    definitionVideos(): Array<SignVideo> {
-      return this.getDefinitionVideos(this.word)
+    ...mapGetters('words', ['getPreviewMedia']),
+    previewMedia(): Media | null {
+      return this.getPreviewMedia(this.word)
     },
     cardFooter(): string {
-      const caption = this.getPreviewMedia ? this.getPreviewMedia.caption : ''
+      const caption = this.previewMedia ? this.previewMedia.caption : ''
       const textContent = this.word.description || caption
 
       const footerText = _.truncate(textContent, { length: 50 })
