@@ -33,3 +33,6 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 - Happy Messages
 - Fix Static Generation. Load payload in middleware.
 - Add copy link button.
+- Cognitive Accessibility
+  - Don't automatically autoplay videos
+  - Generate frame-by-frame
