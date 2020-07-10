@@ -29,7 +29,7 @@
       maxHeight: height ? height + 'px' : null,
       width: height ? null : '100%',
     }"
-    autoplay
+    :autoplay="{ autoplay }"
     loop
     muted
     playsinline
@@ -57,6 +57,10 @@ export default Vue.extend({
     height: {
       type: Number,
       default: undefined,
+    },
+    autoplay: {
+      type: Boolean,
+      default: true,
     },
   },
 })
