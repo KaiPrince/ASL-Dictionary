@@ -27,7 +27,7 @@
       {{ word ? word.description : '' }}
     </p>
     <div v-if="seeAlsoWords.length">
-      <h2 class="mt-10">See Also</h2>
+      <h1 class="mt-10">See Also</h1>
       <v-row align-content="space-around">
         <v-col v-for="seeAlsoWord in seeAlsoWords" :key="seeAlsoWord.id" sm="4">
           <SignCard :word="seeAlsoWord" :media-height="350" />

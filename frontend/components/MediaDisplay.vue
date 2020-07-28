@@ -24,12 +24,14 @@
   </v-img>
   <video
     v-else-if="item.type === 'video'"
+    ref="video"
     :poster="item.poster"
     :style="{
       maxHeight: height ? height + 'px' : null,
       width: height ? null : '100%',
     }"
-    :autoplay="{ autoplay }"
+    :autoplay="autoplay"
+    :controls="controls"
     loop
     muted
     playsinline
@@ -61,6 +63,23 @@ export default Vue.extend({
     autoplay: {
       type: Boolean,
       default: true,
+    },
+    controls: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  watch: {
+    autoplay(newVal, oldVal) {
+      if (oldVal === undefined) return
+
+      const video = this.$refs.video as HTMLMediaElement
+
+      if (newVal) {
+        video.play()
+      } else {
+        video.pause()
+      }
     },
   },
 })

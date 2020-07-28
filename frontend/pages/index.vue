@@ -8,6 +8,7 @@
 
 <template>
   <v-container>
+    <h1 class="text-md-h2 d-sr-only">ASL Dictionary</h1>
     <WordSearchBar
       :words="words"
       :value.sync="filterText"

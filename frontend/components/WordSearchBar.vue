@@ -12,6 +12,7 @@
     :item-text="itemText"
     :item-value="itemValue"
     placeholder="Search..."
+    aria-label="Search"
     auto-select-first
     solo
     prepend-inner-icon="mdi-magnify"

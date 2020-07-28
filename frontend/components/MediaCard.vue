@@ -16,6 +16,7 @@
         borderTopRightRadius: $vuetify.breakpoint.xs ? null : 'revert',
         borderBottomLeftRadius: $vuetify.breakpoint.xs ? null : 'inherit',
       }"
+      :controls="true"
     />
     <v-card-text
       v-if="item.caption"

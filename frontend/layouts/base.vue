@@ -40,8 +40,51 @@ export default Vue.extend({
       }
     },
   },
+  beforeMount() {
+    this.updateDarkTheme()
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addListener(this.updateDarkTheme)
+  },
+  beforeDestroy() {
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .removeListener(this.updateDarkTheme)
+  },
   methods: {
     ...mapActions('words', ['fetchWords']),
+    updateDarkTheme() {
+      // Set the theme based on:
+      // 1. Local storage
+      // 2. OS preference.
+
+      let useDarkTheme = this.$nuxt.$vuetify.theme.dark
+
+      // Get the user's theme preference from local storage, if it's available
+      const storedTheme = localStorage.getItem('theme')
+
+      if (storedTheme === 'dark') {
+        useDarkTheme = true
+      } else if (storedTheme === 'light') {
+        useDarkTheme = false
+      } else {
+        // Check for dark mode preference at the OS level
+        const prefersDarkScheme = window.matchMedia(
+          '(prefers-color-scheme: dark)'
+        ).matches
+        const prefersLightScheme = window.matchMedia(
+          '(prefers-color-scheme: light)'
+        ).matches
+
+        if (prefersDarkScheme) {
+          useDarkTheme = true
+        } else if (prefersLightScheme) {
+          useDarkTheme = false
+        }
+      }
+
+      this.$nuxt.$vuetify.theme.dark = useDarkTheme
+    },
   },
 })
 </script>

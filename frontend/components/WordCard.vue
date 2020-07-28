@@ -9,15 +9,19 @@
 <template>
   <v-card raised nuxt :to="{ name: 'detail-slug', params: { slug: word.id } }">
     <v-card-title v-if="$vuetify.breakpoint.xs" class="py-2">
-      {{ word.label }}
+      <h2>{{ word.label }}</h2>
     </v-card-title>
-    <MediaDisplay
-      v-if="previewMedia"
-      :item="previewMedia"
-      :height="mediaHeight"
-      :class="[cardFooter ? null : 'mb-n2']"
-      preview
-    />
+    <v-hover v-slot:default="{ hover }">
+      <MediaDisplay
+        v-if="previewMedia"
+        :item="previewMedia"
+        :height="mediaHeight"
+        :class="[cardFooter ? null : 'mb-n2']"
+        :autoplay="autoplay || hover"
+        :controls="$vuetify.breakpoint.xs"
+        preview
+      />
+    </v-hover>
     <v-card-title v-if="!$vuetify.breakpoint.xs" class="mt-n11 py-0 px-1">
       <v-sheet color="rgba(0, 0, 0, 0.5)" class="white--text px-1"
         >{{ word.label }}
@@ -50,6 +54,7 @@ export default Vue.extend({
   },
   computed: {
     ...mapGetters('words', ['getPreviewMedia']),
+    ...mapGetters('settings', ['autoplay']),
     previewMedia(): Media | null {
       return this.getPreviewMedia(this.word)
     },
