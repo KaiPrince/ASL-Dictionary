@@ -1,8 +1,12 @@
 <template>
   <v-footer app tile absolute>
-    <span>Made by Kai Prince</span>
+    <span
+      >Made by
+      <a href="https://kaiprince.xyz">
+        Kai Prince
+      </a>
+    </span>
     <v-spacer />
-    <v-switch v-model="$vuetify.theme.dark" label="Dark mode" dense />
   </v-footer>
 </template>
 <script lang="ts">

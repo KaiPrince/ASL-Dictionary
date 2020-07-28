@@ -18,6 +18,10 @@ export default {
    */
   head: {
     title: 'ASL Dictionary',
+    htmlAttrs: {
+      lang: 'en',
+      amp: true,
+    },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -82,6 +86,7 @@ export default {
           // primary: colors.grey.lighten5,
           accent: colors.yellow.accent1,
           primary: colors.yellow.darken1,
+          anchor: '#9f7200',
         },
       },
     },
@@ -120,10 +125,10 @@ export default {
       const words = toCamelCase(data)
 
       return [
-        ...words.map((word) => ({
-          route: '/detail/' + word.id,
-          payload: words,
-        })),
+        // ...words.map((word) => ({
+        //   route: '/detail/' + word.id,
+        //   payload: words,
+        // })),
         ...words.map((word) => ({
           route: '/detail/' + wordToSlug(word, words),
           payload: words,
