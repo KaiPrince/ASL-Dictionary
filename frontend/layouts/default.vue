@@ -42,11 +42,11 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-content class="pt-12">
+    <v-main class="pt-12">
       <v-container>
         <nuxt />
       </v-container>
-    </v-content>
+    </v-main>
     <BasicFooter />
   </BaseLayout>
 </template>

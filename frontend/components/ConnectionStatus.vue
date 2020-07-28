@@ -8,7 +8,7 @@
 
 <template>
   <div>
-    <v-snackbar v-model="$nuxt.isOffline" left :timeout="0">
+    <v-snackbar v-model="$nuxt.isOffline" left :timeout="-1">
       You're offline.
     </v-snackbar>
     <v-snackbar v-model="showOnline" left color="info" :timeout="2000">
