@@ -22,8 +22,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("oauth/", include("social_django.urls", namespace="social")),
     # Set admin as the home page
-    # path("", include("asl_dictionary.urls")),
-    path("", admin.site.urls),
+    path(r"", admin.site.urls),
+    path("", include("asl_dictionary.urls")),
     path("webscraper/", include("asl_dictionary.urls")),
 ]
 

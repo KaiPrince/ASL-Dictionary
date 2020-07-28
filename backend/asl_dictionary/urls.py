@@ -19,7 +19,7 @@ router.register(r"signimages", views.SignImageViewSet)
 router.register(r"signvideos", views.SignVideoViewSet)
 
 urlpatterns = [
-    path("", views.IndexView.as_view(), name="index"),
+    path("index/", views.IndexView.as_view(), name="index"),
     path("<int:pk>/", views.DetailView.as_view(), name="detail"),
     path("search/", views.SearchView.as_view(), name="search"),
     path("api/", include(router.urls)),
