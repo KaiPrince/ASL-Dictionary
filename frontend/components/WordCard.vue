@@ -7,7 +7,11 @@
 -->
 
 <template>
-  <v-card raised nuxt :to="{ name: 'detail-slug', params: { slug: word.id } }">
+  <v-card
+    raised
+    nuxt
+    :to="{ name: 'detail-slug', params: { slug: getSlug(word) } }"
+  >
     <v-card-title v-if="$vuetify.breakpoint.xs" class="py-2">
       <h2>{{ word.label }}</h2>
     </v-card-title>
@@ -53,7 +57,7 @@ export default Vue.extend({
     },
   },
   computed: {
-    ...mapGetters('words', ['getPreviewMedia']),
+    ...mapGetters('words', ['getPreviewMedia', 'getSlug']),
     ...mapGetters('settings', ['autoplay']),
     previewMedia(): Media | null {
       return this.getPreviewMedia(this.word)
