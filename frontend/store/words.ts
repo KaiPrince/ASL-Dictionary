@@ -57,8 +57,15 @@ export const getters: GetterTree<RootState, RootState> = {
     const word = foundWord ?? slugToWord(String(slug), _words)
     return word
   },
-  getSlug: ({ words }) => (word: SignWord) => {
-    return wordToSlug(word, words)
+  getSlug: ({ words: stateWords }) => (
+    word: SignWord,
+    words: Array<SignWord>
+  ) => {
+    // Static Generation
+    // ..Use given word list, if provided
+    const _words = words ?? stateWords
+
+    return wordToSlug(word, _words)
   },
   getDefinitionVideos: () => (word: SignWord) => {
     const signVideos = word.videos

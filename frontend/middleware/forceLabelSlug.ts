@@ -9,15 +9,16 @@
 import { Middleware } from '@nuxt/types'
 import { RouteSlug, wrongCase } from '~/utils/helpers'
 
-const forceLabelSlug: Middleware = ({ route, store: { getters, $router } }) => {
-  // Static Generation
-  // ..skip the redirect
-  if (process.static) return
-
+const forceLabelSlug: Middleware = ({
+  route,
+  redirect,
+  store: { getters, $router },
+  payload,
+}) => {
   const routeSlug: RouteSlug = route.params.slug
 
   const { 'words/getBySlug': getBySlug, 'words/getSlug': getSlug } = getters
-  const word = getBySlug(routeSlug)
+  const word = payload ? getBySlug(routeSlug, payload) : getBySlug(routeSlug)
 
   if (!word) return
 
@@ -28,9 +29,14 @@ const forceLabelSlug: Middleware = ({ route, store: { getters, $router } }) => {
     wrongCase(word.label, routeSlug.toString()) ||
     trimZeroIndex
   ) {
-    const slug = getSlug(word)
+    const slug = payload ? getSlug(word, payload) : getSlug(word)
 
     $router.replace({
+      name: 'detail-slug',
+      params: { slug },
+    })
+
+    redirect({
       name: 'detail-slug',
       params: { slug },
     })

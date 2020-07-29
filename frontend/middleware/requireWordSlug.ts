@@ -9,15 +9,11 @@
 import { Middleware } from '@nuxt/types'
 import { RouteSlug } from '~/utils/helpers'
 
-const requireWordSlug: Middleware = ({ route, store, redirect }) => {
-  // Static Generation
-  // ..skip the redirect
-  if (process.static) return
-
+const requireWordSlug: Middleware = ({ route, store, redirect, payload }) => {
   const routeSlug: RouteSlug = route.params.slug
 
   const { 'words/getBySlug': getBySlug } = store.getters
-  const word = getBySlug(routeSlug)
+  const word = payload ? getBySlug(routeSlug, payload) : getBySlug(routeSlug)
 
   const noRouteId = !routeSlug && String(routeSlug) !== String(0)
 

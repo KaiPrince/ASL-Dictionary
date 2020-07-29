@@ -49,7 +49,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapGetters('words', ['words', 'loading']),
+    ...mapGetters('words', ['words', 'loading', 'getSlug']),
     filterWords(): Array<SignWord> {
       if (!this.filterText) {
         return this.words
@@ -66,9 +66,11 @@ export default Vue.extend({
   methods: {
     ...mapActions('words', ['fetchWords']),
     goToDetails(wordId: number): void {
+      const word = this.words.find((x: SignWord) => x.id === wordId)
+
       this.$router.push({
         name: 'detail-slug',
-        params: { slug: wordId.toString() },
+        params: { slug: this.getSlug(word) },
       })
     },
   },

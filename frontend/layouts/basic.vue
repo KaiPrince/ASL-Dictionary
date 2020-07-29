@@ -34,6 +34,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
+import SignWord from '~/models/SignWord'
 import BaseLayout from '~/layouts/base.vue'
 import WordSearchBar from '~/components/WordSearchBar.vue'
 import BasicFooter from '~/components/BasicFooter.vue'
@@ -45,13 +46,15 @@ export default Vue.extend({
     BasicFooter,
   },
   computed: {
-    ...mapGetters('words', ['words', 'loading']),
+    ...mapGetters('words', ['words', 'loading', 'getSlug']),
   },
   methods: {
     goToDetails(wordId: number): void {
+      const word = this.words.find((x: SignWord) => x.id === wordId)
+
       this.$router.push({
         name: 'detail-slug',
-        params: { slug: wordId.toString() },
+        params: { slug: this.getSlug(word) },
       })
     },
   },
