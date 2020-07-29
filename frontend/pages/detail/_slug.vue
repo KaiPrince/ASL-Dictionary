@@ -58,12 +58,6 @@ export default Vue.extend({
       payloadWords: payload,
     }
   },
-  data() {
-    // Static Generation
-    return {
-      payloadWords: [],
-    }
-  },
   middleware: ['fetchWords', 'requireWordSlug', 'forceLabelSlug'],
   computed: {
     ...mapGetters('words', [
@@ -78,7 +72,7 @@ export default Vue.extend({
       // Static Generation
       const words: Array<SignWord> = this.storeWords.length
         ? this.storeWords
-        : this.payloadWords
+        : this.$data.payloadWords
 
       return words
     },
@@ -89,7 +83,7 @@ export default Vue.extend({
     },
     word(): SignWord | undefined {
       // Static Generation (this.payloadWords)
-      return this.getBySlug(this.slug, this.payloadWords)
+      return this.getBySlug(this.slug, this.words)
     },
     media(): Array<Media> {
       const images: Array<Media> = this.word?.images.map(fromImage) ?? []

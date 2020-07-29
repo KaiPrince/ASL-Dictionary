@@ -32,6 +32,24 @@ export default {
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        // The core Firebase JS SDK is always required and must be listed first
+        src: '/__/firebase/7.17.1/firebase-app.js',
+        body: true,
+      },
+      {
+        // Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+        src: '/__/firebase/7.17.1/firebase-analytics.js',
+        body: true,
+      },
+      {
+        // Initialize Firebase
+        src: '/__/firebase/init.js',
+        body: true,
+      },
+    ],
   },
   /*
    ** Customize the progress-bar color
@@ -119,6 +137,7 @@ export default {
     extend(_config, _ctx) {},
   },
   generate: {
+    crawler: false,
     async routes() {
       const { data } = await axios.get(BACKEND_BASE_URL + 'signwords/')
 
