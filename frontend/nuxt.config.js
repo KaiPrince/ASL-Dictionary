@@ -104,7 +104,7 @@ export default {
           // primary: colors.grey.lighten5,
           accent: colors.yellow.accent1,
           primary: colors.yellow.darken1,
-          anchor: '#9f7200',
+          anchor: '#aa8f00',
         },
       },
     },
@@ -144,6 +144,7 @@ export default {
       const words = toCamelCase(data)
 
       return [
+        // { route: '/', payload: words },
         // ...words.map((word) => ({
         //   route: '/detail/' + word.id,
         //   payload: words,
