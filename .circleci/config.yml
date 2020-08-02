@@ -21,7 +21,7 @@ commands:
             - .node_modules
           key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
 
-executor:
+executors:
   docker-executor:
     docker:
       - image: "circleci/node:latest"
