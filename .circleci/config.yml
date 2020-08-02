@@ -20,20 +20,22 @@ jobs:
       - run: 
           working_directory: ~/asl-dictionary/frontend
           command: yarn generate
-      - run: 
-          working_directory: ~/asl-dictionary/frontend
-          command: sudo npm install -g firebase-tools
-      - run:
-          name: Firebase Deploy
-          command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN"
-          when: 
-            - equal: [ master, << pipeline.git.branch >> ]
+      # - run: 
+          # working_directory: ~/asl-dictionary/frontend
+          # command: sudo npm install -g firebase-tools
+      # - run:
+          # name: Firebase Deploy
+          # command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN"
+          # when: 
+            # - equal: [ master, << pipeline.git.branch >> ]
       - run: sudo npm install -g @lhci/cli@0.4.x
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       - run: lhci autorun
+  
 
 workflows:
   main:
     jobs:
       - build
+      # - deploy
