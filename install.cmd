@@ -1,2 +1,3 @@
 cd frontend
-yarn --frozen-lockfile
+REM yarn --frozen-lockfile
+npm install
