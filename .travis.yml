@@ -5,9 +5,10 @@ node_js:
   - 'node'
 env:
   - YARN_GPG=no
+install:
+  - install.sh
 script:
-  # - yarn build
-  - yarn generate
+  - build.sh
 deploy:
   message: 'Deploying with Firebase.'
   provider: firebase
