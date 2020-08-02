@@ -21,10 +21,14 @@ commands:
             - .node_modules
           key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
 
-jobs:
-  checkout-project:
+executor:
+  docker-executor:
     docker:
       - image: "circleci/node:latest"
+
+jobs:
+  checkout-project:
+    executor: docker-executor
     working_directory: ~/asl-dictionary
     steps:
       - checkout
@@ -33,8 +37,7 @@ jobs:
           paths:
             - ./*
   build:
-    docker:
-      - image: "circleci/node:latest"
+    executor: docker-executor
     working_directory: ~/asl-dictionary/frontend
     steps:
       - attach_workspace:
@@ -57,8 +60,7 @@ jobs:
             - firestore.indexes.json
 
   deploy:
-    docker:
-      - image: "circleci/node:latest"
+    executor: docker-executor
     working_directory: ~/asl-dictionary/frontend
     steps:
       - attach_workspace:
@@ -68,8 +70,7 @@ jobs:
           name: Firebase Deploy
           command: firebase deploy --token "$FIREBASE_TOKEN"
   lighthouse:
-    docker:
-      - image: "circleci/node:latest"
+    executor: docker-executor
     working_directory: ~/asl-dictionary/frontend
     steps:
       - attach_workspace:
@@ -77,6 +78,7 @@ jobs:
       - run: sudo npm install -g @lhci/cli@0.4.x
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
+      - run: ls -l
       - run: lhci autorun --config=./lighthouserc.js
 
 workflows:
