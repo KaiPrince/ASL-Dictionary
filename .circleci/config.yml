@@ -10,7 +10,7 @@ jobs:
     working_directory: ~/asl-dictionary/frontend
     steps:
       - checkout
-        path: ~/asl-dictionary
+          path: ~/asl-dictionary
       - node/install:
           install-yarn: true
           node-version: latest
