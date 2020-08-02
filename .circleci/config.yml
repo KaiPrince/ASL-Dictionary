@@ -48,21 +48,12 @@ jobs:
       - image: "circleci/node:latest"
     working_directory: ~/asl-dictionary/frontend
     steps:
-      - when:
-          condition:
-            equal: [master, << pipeline.git.branch >>]
-          steps:
-            - attach_workspace:
-                at: ~/asl-dictionary/frontend
-            - run: sudo npm install -g firebase-tools
-            - run:
-                name: Firebase Deploy
-                command: firebase deploy --token "$FIREBASE_TOKEN"
-      - unless:
-          condition:
-            equal: [master, << pipeline.git.branch >>]
-          steps:
-            - run: echo "Skipping deploy."
+      - attach_workspace:
+          at: ~/asl-dictionary/frontend
+      - run: sudo npm install -g firebase-tools
+      - run:
+          name: Firebase Deploy
+          command: firebase deploy --token "$FIREBASE_TOKEN"
   lighthouse:
     docker:
       - image: "circleci/node:latest"
@@ -85,6 +76,9 @@ workflows:
       - deploy:
           requires:
             - build
+          filters:
+            branches:
+              only: master
       - lighthouse:
           requires:
             - build
