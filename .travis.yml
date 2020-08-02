@@ -6,9 +6,9 @@ node_js:
 env:
   - YARN_GPG=no
 install:
-  - ./install.sh
+  - ./install.bat
 script:
-  - ./build.sh
+  - ./build.bat
 deploy:
   message: 'Deploying with Firebase.'
   provider: firebase
