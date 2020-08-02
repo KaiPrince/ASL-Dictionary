@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   node: circleci/node@3.0.1
   browser-tools: circleci/browser-tools@1.0.1
-  heroku: circleci/heroku@1.2.0
+  # heroku: circleci/heroku@1.2.0
 
 commands:
   restore_cache_cmd:
@@ -85,12 +85,12 @@ jobs:
       - run: lhci autorun
 
   heroku_deploy:
-    executor: heroku/default
+    executor: backend-executor
     working_directory: ~/asl-dictionary/backend
     steps:
       - attach_workspace:
           at: ~/asl-dictionary
-      - heroku/install
+      # - heroku/install
       - run: git init
       - run: git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git
       - run: git add .
@@ -98,10 +98,6 @@ jobs:
       - run: git config --global user.name "CircleCI"
       - run: git commit -m "Deploy from CircleCI"
       - run: git push heroku master --force
-      # - run:
-      #     name: Deploy Master to Heroku
-      #     command: |
-      #       git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
       # - heroku/deploy-via-git
 
 workflows:
