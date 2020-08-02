@@ -16,7 +16,7 @@ jobs:
             - ./*
   build:
     docker:
-      - image: 'circleci/node:latest'
+      - image: "circleci/node:latest"
     working_directory: ~/asl-dictionary/frontend
     steps:
       - attach_workspace:
@@ -41,15 +41,15 @@ jobs:
             - .firebaserc
             - firestore.rules
             - firestore.indexes.json
-      
+
   deploy:
     docker:
-      - image: 'circleci/node:latest'
+      - image: "circleci/node:latest"
     working_directory: ~/asl-dictionary
     steps:
-      - when: 
-          condition: 
-            equal: [ master, << pipeline.git.branch >> ]
+      - when:
+          condition:
+            equal: [master, << pipeline.git.branch >>]
           steps:
             - attach_workspace:
                 at: ~/asl-dictionary
@@ -57,14 +57,14 @@ jobs:
             - run:
                 name: Firebase Deploy
                 command: firebase deploy --token "$FIREBASE_TOKEN"
-      - unless: 
-          condition: 
-            equal: [ master, << pipeline.git.branch >> ]
+      - unless:
+          condition:
+            equal: [master, << pipeline.git.branch >>]
           steps:
             - run: echo "Skipping deploy."
   lighthouse:
     docker:
-      - image: 'circleci/node:latest'
+      - image: "circleci/node:latest"
     working_directory: ~/asl-dictionary
     steps:
       - attach_workspace:
@@ -73,13 +73,12 @@ jobs:
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       - run: lhci autorun
-  
 
-workflows:  
+workflows:
   build-and-deploy:
     jobs:
       - checkout-project
-      - build
+      - build:
           requires:
             - checkout-project
       - deploy:
