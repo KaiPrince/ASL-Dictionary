@@ -13,10 +13,10 @@ jobs:
       - node/install:
           install-yarn: true
           node-version: latest
-      - run: npm install -g @lhci/cli@0.4.x
       - run: 
           working_directory: ~/asl-dictionary/frontend
           command: yarn generate
+      - run: sudo npm install -g @lhci/cli@0.4.x
       - run: lhci autorun
 
 workflows:
