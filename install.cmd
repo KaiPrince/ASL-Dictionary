@@ -1,2 +1,3 @@
+choco install yarn
 cd frontend
-npm install
+yarn --frozen-lockfile
