@@ -6,11 +6,10 @@ node_js:
 env:
   - YARN_GPG=no
 install:
-  - ./install.bat
+  - ./install.sh
 script:
-  - ./build.bat
+  - ./build.sh
 deploy:
   message: 'Deploying with Firebase.'
   provider: firebase
   edge: true
-after_deploy: yarn codechecks
