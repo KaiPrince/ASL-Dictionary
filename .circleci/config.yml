@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   node: circleci/node@3.0.1
   browser-tools: circleci/browser-tools@1.0.1
+  heroku: circleci/heroku@0.0.10.
 
 commands:
   restore_cache_cmd:
@@ -22,13 +23,16 @@ commands:
           key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
 
 executors:
-  docker-executor:
+  frontend-executor:
     docker:
       - image: "circleci/node:latest"
+  backend-executor:
+    docker:
+      - image: "cimg/base:2020.01"
 
 jobs:
   checkout-project:
-    executor: docker-executor
+    executor: frontend-executor
     working_directory: ~/asl-dictionary
     steps:
       - checkout
@@ -37,7 +41,7 @@ jobs:
           paths:
             - ./*
   build:
-    executor: docker-executor
+    executor: frontend-executor
     working_directory: ~/asl-dictionary/frontend
     steps:
       - attach_workspace:
@@ -45,7 +49,6 @@ jobs:
       - node/install:
           install-yarn: true
           node-version: latest
-      # Download and cache dependencies
       - restore_cache_cmd
       - run: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
       - save_cache_cmd
@@ -61,7 +64,7 @@ jobs:
             - lighthouserc.js
 
   deploy:
-    executor: docker-executor
+    executor: frontend-executor
     working_directory: ~/asl-dictionary/frontend
     steps:
       - attach_workspace:
@@ -71,7 +74,7 @@ jobs:
           name: Firebase Deploy
           command: firebase deploy --token "$FIREBASE_TOKEN"
   lighthouse:
-    executor: docker-executor
+    executor: frontend-executor
     working_directory: ~/asl-dictionary/frontend
     steps:
       - attach_workspace:
@@ -80,8 +83,17 @@ jobs:
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       - run: lhci autorun
+
+  heroku_deploy:
+    executor: backend-executor
+    working_directory: ~/asl-dictionary/backend
+    steps:
+      - attach_workspace:
+          at: ~/asl-dictionary
+      - heroku/deploy-via-git
+
 workflows:
-  build-and-deploy:
+  frontend-deploy:
     jobs:
       - checkout-project
       - build:
@@ -96,3 +108,9 @@ workflows:
       - lighthouse:
           requires:
             - build
+      - heroku_deploy:
+          requires:
+            - checkout-project
+          filters:
+            branches:
+              only: master
