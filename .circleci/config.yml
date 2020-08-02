@@ -90,6 +90,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/asl-dictionary
+      - heroku/install
       - heroku/deploy-via-git
 
 workflows:
