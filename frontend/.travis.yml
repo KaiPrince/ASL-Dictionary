@@ -1,0 +1,19 @@
+os:
+  - windows
+language: node_js
+node_js:
+  - 'node'
+env:
+  - YARN_GPG=no
+# install:
+#   - yarn --frozen-lockfile
+script:
+  # - yarn build
+  - yarn generate
+deploy:
+  message: 'Deploying with Firebase.'
+  provider: firebase
+  edge: true
+after_deploy:
+  script:
+    - yarn codechecks
