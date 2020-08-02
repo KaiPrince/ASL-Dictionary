@@ -41,12 +41,16 @@ jobs:
     docker:
       - image: 'circleci/node:latest'
     steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - run: sudo npm install -g firebase-tools
-      - run:
-          name: Firebase Deploy
-          command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN"
+      when: 
+        condition:
+          - equal: [ master, << pipeline.git.branch >> ]
+        steps:
+          - attach_workspace:
+              at: /tmp/workspace
+          - run: sudo npm install -g firebase-tools
+          - run:
+              name: Firebase Deploy
+              command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN"
   lighthouse:
     docker:
       - image: 'circleci/node:latest'
@@ -66,8 +70,6 @@ workflows:
       - deploy:
           requires:
             - build
-          when: 
-            - equal: [ master, << pipeline.git.branch >> ]
       - lighthouse:
           requires:
             - build
