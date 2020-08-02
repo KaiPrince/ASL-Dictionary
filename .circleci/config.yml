@@ -47,7 +47,7 @@ jobs:
   deploy:
     docker:
       - image: "circleci/node:latest"
-    working_directory: ~/asl-dictionary
+    working_directory: ~/asl-dictionary/frontend
     steps:
       - when:
           condition:
@@ -67,7 +67,7 @@ jobs:
   lighthouse:
     docker:
       - image: "circleci/node:latest"
-    working_directory: ~/asl-dictionary
+    working_directory: ~/asl-dictionary/frontend
     steps:
       - attach_workspace:
           at: ~/asl-dictionary
