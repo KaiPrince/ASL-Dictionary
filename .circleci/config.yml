@@ -90,14 +90,16 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/asl-dictionary
-      - run: git init
+      - heroku/install
+      - run: heroku git:remote -a $HEROKU_APP_NAME
+      - run: git pull
       - run: git add .
-      - run: git commit -m "deploy"
-      - run:
-          name: Deploy to Heroku
-          command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
-
+      - run: git commit -m "Deploy from CircleCI"
+      - run: git push heroku master
+      # - run:
+      #     name: Deploy Master to Heroku
+      #     command: |
+      #       git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
       # - heroku/deploy-via-git
 
 workflows:
