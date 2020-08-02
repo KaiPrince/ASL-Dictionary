@@ -40,7 +40,9 @@ jobs:
       - run: sudo npm install -g @lhci/cli@0.4.x
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
-      - run: lhci autorun
+      - run: 
+          working_directory: ~/asl-dictionary/frontend
+          command: lhci autorun
   
 
 workflows:
