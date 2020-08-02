@@ -14,9 +14,18 @@ jobs:
       - node/install:
           install-yarn: true
           node-version: latest
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
       - run: 
           working_directory: ~/asl-dictionary/frontend
-          command: yarn
+          command: yarn --frozen-lockfile
+        - save_cache:
+            key: v1-npm-deps-{{ checksum "package-lock.json" }}
+            paths:
+              - ./node_modules
       - run: 
           working_directory: ~/asl-dictionary/frontend
           command: yarn generate
