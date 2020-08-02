@@ -1,2 +1,2 @@
 cd frontend
-yarn --frozen-lockfile
+npm install
