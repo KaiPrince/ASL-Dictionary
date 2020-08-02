@@ -62,6 +62,7 @@ jobs:
             - .firebaserc
             - firestore.rules
             - firestore.indexes.json
+            - lighthouserc.js
 
   deploy:
     executor: docker-executor
@@ -83,8 +84,7 @@ jobs:
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       - run: ls -l
-      - run: lhci autorun --config=./lighthouserc.js
-
+      - run: lhci autorun
 workflows:
   build-and-deploy:
     jobs:
