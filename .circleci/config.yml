@@ -9,7 +9,7 @@ jobs:
       - image: 'circleci/node:latest'
     working_directory: ~/asl-dictionary
     steps:
-      - checkout: ~/asl-dictionary/frontend
+      - checkout
       - node/install:
           install-yarn: true
           node-version: latest
