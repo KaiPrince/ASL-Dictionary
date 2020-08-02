@@ -42,8 +42,7 @@ jobs:
       - image: 'circleci/node:latest'
     steps:
       when: 
-        condition:
-          - equal: [ master, << pipeline.git.branch >> ]
+        condition: equal: [ master, << pipeline.git.branch >> ]
         steps:
           - attach_workspace:
               at: /tmp/workspace
