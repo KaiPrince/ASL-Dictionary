@@ -3,7 +3,6 @@ version: 2.1
 orbs:
   node: circleci/node@3.0.1
   browser-tools: circleci/browser-tools@1.0.1
-  # firebase-deploy: azdevs/firebase-deploy@1.0.0
 
 jobs:
   checkout-project:
@@ -54,7 +53,7 @@ jobs:
             equal: [master, << pipeline.git.branch >>]
           steps:
             - attach_workspace:
-                at: ~/asl-dictionary
+                at: ~/asl-dictionary/frontend
             - run: sudo npm install -g firebase-tools
             - run:
                 name: Firebase Deploy
@@ -70,7 +69,7 @@ jobs:
     working_directory: ~/asl-dictionary/frontend
     steps:
       - attach_workspace:
-          at: ~/asl-dictionary
+          at: ~/asl-dictionary/frontend
       - run: sudo npm install -g @lhci/cli@0.4.x
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
