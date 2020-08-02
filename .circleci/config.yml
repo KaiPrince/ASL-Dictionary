@@ -85,7 +85,7 @@ jobs:
       - run: lhci autorun
 
   heroku_deploy:
-    executor: backend-executor
+    executor: heroku/default
     working_directory: ~/asl-dictionary/backend
     steps:
       - attach_workspace:
