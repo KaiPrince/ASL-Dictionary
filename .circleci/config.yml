@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       - image: 'circleci/node:latest'
-      working_directory: ~/asl-dictionary/frontend
+    working_directory: ~/asl-dictionary/frontend
     steps:
       - checkout
         path: ~/asl-dictionary
