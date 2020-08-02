@@ -5,7 +5,9 @@ node_js:
   - 'node'
 env:
   - YARN_GPG=no
-before_install: choco install yarn
+before_install: 
+  - choco install yarn
+  - refreshenv
 install:
   - ./install.cmd
 script:
