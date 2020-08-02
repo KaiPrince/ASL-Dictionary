@@ -6,13 +6,14 @@ orbs:
 jobs:
   build:
     docker:
-      - image: 'cimg/base:stable'
+      - image: 'circleci/node:latest'
     steps:
       - checkout
       - node/install:
           install-yarn: true
           node-version: latest
-      - run: node --version
+      - run: cd frontend
+      - run: yarn --frozen-lockfile
 
 workflows:
   main:
