@@ -32,6 +32,8 @@ jobs:
     working_directory: ~/asl-dictionary
     steps:
       - checkout
+      - run: pwd
+      - run: ls -l
       - persist_to_workspace:
           root: .
           paths:
@@ -50,6 +52,8 @@ jobs:
       - run: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
       - save_cache_cmd
       - run: yarn generate
+      - run: ls -l
+      - run: pwd
       - persist_to_workspace:
           root: .
           paths:
