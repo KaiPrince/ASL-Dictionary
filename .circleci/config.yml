@@ -6,36 +6,41 @@ orbs:
   # firebase-deploy: azdevs/firebase-deploy@1.0.0
 
 jobs:
-  build:
-    docker:
-      - image: 'circleci/node:latest'
+  checkout-project:
     working_directory: ~/asl-dictionary
     steps:
       - checkout
+      - persist_to_workspace:
+          root: .
+          paths:
+            - *
+  build:
+    docker:
+      - image: 'circleci/node:latest'
+    working_directory: ~/asl-dictionary/frontend
+    steps:
+      - attach_workspace:
+          at: ~/asl-dictionary
       - node/install:
           install-yarn: true
           node-version: latest
       # Download and cache dependencies
       - restore_cache:
-          key: 'v1-yarn-{{ checksum "frontend/yarn.lock" }}'
-      - run: 
-          working_directory: ~/asl-dictionary/frontend
-          command: yarn --frozen-lockfile
+          key: 'v1-yarn-{{ checksum "yarn.lock" }}'
+      - run: yarn --frozen-lockfile
       - save_cache:
-          key: 'v1-yarn-{{ checksum "frontend/yarn.lock" }}'
+          key: 'v1-yarn-{{ checksum "yarn.lock" }}'
           paths:
-            - ./frontend/node_modules
-      - run: 
-          working_directory: ~/asl-dictionary/frontend
-          command: yarn generate
+            - .node_modules
+      - run: yarn generate
       - persist_to_workspace:
           root: .
           paths:
-            - ./frontend/dist
-            - ./frontend/firebase.json
-            - ./frontend/.firebaserc
-            - ./frontend/firestore.rules
-            - ./frontend/firestore.indexes.json
+            - dist
+            - firebase.json
+            - .firebaserc
+            - firestore.rules
+            - firestore.indexes.json
       
   deploy:
     docker:
@@ -56,7 +61,7 @@ jobs:
           condition: 
             equal: [ master, << pipeline.git.branch >> ]
           steps:
-            - run: echo "Skipping deploy.
+            - run: echo "Skipping deploy."
   lighthouse:
     docker:
       - image: 'circleci/node:latest'
@@ -70,10 +75,13 @@ jobs:
       - run: lhci autorun
   
 
-workflows:
+workflows:  
   build-and-deploy:
     jobs:
+      - checkout-project
       - build
+          requires:
+            - checkout-project
       - deploy:
           requires:
             - build
