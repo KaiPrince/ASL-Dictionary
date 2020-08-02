@@ -7,13 +7,17 @@ jobs:
   build:
     docker:
       - image: 'circleci/node:latest'
+      working_directory: ~/asl-dictionary/frontend
     steps:
       - checkout
+        path: ~/asl-dictionary
       - node/install:
           install-yarn: true
           node-version: latest
-      - run: cd frontend
-      - run: yarn --frozen-lockfile
+      - run: 
+        - npm install -g @lhci/cli@0.4.x
+        - yarn generate
+        - lhci autorun
 
 workflows:
   main:
