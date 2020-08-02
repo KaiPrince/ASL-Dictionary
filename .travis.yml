@@ -9,6 +9,7 @@ install:
   - ./install.cmd
 script:
   - ./build.cmd
+before_deploy: cd frontend
 deploy:
   message: 'Deploying with Firebase.'
   provider: firebase
