@@ -4,6 +4,23 @@ orbs:
   node: circleci/node@3.0.1
   browser-tools: circleci/browser-tools@1.0.1
 
+commands:
+  restore_cache_cmd:
+    steps:
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-packages-v1-{{ .Branch }}-
+            - yarn-packages-v1-
+  save_cache_cmd:
+    steps:
+      - save_cache:
+          paths:
+            - ~/.cache/yarn
+            - .node_modules
+          key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+
 jobs:
   checkout-project:
     docker:
@@ -26,13 +43,9 @@ jobs:
           install-yarn: true
           node-version: latest
       # Download and cache dependencies
-      - restore_cache:
-          key: 'v1-yarn-{{ checksum "yarn.lock" }}'
-      - run: yarn --frozen-lockfile
-      - save_cache:
-          key: 'v1-yarn-{{ checksum "yarn.lock" }}'
-          paths:
-            - .node_modules
+      - restore_cache_cmd
+      - run: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
+      - save_cache_cmd
       - run: yarn generate
       - persist_to_workspace:
           root: .
@@ -64,7 +77,7 @@ jobs:
       - run: sudo npm install -g @lhci/cli@0.4.x
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
-      - run: lhci autorun
+      - run: lhci autorun --config=./lighthouserc.js
 
 workflows:
   build-and-deploy:
