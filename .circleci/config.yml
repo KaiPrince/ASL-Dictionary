@@ -108,6 +108,9 @@ workflows:
       - lighthouse:
           requires:
             - build
+  backend-deploy:
+    jobs:
+      - checkout-project
       - heroku_deploy:
           requires:
             - checkout-project
