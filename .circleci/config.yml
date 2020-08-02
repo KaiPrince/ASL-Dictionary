@@ -13,7 +13,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - *
+            - ./*
   build:
     docker:
       - image: 'circleci/node:latest'
