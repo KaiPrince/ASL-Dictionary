@@ -9,16 +9,15 @@ jobs:
       - image: 'circleci/node:latest'
     working_directory: ~/asl-dictionary
     steps:
-      - checkout
+      - checkout: ~/asl-dictionary/frontend
       - node/install:
           install-yarn: true
           node-version: latest
+      - run: npm install -g @lhci/cli@0.4.x
       - run: 
             working_directory: ~/asl-dictionary/frontend
-            command: |
-              npm install -g @lhci/cli@0.4.x
-              yarn generate
-              lhci autorun
+            command: yarn generate
+      - run: lhci autorun
 
 workflows:
   main:
