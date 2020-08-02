@@ -15,8 +15,8 @@ jobs:
           node-version: latest
       - run: npm install -g @lhci/cli@0.4.x
       - run: 
-            working_directory: ~/asl-dictionary/frontend
-            command: yarn generate
+          working_directory: ~/asl-dictionary/frontend
+          command: yarn generate
       - run: lhci autorun
 
 workflows:
