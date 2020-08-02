@@ -93,7 +93,7 @@ jobs:
       - heroku/deploy-via-git
 
 workflows:
-  frontend-deploy:
+  frontend:
     jobs:
       - checkout-project
       - build:
@@ -108,7 +108,7 @@ workflows:
       - lighthouse:
           requires:
             - build
-  backend-deploy:
+  backend:
     jobs:
       - checkout-project
       - heroku_deploy:
