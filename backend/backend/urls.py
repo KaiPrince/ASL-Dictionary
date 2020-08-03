@@ -19,12 +19,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("oauth/", include("social_django.urls", namespace="social")),
     # Set admin as the home page
+    # path("admin/", admin.site.urls),
     path(r"", admin.site.urls),
+    path("oauth/", include("social_django.urls", namespace="social")),
     path("", include("asl_dictionary.urls")),
-    path("webscraper/", include("asl_dictionary.urls")),
 ]
 
 if settings.DEBUG:
