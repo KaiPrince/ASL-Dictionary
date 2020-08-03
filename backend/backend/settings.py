@@ -27,7 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "=33j#&6ap05sk1r4n-mzu4-@%n&pj^vodbv65in6uqjopprc4h"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = not IN_PRODUCTION
+DEBUG = True  # not IN_PRODUCTION
 
 ALLOWED_HOSTS = []
 
@@ -139,6 +139,7 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://asl-dictionary.web.app",
+    "https://kaiprince.xyz",
 ]
 
 MEDIA_URL = "/media/"
