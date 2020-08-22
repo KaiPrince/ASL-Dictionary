@@ -20,7 +20,6 @@
     :hint="hint"
     hide-no-data
     :filter="filter"
-    :autofocus="!appBar"
     :dense="appBar"
     :flat="appBar"
     :hide-details="appBar"
