@@ -11,6 +11,8 @@
     raised
     nuxt
     :to="{ name: 'detail-slug', params: { slug: getSlug(word) } }"
+    @focus="focused = true"
+    @blur="focused = false"
   >
     <v-card-title class="py-2">
       <h2>{{ word.label }}</h2>
@@ -21,8 +23,9 @@
         :item="previewMedia"
         :height="mediaHeight"
         :class="[cardFooter ? null : 'mb-n2']"
-        :autoplay="autoplay || hover"
+        :autoplay="autoplay || hover || focused"
         :controls="$vuetify.breakpoint.xs"
+        tabindex="-1"
         preview
       />
     </v-hover>
@@ -50,6 +53,11 @@ export default Vue.extend({
       type: Number,
       default: undefined,
     },
+  },
+  data() {
+    return {
+      focused: false,
+    }
   },
   computed: {
     ...mapGetters('words', ['getPreviewMedia', 'getSlug']),
