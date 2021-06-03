@@ -12,7 +12,7 @@
     nuxt
     :to="{ name: 'detail-slug', params: { slug: getSlug(word) } }"
   >
-    <v-card-title v-if="$vuetify.breakpoint.xs" class="py-2">
+    <v-card-title class="py-2">
       <h2>{{ word.label }}</h2>
     </v-card-title>
     <v-hover v-slot:default="{ hover }">
@@ -26,11 +26,6 @@
         preview
       />
     </v-hover>
-    <v-card-title v-if="!$vuetify.breakpoint.xs" class="mt-n11 py-0 px-1">
-      <v-sheet color="rgba(0, 0, 0, 0.5)" class="white--text px-1"
-        >{{ word.label }}
-      </v-sheet>
-    </v-card-title>
     <v-card-text v-if="cardFooter" class="pt-4">
       {{ cardFooter }}
     </v-card-text>
