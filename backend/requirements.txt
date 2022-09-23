@@ -34,7 +34,7 @@ importlib-metadata==1.7.0
 kombu==4.6.11
 oauthlib==3.1.0
 Pillow==7.2.0
-protobuf==3.12.4
+protobuf==3.18.3
 psycopg2==2.8.5
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
