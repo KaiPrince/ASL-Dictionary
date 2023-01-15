@@ -56,8 +56,7 @@ jobs:
         uses: hashicorp/setup-terraform@v2
       - name: "Plan"
         env:
-          GOOGLE_APPLICATION_CREDENTIALS:
-            { { steps.auth.outputs.credentials_file_path } }
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
         working-directory: terraform/environments/dev
         run: |
           terraform plan
