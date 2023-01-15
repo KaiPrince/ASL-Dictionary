@@ -65,7 +65,7 @@ jobs:
         working-directory: backend/terraform/environments/dev
         run: |
           terraform init
-          terraform plan -out=tfplan
+          terraform plan -out=tfplan -no-color
 
       - name: Report Plan
         run: |
