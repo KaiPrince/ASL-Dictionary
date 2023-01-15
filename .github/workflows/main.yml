@@ -26,7 +26,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install --user pipx
           python -m pipx install poetry
-          python -m poetry install --without dev
+          poetry install --without dev
       # - name: Run Tests
       #   run: |
       #     python manage.py test
