@@ -59,13 +59,22 @@ jobs:
         run: terraform fmt -check
 
       - name: Plan
+        id: plan
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
         working-directory: backend/terraform/environments/dev
         run: |
           terraform init
+          terraform plan -out=tfplan
+
+      - name: Report Plan
+        run: |
           echo Terraform format: ${{ steps.fmt.outcome }} >> $GITHUB_STEP_SUMMARY
-          terraform plan -out=tfplan -no-color >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo # Terraform Plan >> $GITHUB_STEP_SUMMARY
+          echo ```bash >> $GITHUB_STEP_SUMMARY
+          echo ${{ steps.plan.outputs.stdout }} >> $GITHUB_STEP_SUMMARY
+          echo ``` >> $GITHUB_STEP_SUMMARY
 
       - name: Run Deploy
         if: github.ref == 'ref/head/master'
