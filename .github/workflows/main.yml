@@ -26,8 +26,6 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install --user pipx
           python -m pipx install poetry
-          pwd
-          ls
           poetry install --without dev
       # - name: Run Tests
       #   run: |
