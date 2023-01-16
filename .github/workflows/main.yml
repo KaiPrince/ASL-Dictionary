@@ -68,7 +68,7 @@ jobs:
           terraform plan -out=tfplan
 
       - name: Run Deploy
-        if: github.ref == 'ref/head/master'
+        if: github.ref == 'ref/heads/master'
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
         working-directory: backend/terraform/environments/dev
