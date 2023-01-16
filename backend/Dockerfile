@@ -1,11 +1,11 @@
-# FROM jrottenberg/ffmpeg
-
-FROM python:3
+FROM python:3.10
 ENV PYTHONUNBUFFERED 1
 RUN mkdir /code
 WORKDIR /code
-COPY requirements.txt /code/
-RUN pip install -r requirements.txt
+RUN python -m pip install poetry
+COPY poetry.lock pyproject.toml /code/
+RUN poetry config virtualenvs.create false \
+    && poetry install --without dev --no-interaction --no-cache
 COPY . /code/
 
 RUN apt-get update && apt-get install -y \
