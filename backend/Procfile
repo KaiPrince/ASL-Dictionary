@@ -1,2 +1,0 @@
-web: gunicorn backend.wsgi
-worker: celery worker -A backend
