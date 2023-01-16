@@ -1,17 +1,14 @@
 provider "google" {
-  project = "asl-dictionary"
-  region  = "us-central1"
-  zone    = "us-central1-c"
+  project = module.base_config.project_name
+  region  = module.base_config.region
+  zone    = module.base_config.zone
 }
 
-locals {
-  env = "dev"
-}
+module "database" {
+  source = "../../modules/database"
 
-module "compute" {
-  source = "../../modules/compute"
-
-  network = module.vpc.network
+  region = module.base_config.region
+  deletion_protection = var.deletion_protection
 }
 
 module "vpc" {
