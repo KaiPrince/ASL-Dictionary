@@ -4,6 +4,12 @@ provider "google" {
   zone    = module.base_config.zone
 }
 
+module "container_registry" {
+  source = "../../modules/container_registry"
+
+  location = module.base_config.region
+}
+
 module "database" {
   source = "../../modules/database"
 
