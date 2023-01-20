@@ -4,6 +4,15 @@ provider "google" {
   zone    = module.base_config.zone
 }
 
+module "cloud_run" {
+  source = "../../modules/cloud_run"
+
+  container_image   = var.container_image
+  location          = module.base_config.region
+  database_instance = module.database.database_instance
+  project           = module.base_config.project_name
+}
+
 module "container_registry" {
   source = "../../modules/container_registry"
 
@@ -13,8 +22,9 @@ module "container_registry" {
 module "database" {
   source = "../../modules/database"
 
-  region = module.base_config.region
+  region              = module.base_config.region
   deletion_protection = var.deletion_protection
+  network             = module.vpc.network.id
 }
 
 module "vpc" {
