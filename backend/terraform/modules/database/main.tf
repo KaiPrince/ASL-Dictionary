@@ -10,6 +10,13 @@ resource "google_sql_database_instance" "instance" {
   database_version = "POSTGRES_14"
   settings {
     tier = "db-f1-micro"
+#    connector_enforcement = "REQUIRED"
+    disk_autoresize_limit = 20
+    pricing_plan = "PER_USE"
+#    ip_configuration {
+#      ipv4_enabled = true
+#      private_network = var.network
+#    }
   }
 
   deletion_protection  = var.deletion_protection
