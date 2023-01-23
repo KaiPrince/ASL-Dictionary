@@ -59,6 +59,7 @@ jobs:
           context: "{{defaultContext}}:backend"
           push: true
           tags: us-central1-docker.pkg.dev/asl-dictionary/my-repository/backend-image:latest
+          outputs: "type=image"
 
   deploy:
     needs: build
