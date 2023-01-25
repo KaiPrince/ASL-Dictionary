@@ -96,7 +96,7 @@ jobs:
         working-directory: backend/terraform/environments/dev
         run: |
           terraform init
-          terraform plan -var "container_image=${{ secrets.IMAGE_REPO }}:$IMAGE_ID" -out=tfplan
+          terraform plan -var "container_image=${{ secrets.IMAGE_REPO }}@$IMAGE_ID" -out=tfplan
 
       - name: Run Deploy
         if: github.ref == 'refs/heads/master'
