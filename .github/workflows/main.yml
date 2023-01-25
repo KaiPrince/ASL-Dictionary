@@ -33,9 +33,13 @@ jobs:
       #   run: |
       #     python manage.py test
   build:
+    if: github.ref == 'refs/heads/master'
     needs: "test"
     runs-on: ubuntu-latest
-
+    outputs:
+      image_id:
+        description: "Image ID"
+        value: ${{ steps.docker-push.outputs.imageid }}
     steps:
       - name: "Authenticate to Google Cloud"
         id: "auth"
@@ -58,7 +62,7 @@ jobs:
         with:
           context: "{{defaultContext}}:backend"
           push: true
-          tags: us-central1-docker.pkg.dev/asl-dictionary/my-repository/backend-image:latest
+          tags: ${{ secrets.IMAGE_REPO }}:latest
           outputs: "type=image"
 
   deploy:
@@ -90,10 +94,11 @@ jobs:
         id: plan
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
+          IMAGE_ID: ${{ needs.build.outputs.image_id }}
         working-directory: backend/terraform/environments/dev
         run: |
           terraform init
-          terraform plan -out=tfplan
+          terraform plan -var "container_image=${{ secrets.IMAGE_REPO }}:$IMAGE_ID" -out=tfplan
 
       - name: Run Deploy
         if: github.ref == 'refs/heads/master'
