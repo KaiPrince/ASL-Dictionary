@@ -37,9 +37,7 @@ jobs:
     needs: "test"
     runs-on: ubuntu-latest
     outputs:
-      image_id:
-        description: "Image ID"
-        value: ${{ steps.docker-push.outputs.imageid }}
+      image_id: ${{ steps.docker-push.outputs.imageid }}
     steps:
       - name: "Authenticate to Google Cloud"
         id: "auth"
